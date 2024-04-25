@@ -19,7 +19,7 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 - DAL[21:16]も見ていません．
 
 ## ブレッドボード版
-- console ODT(Octal Debug Technique)の動作確認をするところから始めて，豊四季タイニーBASIC(https://github.com/vintagechips/ttbasic_arduino)を軽微な修正で動かせるところまで確認しました．
+- console ODT(Octal Debug Technique)の動作確認をするところから始めて，[豊四季タイニーBASIC](https://github.com/vintagechips/ttbasic_arduino)を軽微な修正で動かせるところまで確認しました．
 - クロックは18MHzで動きました．遅い方は2MHzでも動きました．
 ![](images/breadboard1.jpg)
 
