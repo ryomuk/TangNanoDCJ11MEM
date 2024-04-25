@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module name="top" Register="130" Alu="71" Lut="113" Bsram="32">
+ <SubModule name="onboard_rgb_led" Register="45" Lut="87"/>
+ <SubModule name="uart_tx_inst_dbg0" Register="34" Alu="15" Lut="30"/>
+ <SubModule name="uart_tx_inst_dbg1" Register="34" Alu="15" Lut="29"/>
+ <SubModule name="uart_rx_inst" Register="40" Alu="15" Lut="35"/>
+ <SubModule name="uart_tx_inst" Register="34" Alu="15" Lut="29"/>
+</Module>

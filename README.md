@@ -11,15 +11,44 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので、"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています。
 
 # ハードウェア
-## ブレッドボード版
-## プリント基板 rev.1.1
+## FPGAに実装した機能
+- Initialization Sequence時のPower-Up Configuration Register設定
+- メモリ 32K×16bit
+- UART．TangNanoのUSB経由およびGPIO経由の2系統
+- BS0, BS1は見ていません．TangNano20Kではピンが足りなかったのと，DAL[15:0]とAIO[3:0]を見ればとりあえず十分だったので．
+- DAL[21:16]も見ていません．
 
-# FPGAに実装した機能
+## ブレッドボード版
+- console ODT(Octal Debug Technique)の動作確認をするところから始めて，豊四季タイニーBASIC(https://github.com/vintagechips/ttbasic_arduino)を軽微な修正で動かせるところまで確認しました．
+- クロックは18MHzで動きました．遅い方は2MHzでも動きました．
+![](images/breadboard1.jpg)
+
+## PCB版
+### rev.1.0
+最初に作った基板です．とりあえず動きました．
+![](images/rev10.jpg)
+
+### rev.1.1
+- 現在(2024/4/25)注文中の基板です．動作確認できたら情報を更新します．
+- ジャンパの意味などは回路図と基板上のシルクを見て下さい．
+![](images/rev11.png)
 
 # PDP-11用プログラム開発環境
+- TBA
 
 # 関連情報
 ## データシート等
+### bitsavers
+- [DCJ11 Microprocessor User's Guide](http://www.bitsavers.org/pdf/dec/pdp11/1173/EK-DCJ11-UG-PRE_J11ug_Oct83.pdf), DEC, EK-DCJ11-UG-PRE(Preliminary)
+- [Index of /pdf/dec/pdp11/j11](http://bitsavers.trailing-edge.com/pdf/dec/pdp11/j11/)
+- [Index of /pdf/dec/pdp11/1173](http://bitsavers.trailing-edge.com/pdf/dec/pdp11/1173/)
+
 ## 先行事例
+- [PDP-11/HACK](http://madrona.ca/e/pdp11hack/index.html), 
+- [PDP11 on a breadboard A.K.A. J11 Hack](https://www.chronworks.com/J11/)
+- [S100 Bus PDP-11 CPU Board](http://www.s100computers.com/My%20System%20Pages/PDP11%20Board/PDP11%20Board.htm)
+
 # 更新履歴
+- 2024/4/25: 初版公開
+
 
