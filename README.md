@@ -43,8 +43,9 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 - [Index of /pdf/dec/pdp11/j11](http://bitsavers.trailing-edge.com/pdf/dec/pdp11/j11/)
 - [Index of /pdf/dec/pdp11/1173](http://bitsavers.trailing-edge.com/pdf/dec/pdp11/1173/)
 
-## 先行事例
+## 先行事例、先駆者たち
 - [PDP-11/HACK](http://madrona.ca/e/pdp11hack/index.html)
+- [My PDP-11 Projects](https://www.5volts.ch/pages/pdp11hack/)
 - [PDP11 on a breadboard A.K.A. J11 Hack](https://www.chronworks.com/J11/)
 - [S100 Bus PDP-11 CPU Board](http://www.s100computers.com/My%20System%20Pages/PDP11%20Board/PDP11%20Board.htm)
 
