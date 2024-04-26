@@ -40,7 +40,7 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 |C4,C5              |2  |68pF            |||
 |D1                 |1  |LED             || |
 |J1                 |1  |DC Jack         ||例: https://akizukidenshi.com/catalog/g/g106568/ |
-|J2                 |1  |pin header      |1x02|DC Jackからの5VをTangNanoに供給するとき(そのときはUSBは外す)用。|
+|J2                 |1  |pin header      |1x02|DC Jackからの5VをTangNanoに供給するとき用。(そのときはTangNanoのUSBは外すこと)。|
 |J3                 |1  |pin header      |1x03|CPUへの5VをDC JackからにするかUSB(TangNano)からにするかの選択用。|
 |J4                 |1  |IC socket       |40pin DIP 600mil|TangNano5V用。1x20のpin socket 2列でも可。|
 |J5,J6              |2  |pin header or socket|1x20|任意。テストや観測、実験用。|
