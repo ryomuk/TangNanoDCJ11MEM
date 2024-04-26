@@ -35,26 +35,25 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 #### BOM
 |Reference          |Qty| Value          |Size |Memo |
 |-------------------|---|----------------|-----|-----|
-|C1,C2              |2	|0.33uF	         ||0.1uFでもいいような気がするけどDECのプロセッサボードで0.33uFを使っていたので|
+|C1,C2              |2	|0.33uF	         ||DECのプロセッサボードで0.33uFを使っていたので。0.1uFでもいいかもしれない。|
 |C3                 |1  |47uF            |||
 |C4,C5              |2  |68pF            |||
 |D1                 |1  |LED             || |
-|J1                 |1  |BarrelJack      ||https://akizukidenshi.com/catalog/g/g106568/ |
-|J2                 |1  |pin header      |1x02||
-|J3                 |1  |pin header      |1x03||
-|J4                 |1  |IC socket      |40pin dip 600mi|TangNano5V用。1x20のpin socket 2列でも可|
-|J5,J6              |2  |pin header or socket|1x20|テスト用|
+|J1                 |1  |DC Jack         ||例: https://akizukidenshi.com/catalog/g/g106568/ |
+|J2                 |1  |pin header      |1x02|DC Jackからの5VをTangNanoに供給するとき(そのときはUSBは外す)用。|
+|J3                 |1  |pin header      |1x03|CPUへの5VをDC JackからにするかUSB(TangNano)からにするかの選択用。|
+|J4                 |1  |IC socket       |40pin DIP 600mi|TangNano5V用。1x20のpin socket 2列でも可。|
+|J5,J6              |2  |pin header or socket|1x20|任意。テストや観測、実験用。|
 |J7                 |1  |pin header      |1x06 L字|UART用|
-|J8,J9              |2  |pin header or socket|1x30|テスト用|
-|JP1                |   |                || sctl_nとcont_nを切断したときにpin headerを立てる用|
+|J8,J9              |2  |pin header or socket|1x30|任意。テストや観測、実験用。|
+|JP1                |   |                ||任意。sctl_nとcont_nを切断したときにpin headerを立てる用。|
 |R1                 |1  |100K            || 値はLEDに合わせて任意。|
-|R2～16             |15 |100K            || プルアップ、プルダウン用。10～100Kで任意。Iiのmaxが10μAなのでとりあえず大きめに設定|
+|R2～16             |15 |100K            || プルアップ、プルダウン用。10～100Kで任意。入力電流がmax10μAなので大きめで良さそう。|
 |R17                |1  |1M              |||
-|SW1                |1  |toggle SW       ||https://akizukidenshi.com/catalog/g/g100300/ |
-|SW2,SW3            |2  |tactile SW      |6mmxH4.3mm|
-|U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンヘッダー2列|
-
-
+|SW1                |1  |toggle SW       ||例: https://akizukidenshi.com/catalog/g/g100300/ |
+|SW2,SW3            |2  |tactile SW      |6mmxH4.3mm|例: https://akizukidenshi.com/catalog/g/g103647/ |
+|U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンソケット2列|
+|Y1                 |1  |18MHz           |HC/U49|例: https://mou.sr/3WcWExh|
 
 # PDP-11用プログラム開発環境
 - TBA
@@ -74,5 +73,6 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 
 # 更新履歴
 - 2024/4/25: 初版公開
+- 2024/4/25: README修正(BOM追加)
 
 
