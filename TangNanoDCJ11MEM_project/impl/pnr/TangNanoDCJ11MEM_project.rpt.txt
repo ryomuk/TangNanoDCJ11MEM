@@ -1,38 +1,38 @@
-//Copyright (C)2014-2023 Gowin Semiconductor Corporation.
+//Copyright (C)2014-2024 Gowin Semiconductor Corporation.
 //All rights reserved.
 
 
 1. PnR Messages
 
   <Report Title>: PnR Report
-  <Design File>: C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg
-  <Physical Constraints File>: C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\src\tn20k.cst
+  <Design File>: C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg
+  <Physical Constraints File>: C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\src\tn20k.cst
   <Timing Constraints File>: ---
-  <PnR Version>: V1.9.9 Beta-4 Education
+  <Tool Version>: V1.9.9.02
   <Part Number>: GW2AR-LV18QN88C8/I7
   <Device>: GW2AR-18
   <Device Version>: C
-  <Created Time>:Thu Apr 25 14:18:46 2024
+  <Created Time>:Sun May  5 18:24:45 2024
 
 
 2. PnR Details
 
   Running placement:
-    Placement Phase 0: CPU time = 0h 0m 0.047s, Elapsed time = 0h 0m 0.057s
-    Placement Phase 1: CPU time = 0h 0m 0.173s, Elapsed time = 0h 0m 0.168s
-    Placement Phase 2: CPU time = 0h 0m 0.034s, Elapsed time = 0h 0m 0.033s
-    Placement Phase 3: CPU time = 0h 0m 0.631s, Elapsed time = 0h 0m 0.632s
-    Total Placement: CPU time = 0h 0m 0.885s, Elapsed time = 0h 0m 0.89s
+    Placement Phase 0: CPU time = 0h 0m 0.036s, Elapsed time = 0h 0m 0.036s
+    Placement Phase 1: CPU time = 0h 0m 0.155s, Elapsed time = 0h 0m 0.155s
+    Placement Phase 2: CPU time = 0h 0m 0.025s, Elapsed time = 0h 0m 0.025s
+    Placement Phase 3: CPU time = 0h 0m 0.508s, Elapsed time = 0h 0m 0.507s
+    Total Placement: CPU time = 0h 0m 0.724s, Elapsed time = 0h 0m 0.723s
  Running routing:
-    Routing Phase 0: CPU time = 0h 0m 0.008s, Elapsed time = 0h 0m 0.009s
-    Routing Phase 1: CPU time = 0h 0m 0.087s, Elapsed time = 0h 0m 0.1s
+    Routing Phase 0: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
+    Routing Phase 1: CPU time = 0h 0m 0.09s, Elapsed time = 0h 0m 0.09s
     Routing Phase 2: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s
     Routing Phase 3: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
     Total Routing: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s
  Generate output files:
-    CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s
+    CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s
 
- Total Time and Memory Usage: CPU time = 0h 0m 4s, Elapsed time = 0h 0m 4s, Peak memory usage = 245MB
+ Total Time and Memory Usage: CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s, Peak memory usage = 390MB
 
 
 3. Resource Usage Summary
@@ -40,15 +40,15 @@
   ----------------------------------------------------------
   Resources                   | Usage
   ----------------------------------------------------------
-  Logic                       | 458/20736  3%
-    --LUT,ALU,ROM16           | 458(320 LUT, 138 ALU, 0 ROM16)
+  Logic                       | 461/20736  3%
+    --LUT,ALU,ROM16           | 461(323 LUT, 138 ALU, 0 ROM16)
     --SSRAM(RAM16)            | 0
   Register                    | 317/15750  3%
     --Logic Register as Latch | 0/15552  0%
     --Logic Register as FF    | 302/15552  2%
     --I/O Register as Latch   | 0/198  0%
     --I/O Register as FF      | 15/198  8%
-  CLS                         | 288/10368  3%
+  CLS                         | 285/10368  3%
   I/O Port                    | 39
   I/O Buf                     | 39
     --Input Buf               | 13
@@ -125,13 +125,13 @@ AIO[0]     |           | 25/5          | Y          | in    | IOB6[A]  | LVCMOS3
 AIO[1]     |           | 29/5          | Y          | in    | IOB14[A] | LVCMOS33   | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3       
 AIO[2]     |           | 30/5          | Y          | in    | IOB14[B] | LVCMOS33   | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3       
 AIO[3]     |           | 31/5          | Y          | in    | IOB18[A] | LVCMOS33   | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3       
-INIT_SW    |           | 75/1          | Y          | in    | IOT34[A] | LVCMOS33   | NA    | DOWN      | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3       
+INIT_SW    |           | 75/1          | Y          | in    | IOT34[A] | LVCMOS33   | NA    | NONE      | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3       
 BUFCTL_n   |           | 86/0          | Y          | in    | IOT4[A]  | LVCMOS33   | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3       
 ALE_n      |           | 72/1          | Y          | in    | IOT40[B] | LVCMOS33   | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3       
 SCTL_n     |           | 71/1          | Y          | in    | IOT44[A] | LVCMOS33   | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3       
 usb_tx     |           | 69/1          | Y          | out   | IOT50[A] | LVCMOS33   | 8     | UP        | NA        | NA         | OFF        | NA         | NA              | NA            | 3.3       
 GPIO_TX    |           | 52/3          | Y          | out   | IOR39[A] | LVCMOS33   | 8     | UP        | NA        | NA         | OFF        | NA         | OFF             | NA            | 3.3       
-INIT_n     |           | 26/5          | Y          | out   | IOB6[B]  | LVCMOS33   | 8     | UP        | NA        | NA         | OFF        | NA         | NA              | NA            | 3.3       
+INIT_n     |           | 26/5          | Y          | out   | IOB6[B]  | LVCMOS33   | 8     | NONE      | NA        | NA         | OFF        | NA         | NA              | NA            | 3.3       
 LED_RGB    |           | 79/0          | Y          | out   | IOT27[B] | LVCMOS33   | 8     | UP        | NA        | NA         | OFF        | NA         | NA              | NA            | 3.3       
 LED[0]     |           | 15/6          | Y          | out   | IOL47[A] | LVCMOS33   | 8     | UP        | NA        | NA         | OFF        | NA         | OFF             | NA            | 3.3       
 LED[1]     |           | 16/6          | Y          | out   | IOL47[B] | LVCMOS33   | 8     | UP        | NA        | NA         | OFF        | NA         | OFF             | NA            | 3.3       
@@ -175,7 +175,7 @@ Loc./Bank| Signal    | Dir.  | Site     | IO Type  | Drive | Pull Mode | PCI Cla
 79/0     | LED_RGB   | out   | IOT27[B] | LVCMOS33 | 8     | UP        | NA        | NA         | OFF        | NA         | NA              | NA            | 3.3  
 77/1     | DAL[0]    | io    | IOT30[A] | LVCMOS33 | 8     | UP        | NA        | NONE       | OFF        | NA         | NA              | NA            | 3.3  
 76/1     | DAL[11]   | io    | IOT30[B] | LVCMOS33 | 8     | UP        | NA        | NONE       | OFF        | NA         | NA              | NA            | 3.3  
-75/1     | INIT_SW   | in    | IOT34[A] | LVCMOS33 | NA    | DOWN      | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3  
+75/1     | INIT_SW   | in    | IOT34[A] | LVCMOS33 | NA    | NONE      | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3  
 74/1     | DAL[7]    | io    | IOT34[B] | LVCMOS33 | 8     | UP        | NA        | NONE       | OFF        | NA         | NA              | NA            | 3.3  
 73/1     | DAL[6]    | io    | IOT40[A] | LVCMOS33 | 8     | UP        | NA        | NONE       | OFF        | NA         | NA              | NA            | 3.3  
 72/1     | ALE_n     | in    | IOT40[B] | LVCMOS33 | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3  
@@ -184,7 +184,7 @@ Loc./Bank| Signal    | Dir.  | Site     | IO Type  | Drive | Pull Mode | PCI Cla
 69/1     | usb_tx    | out   | IOT50[A] | LVCMOS33 | 8     | UP        | NA        | NA         | OFF        | NA         | NA              | NA            | 3.3  
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 25/5     | AIO[0]    | in    | IOB6[A]  | LVCMOS33 | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3  
-26/5     | INIT_n    | out   | IOB6[B]  | LVCMOS33 | 8     | UP        | NA        | NA         | OFF        | NA         | NA              | NA            | 3.3  
+26/5     | INIT_n    | out   | IOB6[B]  | LVCMOS33 | 8     | NONE      | NA        | NA         | OFF        | NA         | NA              | NA            | 3.3  
 27/5     | DAL[9]    | io    | IOB8[A]  | LVCMOS33 | 8     | UP        | NA        | NONE       | OFF        | NA         | NA              | NA            | 3.3  
 28/5     | DAL[10]   | io    | IOB8[B]  | LVCMOS33 | 8     | UP        | NA        | NONE       | OFF        | NA         | NA              | NA            | 3.3  
 29/5     | AIO[1]    | in    | IOB14[A] | LVCMOS33 | NA    | UP        | ON        | NONE       | NA         | NA         | NA              | NA            | 3.3  

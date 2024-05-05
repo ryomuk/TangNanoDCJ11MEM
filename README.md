@@ -29,9 +29,10 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 ![](images/rev10.jpg)
 
 ### rev.1.1
-- 現在(2024/4/25)注文中の基板です．動作確認できたら情報を更新します．
-- ジャンパの意味などは回路図と基板上のシルクを見て下さい．
-![](images/rev11.png)
+- rev.1.0はいくつか修正箇所があったので修正しました．
+- CPUが白いので基板も白くしてみました．
+- CPUおよびTangNanoの電源をどこから供給するかを2箇所のジャンパで切り替えられるようにしました．詳細は回路図と基板上のシルクを見て下さい．
+![](images/rev11.jpg)
 #### BOM
 |Reference          |Qty| Value          |Size |Memo |
 |-------------------|---|----------------|-----|-----|
@@ -56,7 +57,34 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 |Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh|
 
 # PDP-11用プログラム開発環境
-- TBA
+## クロス環境
+下記リンクにある情報が大変参考になりました．
+- [PDP-11(エミュ）上でCで"Hello, World!"](https://qiita.com/hifistar/items/8eff4a73087f3a41e19f), hifistar
+- [PDP-11のgccクロスコンパイル環境の構築メモ](https://qiita.com/hifistar/items/187fd7ad780c6aa26141), hifistar
+
+バージョンが古かったり，いくつか誤りもあったので下記のように修正しました．
+
+- pkginst.shの先頭を/bin/shから/bin/bashに変更．(pushd でエラーになったので)
+- ツール類のバージョンを最新か新しめの値に修正．
+-- binutils-2.42
+-- gmp-6.3.0
+-- mpfr-4.2.1
+-- mpc-1.3.1
+-- gcc-11.4.0
+- start.Sの"mov $0x1000, sp"はおそらく"$01000"の間違いなので修正．
+
+## サンプルプログラム
+### マンデルブロ集合表示プログラム samples/asciiart
+クロス環境でコンパイルできます．
+a.outからrom.vへの変換はtools/bin2rom.pl を使用．かなり適当に変換してます．
+rom.asciiart.v をTangNano用プロジェクトのrom.vとしてビルド．
+console ODTから，1000g で実行．UART関連がまだ不安定なので文字化けします．
+
+## シミュレータ
+実機で動かす前の動作確認に使えます．後から気がついたのですが，ubuntuだと古いバージョンならapt install simhでインストールできるようでした．
+- [SimH (History Simulator)](http://simh.trailing-edge.com/)
+- simhv312-4.zipをとってきてmake
+- PDP11/pdp11_defs.hの「uint32 uc15_memsize;」 がリンク時にmultiple definitionのエラーになるのでextern uint32に変更したらコンパイルできました．
 
 # 関連情報
 ## データシート等
@@ -71,8 +99,14 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 - [PDP11 on a breadboard A.K.A. J11 Hack](https://www.chronworks.com/J11/), Len Bayles
 - [S100 Bus PDP-11 CPU Board](http://www.s100computers.com/My%20System%20Pages/PDP11%20Board/PDP11%20Board.htm), John Monahan
 
+## 開発環境関連
+- [PDP-11(エミュ）上でCで"Hello, World!"](https://qiita.com/hifistar/items/8eff4a73087f3a41e19f), hifistar
+- [PDP-11のgccクロスコンパイル環境の構築メモ](https://qiita.com/hifistar/items/187fd7ad780c6aa26141), hifistar
+- [SimH (History Simulator)](http://simh.trailing-edge.com/)
+
 # 更新履歴
 - 2024/4/25: 初版公開
 - 2024/4/25: README修正(BOM追加)
-
-
+- 2024/5/5: 基板rev.1.1の写真追加．project更新．
+- 2024/5/5: README.md修正(開発環境関連の情報を追加)
+- 2024/5/5: samplesにasciiart を追加

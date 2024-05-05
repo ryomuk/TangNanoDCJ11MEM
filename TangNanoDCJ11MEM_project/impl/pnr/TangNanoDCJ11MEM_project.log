@@ -1,7 +1,7 @@
-Reading netlist file: "C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg"
-Parsing netlist file "C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg" completed
+Reading netlist file: "C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg"
+Parsing netlist file "C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg" completed
 Processing netlist completed
-Reading constraint file: "C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\src\tn20k.cst"
+Reading constraint file: "C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\src\tn20k.cst"
 Physical Constraint parsed completed
 Running placement......
 [10%] Placement Phase 0 completed
@@ -23,10 +23,10 @@ Bitstream generation in progress......
 Bitstream generation completed
 Running power analysis......
 [100%] Power analysis completed
-Generate file "C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.power.html" completed
-Generate file "C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.pin.html" completed
-Generate file "C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.rpt.html" completed
-Generate file "C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.rpt.txt" completed
-Generate file "C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.tr.html" completed
-Thu Apr 25 14:18:46 2024
+Generate file "C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.power.html" completed
+Generate file "C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.pin.html" completed
+Generate file "C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.rpt.html" completed
+Generate file "C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.rpt.txt" completed
+Generate file "C:\wks\ework\FPGA\TangNano\github\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\TangNanoDCJ11MEM_project.tr.html" completed
+Sun May  5 18:24:45 2024
 

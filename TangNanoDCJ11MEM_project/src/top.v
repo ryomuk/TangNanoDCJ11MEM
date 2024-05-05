@@ -138,7 +138,8 @@ module top(
   assign LED[0] = tx_ready;
   assign LED[1] = tx_send;
   //
-  assign LED[2] = uart_tx;
+  assign LED[2] = ~test;
+
   assign LED[5] = dbg_tx[0]; 
   assign LED[4] = dbg_tx[1];
   assign LED[3] = dbg_trg;
@@ -229,7 +230,7 @@ module top(
   reg [23:0]	 reset_cnt = 0;
   parameter	 RESET_WIDTH = (SYSCLK_FRQ / 1000) * 100; // 100ms
   always @(posedge sys_clk)
-    if(sw1 | sw2) begin
+    if( sw1 ) begin
        RESET_n <= 0;
        reset_cnt <= 0;
     end
@@ -258,11 +259,39 @@ module top(
       reg_INIT_n <= 1;
        
 //---------------------------------------------------------------------------
+// Power-up Configurations
+//---------------------------------------------------------------------------
+// Power-Up Configuration Register
+// [15:9] Bit<15:9> of the boot address (<8:0> are zeros.)
+// [8]    FPA Here
+// [7:4]  Unused
+// [3]    Halt Option
+// [2:1]  Power-up Mode
+// [0]    POK
+
+  // Enter console ODT
+  wire [15:0] PUP_ODT   = 16'b0000000_0_0000_0_01_1;
+
+  // Power-up to User Program
+  wire [15:0] PUP_BOOTADDRESS  = 16'o001000; // boot address(Octal)
+//  wire [15:0] PUP_USER  = {PUP_BOOTADDRESS[15:9], 9'b0_0000_0_11_1};
+  wire [15:0] PUP_USER  = 16'b0000001_0_0000_0_11_1;
+
+  wire	    PUP_CONF = sw2 ? PUP_ODT : PUP_USER;
+
+  reg	    test = 0;
+  always @(posedge ALE_n)
+    if( sw2 )
+      test <= 0;
+    else if(address == 16'o001000)
+      test <= 1;
+  
+//---------------------------------------------------------------------------
 // Memory and IO
 //---------------------------------------------------------------------------
   assign DAL = BUFCTL_n ? 16'bzzzz_zzzz_zzzz_zzzz :
-	       (aio_code == AIO_GPREAD && gpcode == 9'o000) ? 16'h0003 :
-	       (aio_code == AIO_GPREAD && gpcode == 9'o002) ? 16'h0003 :
+	       (aio_code == AIO_GPREAD && gpcode == 9'o000) ? PUP_CONF :
+	       (aio_code == AIO_GPREAD && gpcode == 9'o002) ? PUP_CONF :
 	       address == ADRS_RCSR ? {8'b0, RCSR, 7'b0} :
 	       address == ADRS_RBUF ? {8'b0, RBUF} :
 	       address == ADRS_XCSR ? {8'b0, XCSR, 7'b0} :
