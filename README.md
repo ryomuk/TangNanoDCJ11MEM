@@ -4,11 +4,10 @@ Memory system and UART implemented on Tang Nano 20K for DEC DCJ11 PDP-11 Process
 This document is written mostly in Japanese. If necessary, please use a translation service such as DeepL (I recommend this) or Google.
 
 # 概要
-PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです。信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています。
-
-FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、CPU自体は本物を使用します。ソフトウェアやFPGAによるシミュレータやエミュレータではなく、本物のCPUを動かします。
-
-"TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので、"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています。
+- PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです。信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています。
+- FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、CPU自体は本物を使用します。ソフトウェアやFPGAによるシミュレータやエミュレータではなく、本物のCPUを動かします。
+- "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので、"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています。
+- UNIXを動かすにはディスクI/Oを実装する必要があるので後回し。とりあえずベアメタルで動いています。
 
 # ハードウェア
 ## FPGAに実装した機能
@@ -57,28 +56,29 @@ FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、
 |Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh|
 
 # PDP-11用プログラム開発環境
-## クロス環境
+## クロス環境の構築
 下記リンクにある情報が大変参考になりました．
-- [PDP-11(エミュ）上でCで"Hello, World!"](https://qiita.com/hifistar/items/8eff4a73087f3a41e19f), hifistar
-- [PDP-11のgccクロスコンパイル環境の構築メモ](https://qiita.com/hifistar/items/187fd7ad780c6aa26141), hifistar
+- [PDP-11のgccクロスコンパイル環境の構築メモ](https://qiita.com/hifistar/items/187fd7ad780c6aa26141), by hifistar
+- [PDP-11(エミュ）上でCで"Hello, World!"](https://qiita.com/hifistar/items/8eff4a73087f3a41e19f), by hifistar
 
-バージョンが古かったり，いくつか誤りもあったので下記のように修正しました．
+これに従ってVMwareのubuntu上にクロス環境を構築し、実機で動くプログラムのバイナリを作成できました。
+バージョンが古かったり，いくつか誤りもあったので下記のように修正しています。
 
 - pkginst.shの先頭を/bin/shから/bin/bashに変更．(pushd でエラーになったので)
 - ツール類のバージョンを最新か新しめの値に修正．
--- binutils-2.42
--- gmp-6.3.0
--- mpfr-4.2.1
--- mpc-1.3.1
--- gcc-11.4.0
+  - binutils-2.42
+  - gmp-6.3.0
+  - mpfr-4.2.1
+  - mpc-1.3.1
+  - gcc-11.4.0
 - start.Sの"mov $0x1000, sp"はおそらく"$01000"の間違いなので修正．
 
 ## サンプルプログラム
-### マンデルブロ集合表示プログラム samples/asciiart
-クロス環境でコンパイルできます．
-a.outからrom.vへの変換はtools/bin2rom.pl を使用．かなり適当に変換してます．
-rom.asciiart.v をTangNano用プロジェクトのrom.vとしてビルド．
-console ODTから，1000g で実行．UART関連がまだ不安定なので文字化けします．
+### マンデルブロ集合表示プログラム [samples/asciiart](samples/asciiart)
+- クロス環境でコンパイルできます．
+- a.outからrom.vへの変換はtools/bin2rom.pl を使用．かなり適当に変換してます．
+- makeしてできるrom.asciiart.v をrom.vにリネームしてTangNano用プロジェクトに持って行ってビルドします。
+- console ODTから，1000g で実行．UART関連がまだ不安定なので文字化けします．
 
 ## シミュレータ
 実機で動かす前の動作確認に使えます．後から気がついたのですが，ubuntuだと古いバージョンならapt install simhでインストールできるようでした．
