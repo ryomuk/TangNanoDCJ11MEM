@@ -76,7 +76,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 ## サンプルプログラム
 ### マンデルブロ集合表示プログラム [samples/asciiart](samples/asciiart)
 - クロス環境でコンパイルできます．
-- a.outからrom.vへの変換はtools/bin2rom.pl を使用．かなり適当に変換してます．
+- a.outからrom.vへの変換はtools/out2rom.pl を使用．かなり適当に変換してます．
 - makeしてできるrom.asciiart.v をrom.vにリネームしてTangNano用プロジェクトに持って行ってビルドします。
 - console ODTから，1000g で実行．UART関連がまだ不安定なので文字化けします．
 
