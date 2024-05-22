@@ -140,6 +140,7 @@ READY
 - [Paper Tape Archive](https://www.vaxhaven.com/Paper_Tape_Archive)
 - [DEC PDP-11 Paper Tape Images](https://www.pcjs.org/software/dec/pdp11/tapes/)
 - [PDP-11 Paper Tape BASIC](https://avitech.com.au/?page_id=709)
+- [Learning PDP-11](https://www.learningpdp11.com/) Paper Tape BASICとboot loaderについてとても詳しく解説されています
 
 # 更新履歴
 - 2024/4/25: 初版公開
