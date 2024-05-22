@@ -16,6 +16,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - UART．TangNanoのUSB経由およびGPIO経由の2系統
 - BS0, BS1は見ていません．TangNano20Kではピンが足りなかったのと，DAL[15:0]とAIO[3:0]を見ればとりあえず十分だったので．
 - DAL[21:16]も見ていません．
+- PC-11(Paper-Tape Reader/Punch)エミュレータ (2024/5/22)
 
 ## ブレッドボード版
 - console ODT(Octal Debug Technique)の動作確認をするところから始めて，[豊四季タイニーBASIC](https://github.com/vintagechips/ttbasic_arduino)を軽微な修正で動かせるところまで確認しました．
@@ -86,6 +87,30 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - simhv312-4.zipをとってきてmake
 - PDP11/pdp11_defs.hの「uint32 uc15_memsize;」 がリンク時にmultiple definitionのエラーになるのでextern uint32に変更したらコンパイルできました．
 
+## PC-11(紙テープリーダ/パンチャ)エミュレータ [sdtape.v](TangNanoDCJ11MEM_project/src/sdtape.v)
+- SDメモリに入れた紙テープのイメージを読み込むエミュレータです
+使用例:
+下記参考サイトから
+absolute loader('ABSOLUTE-BINARY-LOADER.ptap'又は'DEC-11-L2PC-PO.ptap')と，
+Paper Tape BASIC ('DEC-11-AJPB-PB.ptap')を入手し，sdメモリに書き込みます．
+/dev/sdxxxxは生のsdメモリの場所です．'fdisk -l'等で調べて下さい．間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
+
+```
+cat ABSOLUTE-BINARY-LOADER.ptap DEC-11-AJPB-PB.ptap > tapeimage.dat
+dd if=tapeimage.dat of=/dev/sdxxxx
+```
+- TangNano20KのSDメモリスロットに入れて電源を入れ，ODT consoleから下記のようにBASICが起動できます．
+
+```
+@37744g   ←bootstrap loader起動してabsolute loaderを読み込む
+037500
+@37500g   ←absolute loaderを起動してBASICを読み込む
+PDP-11 BASIC, VERSION 007A
+*O
+READY
+```
+- パンチ機能については，BASICのSAVEで書き込むことができたのでとりあえず動いているようですがまだバグがあると思います．
+
 # 関連情報
 ## データシート等
 ### bitsavers
@@ -104,9 +129,15 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [PDP-11のgccクロスコンパイル環境の構築メモ](https://qiita.com/hifistar/items/187fd7ad780c6aa26141), hifistar
 - [SimH (History Simulator)](http://simh.trailing-edge.com/)
 
+## Paper Tape Software関連
+- [Paper Tape Archive](https://www.vaxhaven.com/Paper_Tape_Archive)
+- [DEC PDP-11 Paper Tape Images](https://www.pcjs.org/software/dec/pdp11/tapes/)
+- [PDP-11 Paper Tape BASIC](https://avitech.com.au/?page_id=709)
+
 # 更新履歴
 - 2024/4/25: 初版公開
 - 2024/4/25: README修正(BOM追加)
 - 2024/5/5: 基板rev.1.1の写真追加．project更新．
 - 2024/5/5: README.md修正(開発環境関連の情報を追加)
 - 2024/5/5: samplesにasciiart を追加
+- 2024/5/22: PC-11(紙テープリーダ/パンチャ)エミュレータを実装

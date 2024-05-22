@@ -3,7 +3,8 @@
 // Memory system and UART on TangNano 20K for testing DCJ11
 //
 // by Ryo Mukai
-// 2024/04/25
+// 2024/04/25: initial version
+// 2024/05/22: PC-11(Paper-Tape Reader/Punch) emulator implemented
 //---------------------------------------------------------------------------
 
 module top(
@@ -15,26 +16,31 @@ module top(
     input	 GPIO_RX,
     output	 GPIO_TX,
 //    input	 CLK2,
+
+    output	 sd_clk,
+    output	 sd_mosi, 
+    input	 sd_miso,
+    output	 sd_cs_n,
+	   
     inout [15:0] DAL,
     input [3:0]	 AIO,
     input	 INIT_SW,
-    output	 INIT_n,
+    output	 INIT_n,  // CPU reset signal
     input	 BUFCTL_n,
     input	 ALE_n,
     input	 SCTL_n,
     output	 LED_RGB, 
-    output [5:0] LED
+    output [5:0] LED_n
     );
 
   parameter	 SYSCLK_FRQ  = 27_000_000; //Hz
   
 //  parameter	 UART_BPS    =       1200; //Hz
 //  parameter	 UART_BPS    =       9600; //Hz
-  parameter	 UART_BPS    =      38400; //Hz
-//  parameter	 UART_BPS    =     115200; //Hz
+//  parameter	 UART_BPS    =      38400; //Hz
+  parameter	 UART_BPS    =     115200; //Hz
 //  parameter	 UART_BPS    =     460800; //Hz
 
-//  reg [15:0]	 mem[65535:0];
   // address or data of memory should be latched to infer BSRAM
   reg [7:0]	 mem_hi[32767:0]; // higher 8bit (odd byte address)
   reg [7:0]	 mem_lo[32767:0]; // lower  8bit (even byte address)
@@ -47,7 +53,26 @@ module top(
   wire		 XCSR; // D(=bit7)
   wire [7:0]	 XBUF; // DATA(=bit7..0)
 
-  reg		 RESET_n;
+  wire		 PR_BUSY;  // bit11
+  wire		 PR_DONE;  // bit7
+  wire		 PP_READY; // bit7
+  wire [7:0]	 PRBUF;    // DATA(=bit7..0)
+  reg [7:0]	 PPBUF;    // DATA(=bit7..0)
+
+  reg		 tape_read;
+  reg		 tape_punch;
+  reg		 tape_clear_done;
+
+
+  reg		 RESET_n; // Reset for memory system
+
+//---------------------------------------------------------------------------
+// Papertape Reader/Puncher registers
+//---------------------------------------------------------------------------
+  parameter ADRS_PRS  = 16'o177550; // Papertape Reader Status Register
+  parameter ADRS_PRB  = 16'o177552; // Papertape Reader Buffer
+  parameter ADRS_PPS  = 16'o177554; // Papertape Punch  Status
+  parameter ADRS_PPB  = 16'o177556; // Papertape Punch  Buffer
 
 //---------------------------------------------------------------------------
 // ODT registers
@@ -56,6 +81,7 @@ module top(
   parameter ADRS_RBUF = 16'o177562;
   parameter ADRS_XCSR = 16'o177564;
   parameter ADRS_XBUF = 16'o177566;
+
 //---------------------------------------------------------------------------
 // AIO codes
 //---------------------------------------------------------------------------
@@ -96,6 +122,8 @@ module top(
   wire [3:0]  aio_code;
   wire	      aio_read;
   wire	      aio_write;
+  wire	      bus_read  = (aio_read  && (BUFCTL_n == 1'b0));
+  wire	      bus_write = (aio_write && (BUFCTL_n == 1'b1));
   
   assign address     = DAL_latched;
   assign wordaddress = address[15:1];
@@ -113,6 +141,7 @@ module top(
 //---------------------------------------------------------------------------
 // for debug
 //---------------------------------------------------------------------------
+`ifdef DBG_UART
 //  parameter	 UART_BPS_DBG    =     2_700_000; //Hz (27_000_000 / 10)
 //  parameter	 UART_BPS_DBG    =     6_750_000; //Hz (27_000_000 / 4)
   parameter	 UART_BPS_DBG    =    13_500_000; //Hz (27_000_000 / 2)
@@ -121,6 +150,9 @@ module top(
   wire [1:0]     dbg_tx_ready;
   wire [1:0]	 dbg_tx;
 
+  wire			dbg_trg = tx_send;
+`endif
+  
   reg [7:0]		LED_R;
   reg [7:0]		LED_G;
   reg [7:0]		LED_B;
@@ -128,21 +160,7 @@ module top(
   reg [25:0]		cnt_500ms;
   reg			clk_1Hz;
      
-//		    && (sw2 ? tx_data[7:0]!=8'h00 : tx_data[7:0]==8'h00));
-// (address == ADRS_RCSR)||
-// (address == ADRS_XCSR)||
-// (address == ADRS_XBUF);
-
-  wire			dbg_trg = tx_send;
-  
-  assign LED[0] = tx_ready;
-  assign LED[1] = tx_send;
-  //
-  assign LED[2] = ~test;
-
-  assign LED[5] = dbg_tx[0]; 
-  assign LED[4] = dbg_tx[1];
-  assign LED[3] = dbg_trg;
+  assign LED_n = ~{sd_state[5:0]};
   
   ws2812 onboard_rgb_led(.clk(sys_clk), .we(1'b1), .sout(LED_RGB),
 			 .r(LED_R), .g(LED_G), .b(LED_B));
@@ -161,30 +179,10 @@ module top(
     else begin
        LED_R <= ( rx_data_ready ) ? 8'h10: 8'h00;
        LED_G <= ( tx_ready ) ? 8'h10: 8'h00;
-       LED_B <= ( clk_1Hz | sw2) ? 8'h10: 8'h00;
+       LED_B <= ( clk_1Hz | sw2 ) ? 8'h10: 8'h00;
     end
 
-  reg  last_SCTL_n;
-  always @(posedge sys_clk) begin
-     if(last_SCTL_n & ~SCTL_n) begin // negedge of SCTL_n
-	if(dbg_tx_ready == 2'b11) begin
-	   if(~sw2) begin
-	      dbg_tx_data[0]  <= {3'b0, BUFCTL_n, aio_code};
-	      dbg_tx_data[1] <= DAL[7:0];
-	   end
-	   else begin
-	      dbg_tx_data[0] <= address[7:0];
-	      dbg_tx_data[1] <= address[15:8];
-	   end
-	   dbg_tx_send <= 2'b11;
-	end
-     end
-     else begin
-	dbg_tx_send <= 2'b0;
-     end
-     last_SCTL_n <= SCTL_n;
-  end
-
+`ifdef DEBUG_UART
   uart_tx#
     (
      .CLK_FRQ(SYSCLK_FRQ),
@@ -212,7 +210,7 @@ module top(
        .tx_ready      (dbg_tx_ready[1]),
        .tx_out        (dbg_tx[1])
        );
-
+`endif
 //---------------------------------------------------------------------------
 // unimplemented signals
 //---------------------------------------------------------------------------
@@ -227,6 +225,7 @@ module top(
 //---------------------------------------------------------------------------
 // reset button and power on reset
 //---------------------------------------------------------------------------
+// reset for UART and SD memory
   reg [23:0]	 reset_cnt = 0;
   parameter	 RESET_WIDTH = (SYSCLK_FRQ / 1000) * 100; // 100ms
   always @(posedge sys_clk)
@@ -241,6 +240,7 @@ module top(
     else
       RESET_n <= 1;
   
+// reset for CPU
   reg reg_INIT_n;
 
   assign INIT_n = reg_INIT_n;
@@ -274,28 +274,25 @@ module top(
 
   // Power-up to User Program
   wire [15:0] PUP_BOOTADDRESS  = 16'o001000; // boot address(Octal)
-//  wire [15:0] PUP_USER  = {PUP_BOOTADDRESS[15:9], 9'b0_0000_0_11_1};
-  wire [15:0] PUP_USER  = 16'b0000001_0_0000_0_11_1;
+  wire [15:0] PUP_USER  = {PUP_BOOTADDRESS[15:9], 9'b0_0000_0_11_1};
 
-  wire	    PUP_CONF = sw2 ? PUP_ODT : PUP_USER;
+  wire [15:0] PUP_CONF = PUP_ODT;
+//  wire [15:0] PUP_CONF = PUP_USER;
 
-  reg	    test = 0;
-  always @(posedge ALE_n)
-    if( sw2 )
-      test <= 0;
-    else if(address == 16'o001000)
-      test <= 1;
-  
 //---------------------------------------------------------------------------
 // Memory and IO
 //---------------------------------------------------------------------------
   assign DAL = BUFCTL_n ? 16'bzzzz_zzzz_zzzz_zzzz :
+	       (address == ADRS_RCSR) ? {8'b0, RCSR, 7'b0}:
+	       (address == ADRS_RBUF) ? {8'b0, RBUF}:
+	       (address == ADRS_XCSR) ? {8'b0, XCSR, 7'b0}:
+	       (address == ADRS_XBUF) ? {8'b0, XBUF}:
+	       (address == ADRS_PRS)  ? {4'b0, PR_BUSY, 3'b0, PR_DONE, 7'b0}:
+	       (address == ADRS_PRB)  ? {8'b0, PRBUF}:
+	       (address == ADRS_PPS)  ? {8'b0, PP_READY, 7'b0}:
+	       (address == ADRS_PPB)  ? {8'b0, PPBUF}:
 	       (aio_code == AIO_GPREAD && gpcode == 9'o000) ? PUP_CONF :
 	       (aio_code == AIO_GPREAD && gpcode == 9'o002) ? PUP_CONF :
-	       address == ADRS_RCSR ? {8'b0, RCSR, 7'b0} :
-	       address == ADRS_RBUF ? {8'b0, RBUF} :
-	       address == ADRS_XCSR ? {8'b0, XCSR, 7'b0} :
-	       address == ADRS_XBUF ? {8'b0, XBUF} :
 	       {mem_hi[wordaddress], mem_lo[wordaddress]};
   
 //---------------------------------------------------------------------------
@@ -320,24 +317,47 @@ module top(
 //---------------------------------------------------------------------------
 // I/O (Memory Mapped)
 //---------------------------------------------------------------------------
-  always @(negedge SCTL_n) begin
-     if((address == ADRS_RBUF) && aio_read && ~BUFCTL_n)
-       // read RBUF (AIO_DREAD)
-       rx_clear <= 1;
-     else
-       rx_clear <= 0;
-     
-     if((address == ADRS_XBUF) && aio_write && BUFCTL_n) begin
-	// write to XBUF (AIO_BUSBYTEWRITE)
-	tx_data <= DAL[7:0];
-	if(tx_ready)
-	  tx_send <= 1'b1;
-	else
-	  tx_send <= 1'b0;
-     end
-     else
-       tx_send <= 0;
-  end
+//  always @(negedge SCTL_n)
+  always @(negedge BUFCTL_n)
+//    if((address == ADRS_RBUF) & bus_read)
+    if( address == ADRS_RBUF )
+      rx_clear <= 1;
+    else
+      rx_clear <= 0;
+
+  always @(negedge SCTL_n)
+    if((address == ADRS_XBUF) & bus_write) begin
+       tx_data <= DAL[7:0];
+       if( tx_ready )
+	 tx_send <= 1'b1;
+    end
+    else if( ~tx_ready )
+      tx_send <= 1'b0;
+
+  always @(negedge SCTL_n) // reader enable
+    if((address == ADRS_PRS) & bus_write)
+      if( DAL[0] == 1'b1 )
+	tape_read <= 1'b1; // update PRBUF
+      else 
+	tape_read <= 1'b0;
+    else
+      if( PR_BUSY | PR_DONE )
+	tape_read <= 1'b0;
+      
+  always @(negedge BUFCTL_n) // read tape buffer
+    if( wordaddress == (ADRS_PRB>>1) )
+      tape_clear_done <= 1'b1;
+    else if( ~PR_DONE )
+      tape_clear_done <= 1'b0;
+  
+  always @(negedge SCTL_n) // write tape buffer
+    if((address == ADRS_PPB) & bus_write) begin
+       PPBUF <= DAL[7:0];
+       if( PP_READY )  // tape punch ready
+	 tape_punch <= 1'b1;
+    end
+    else if( ~PP_READY )
+      tape_punch <= 1'b0;
   
   assign RCSR = rx_data_ready;  
   assign RBUF = rx_data;
@@ -374,5 +394,41 @@ module top(
        .tx_ready      (tx_ready),
        .tx_out        (uart_tx)
        );
+
+//---------------------------------------------------------------------------
+// SD memory tape emulator
+//---------------------------------------------------------------------------
+  wire tape_write_ready;
+  wire tape_read_busy;
+  wire tape_read_done;
+
+  wire [3:0]  sd_error;
+  wire [5:0]  sd_state;
+
+  sdtape #(
+	      .SYS_FRQ(27_000_000),
+	      .MEM_FRQ(400_000)
+    ) sdtape_inst
+  (
+   .i_clk              (sys_clk),
+   .i_reset_n          (RESET_n),
+   .i_sd_miso          (sd_miso),
+   .o_sd_mosi          (sd_mosi),
+   .o_sd_cs_n          (sd_cs_n),
+   .o_sd_clk           (sd_clk),
+   .o_tape_read_busy   (PR_BUSY),
+   .o_tape_read_done   (PR_DONE),
+   .o_tape_punch_ready (PP_READY),
+   .i_tape_read        (tape_read),
+   .i_tape_punch       (tape_punch),
+   .i_tape_clear_done  (tape_clear_done),
+   .i_tape_punch_data  (PPBUF),
+   .o_tape_read_data   (PRBUF),
+   .i_tape_flush       (sw2),
+   .o_sd_state         (sd_state),
+   .o_sd_error         (sd_error),
+   .o_dbg              (DBG)
+   );
+  
 
 endmodule

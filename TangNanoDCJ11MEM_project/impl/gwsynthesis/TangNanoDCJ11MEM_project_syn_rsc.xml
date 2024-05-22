@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module name="top" Register="130" Alu="71" Lut="118" Bsram="32" T_Register="317(130)" T_Alu="131(71)" T_Lut="326(118)" T_Bsram="32(32)">
-    <SubModule name="onboard_rgb_led" Register="45" Lut="87" T_Register="45(45)" T_Lut="87(87)"/>
-    <SubModule name="uart_tx_inst_dbg0" Register="34" Alu="15" Lut="30" T_Register="34(34)" T_Alu="15(15)" T_Lut="30(30)"/>
-    <SubModule name="uart_tx_inst_dbg1" Register="34" Alu="15" Lut="29" T_Register="34(34)" T_Alu="15(15)" T_Lut="29(29)"/>
-    <SubModule name="uart_rx_inst" Register="40" Alu="15" Lut="33" T_Register="40(40)" T_Alu="15(15)" T_Lut="33(33)"/>
-    <SubModule name="uart_tx_inst" Register="34" Alu="15" Lut="29" T_Register="34(34)" T_Alu="15(15)" T_Lut="29(29)"/>
+<Module name="top" Register="122" Alu="71" Lut="137" Bsram="32" T_Register="564(122)" T_Alu="172(71)" T_Lut="724(137)" T_Bsram="34(32)" T_Ssram="2(0)">
+    <SubModule name="onboard_rgb_led" Register="45" Lut="86" T_Register="45(45)" T_Lut="86(86)"/>
+    <SubModule name="uart_rx_inst" Register="40" Alu="15" Lut="32" T_Register="40(40)" T_Alu="15(15)" T_Lut="32(32)"/>
+    <SubModule name="uart_tx_inst" Register="34" Alu="15" Lut="33" T_Register="34(34)" T_Alu="15(15)" T_Lut="33(33)"/>
+    <SubModule name="sdtape_inst" Register="323" Alu="71" Lut="436" Bsram="2" Ssram="2" T_Register="323(323)" T_Alu="71(71)" T_Lut="436(436)" T_Bsram="2(2)" T_Ssram="2(2)"/>
 </Module>
