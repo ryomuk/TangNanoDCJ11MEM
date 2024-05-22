@@ -87,19 +87,22 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - simhv312-4.zipをとってきてmake
 - PDP11/pdp11_defs.hの「uint32 uc15_memsize;」 がリンク時にmultiple definitionのエラーになるのでextern uint32に変更したらコンパイルできました．
 
-## PC-11(紙テープリーダ/パンチャ)エミュレータ [sdtape.v](TangNanoDCJ11MEM_project/src/sdtape.v)
+## PC-11(Paper-Tape Reader/Punch)エミュレータ [sdtape.v](TangNanoDCJ11MEM_project/src/sdtape.v)
 - SDメモリに入れた紙テープのイメージを読み込むエミュレータです
+- SDメモリはファイルシステム無しの生のままで使うのでddで読み書きします．
+
 使用例:
-下記参考サイトから
+- 下記参考サイトから
 absolute loader('ABSOLUTE-BINARY-LOADER.ptap'又は'DEC-11-L2PC-PO.ptap')と，
 Paper Tape BASIC ('DEC-11-AJPB-PB.ptap')を入手し，sdメモリに書き込みます．
-/dev/sdxxxxは生のsdメモリの場所です．'fdisk -l'等で調べて下さい．間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
+- /dev/sdxxxxは生のsdメモリの場所です．'fdisk -l'等で調べて下さい．間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
 
 ```
 cat ABSOLUTE-BINARY-LOADER.ptap DEC-11-AJPB-PB.ptap > tapeimage.dat
 dd if=tapeimage.dat of=/dev/sdxxxx
 ```
-- TangNano20KのSDメモリスロットに入れて電源を入れ，ODT consoleから下記のようにBASICが起動できます．
+- TangNano20KのSDメモリスロットに入れて電源を入れ，ODT consoleから下記のように
+してBASICが起動できます．
 
 ```
 @37744g   ←bootstrap loader起動してabsolute loaderを読み込む
@@ -109,7 +112,11 @@ PDP-11 BASIC, VERSION 007A
 *O
 READY
 ```
-- パンチ機能については，BASICのSAVEで書き込むことができたのでとりあえず動いているようですがまだバグがあると思います．
+
+- パンチ機能については，BASICのSAVEで書き込むことができたのでとりあえず動いているようですがまだバグがあると思います．(SAVEコマンドの後に，SW2でflushします．)
+
+# 動画
+- [PDP-11 Paper-Tape BASIC running on DCJ-11 Processor](https://www.youtube.com/watch?v=F_eFMz5ysK8)
 
 # 関連情報
 ## データシート等
