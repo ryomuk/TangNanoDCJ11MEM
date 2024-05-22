@@ -8,6 +8,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、CPU自体は本物を使用します。ソフトウェアやFPGAによるシミュレータやエミュレータではなく、本物のCPUを動かします。
 - "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので、"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています。
 - UNIXを動かすにはディスクI/Oを実装する必要があるので後回し。とりあえずベアメタルで動いています。
+- PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
 
 # ハードウェア
 ## FPGAに実装した機能
@@ -16,7 +17,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - UART．TangNanoのUSB経由およびGPIO経由の2系統
 - BS0, BS1は見ていません．TangNano20Kではピンが足りなかったのと，DAL[15:0]とAIO[3:0]を見ればとりあえず十分だったので．
 - DAL[21:16]も見ていません．
-- PC-11(Paper-Tape Reader/Punch)エミュレータ (2024/5/22)
+- PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(2024/5/22)
 
 ## ブレッドボード版
 - console ODT(Octal Debug Technique)の動作確認をするところから始めて，[豊四季タイニーBASIC](https://github.com/vintagechips/ttbasic_arduino)を軽微な修正で動かせるところまで確認しました．
@@ -79,7 +80,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - クロス環境でコンパイルできます．
 - a.outからrom.vへの変換はtools/out2rom.pl を使用．かなり適当に変換してます．
 - makeしてできるrom.asciiart.v をrom.vにリネームしてTangNano用プロジェクトに持って行ってビルドします。
-- console ODTから，1000g で実行．UART関連がまだ不安定なので文字化けします．
+- console ODTから，1000g で実行．UART関連がまだ不安定なので文字化けすることがあります．
 
 ## シミュレータ
 実機で動かす前の動作確認に使えます．後から気がついたのですが，ubuntuだと古いバージョンならapt install simhでインストールできるようでした．
@@ -90,6 +91,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 ## PC-11(Paper-Tape Reader/Punch)エミュレータ [sdtape.v](TangNanoDCJ11MEM_project/src/sdtape.v)
 - SDメモリに入れた紙テープのイメージを読み込むエミュレータです
 - SDメモリはファイルシステム無しの生のままで使うのでddで読み書きします．
+- パンチ機能については，BASICのSAVEで書き込むことができたのでとりあえず動いているようですがまだバグがあると思います．(SAVEコマンドの後に，SW2でflushします．)
 
 使用例:
 - 下記参考サイトから
@@ -112,8 +114,6 @@ PDP-11 BASIC, VERSION 007A
 *O
 READY
 ```
-
-- パンチ機能については，BASICのSAVEで書き込むことができたのでとりあえず動いているようですがまだバグがあると思います．(SAVEコマンドの後に，SW2でflushします．)
 
 # 動画
 - [PDP-11 Paper-Tape BASIC running on DCJ-11 Processor](https://www.youtube.com/watch?v=F_eFMz5ysK8)
