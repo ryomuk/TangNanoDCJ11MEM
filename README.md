@@ -97,11 +97,12 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 下記参考サイトから
 absolute loader('ABSOLUTE-BINARY-LOADER.ptap'又は'DEC-11-L2PC-PO.ptap')と，
 Paper Tape BASIC ('DEC-11-AJPB-PB.ptap')を入手し，sdメモリに書き込みます．
-- /dev/sdxxxxは生のsdメモリの場所です．'fdisk -l'等で調べて下さい．間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
+- /dev/xxx は生のsdメモリの場所です．(先頭のブロックから書くので数字が付いてないやつ．'fdisk -l'等で調べて下さい．)
+- 間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
 
 ```
 cat ABSOLUTE-BINARY-LOADER.ptap DEC-11-AJPB-PB.ptap > tapeimage.dat
-dd if=tapeimage.dat of=/dev/sdxxxx
+dd if=tapeimage.dat of=/dev/xxx
 ```
 - TangNano20KのSDメモリスロットに入れて電源を入れ，ODT consoleから下記のように
 してBASICが起動できます．
