@@ -1,8 +1,8 @@
--d C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg
+-d C:\wks\ework\FPGA\TangNano\20k\tmp\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg
 -p GW2AR-18C-QFN88-8
 -pn GW2AR-LV18QN88C8/I7
--cst C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\src\tn20k.cst
--cfg C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\device.cfg
+-cst C:\wks\ework\FPGA\TangNano\20k\tmp\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\src\tn20k.cst
+-cfg C:\wks\ework\FPGA\TangNano\20k\tmp\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project\impl\pnr\device.cfg
 -bit
 -tr
 -ph

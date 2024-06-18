@@ -2,6 +2,7 @@
 // Tape reader/puncher emulator using SD/SDHC memory
 // by Ryo Mukai
 // 2024/05/22: initial version
+// 2024/06/19: bugfixed (in S_INIT_ACMD41)
 
 module sdtape
   #(
@@ -297,7 +298,7 @@ module sdtape
 	S_INIT_CMD16: command_buf <= {2'b01, 6'd16, 32'h200, 8'h01};
 	S_INIT_CMD55: command_buf <= {2'b01, 6'd55, 32'h0,   8'h01};
 	S_INIT_ACMD41:
-	  command_buf <= SD_VERSION1 ?
+	  command_buf <= (sd_version == SD_VERSION1) ?
 			 {2'b01, 6'd41, 32'h00000000, 8'h01} :
 			 {2'b01, 6'd41, 32'h40000000, 8'h01};
 	S_INIT_CMD58:  command_buf <= {2'b01, 6'd58, 32'h0, 8'h01};
