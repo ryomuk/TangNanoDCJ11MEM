@@ -1,0 +1,44 @@
+[
+ {
+  "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/top.v",
+  "InstLine" : 13,
+  "InstName" : "top",
+  "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/top.v",
+  "ModuleLine" : 13,
+  "ModuleName" : "top",
+  "SubInsts" : [
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/top.v",
+    "InstLine" : 168,
+    "InstName" : "onboard_rgb_led",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/ws2812.v",
+    "ModuleLine" : 5,
+    "ModuleName" : "ws2812"
+   },
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/top.v",
+    "InstLine" : 377,
+    "InstName" : "uart_rx_inst",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/uart.v",
+    "ModuleLine" : 106,
+    "ModuleName" : "uart_rx"
+   },
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/top.v",
+    "InstLine" : 391,
+    "InstName" : "uart_tx_inst",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/uart.v",
+    "ModuleLine" : 12,
+    "ModuleName" : "uart_tx"
+   },
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/top.v",
+    "InstLine" : 414,
+    "InstName" : "sdtape_inst",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/tmp/TangNanoDCJ11MEM/applications/tapebasic/TangNanoDCJ11MEM_project/src/sdtape.v",
+    "ModuleLine" : 7,
+    "ModuleName" : "sdtape"
+   }
+  ]
+ }
+]
