@@ -13,6 +13,7 @@
 absolute loader('DEC-11-L2PC-PO.ptap')と，Paper Tape BASIC ('DEC-11-AJPB-PB.ptap')を入手し，sdメモリに書き込みます．('ABSOLUTE-BINARY-LOADER.ptap'は先頭の000のせいで読めないようでした．)
 - /dev/xxx は生のsdメモリの場所です．(先頭のブロックから書くので数字が付いてないやつ．'fdisk -l'等で調べて下さい．)
 - 間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
+- とりあえず2GBのSD(SanDisk), 16GB, 32GBのSDHC(kioxia), 64GのSDXC(SAMSUNG)で動作しました．
 
 ```
 cat DEC-11-L2PC-PO.ptap DEC-11-AJPB-PB.ptap > tapeimage.dat
