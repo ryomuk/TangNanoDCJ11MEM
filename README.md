@@ -48,7 +48,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 |U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンソケット2列|
 |Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh|
 
-# [応用例](applications/)
+# [応用例(applications/)](applications/)
 ## [ベアメタル(applications/baremetal)](applications/baremetal/)
 - クロス環境で作成したプログラムを実行します．
 - HDLは小規模なので，いろいろ試すベースラインに最適です．
