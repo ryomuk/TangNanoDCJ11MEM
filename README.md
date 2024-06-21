@@ -49,11 +49,11 @@ This document is written mostly in Japanese. If necessary, please use a translat
 |Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh|
 
 # [応用例](applications/)
-## [ベアメタル](applications/baremetal/)
+## [ベアメタル(applications/baremetal)](applications/baremetal/)
 - クロス環境で作成したプログラムを実行します．
 - HDLは小規模なので，いろいろ試すベースラインに最適です．
 
-## [tape basic](applications/tapebasic/)
+## [tape basic(applications/tapebasic)](applications/tapebasic/)
 - 二次記憶をエミュレートするために手始めに作った習作です．
 - PC11(tape reader/pucnch)エミュレータで，tape BASICを読み込んで起動します．
 - SDメモリを使う練習用に作ったものなのでとりあえず動きます程度のものです．
