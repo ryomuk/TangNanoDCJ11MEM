@@ -46,7 +46,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 |SW1                |1  |toggle SW       ||例: https://akizukidenshi.com/catalog/g/g100300/ |
 |SW2,SW3            |2  |tactile SW      |6mmxH4.3mm|例: https://akizukidenshi.com/catalog/g/g103647/ |
 |U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンソケット2列|
-|Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh|
+|Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh , 周波数を変えられるようにソケットの使用をお勧めします。|
 
 # [応用例(applications/)](applications/)
 ## [ベアメタル(applications/baremetal)](applications/baremetal/)
