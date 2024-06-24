@@ -58,7 +58,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PC11(tape reader/pucnch)エミュレータで，tape BASICを読み込んで起動します．
 - SDメモリを使う練習用に作ったものなのでとりあえず動きます程度のものです．
 
-## [UNIX V1](applications/unix-v1/) (開発中)
+## [UNIX V1(applications/unix-v1)](applications/unix-v1/) (開発中)
 - SDメモリを使ったdiskエミュレータを作成し，UNIX V1を動かそうとしています．
 - まだかなり不安定で，ちょっと修正しただけで起動しなくなるのですが，とりあえず公開することにしました．
 
