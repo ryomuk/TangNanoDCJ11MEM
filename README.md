@@ -58,11 +58,14 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PC11(tape reader/pucnch)エミュレータで，tape BASICを読み込んで起動します．
 - SDメモリを使う練習用に作ったものなのでとりあえず動きます程度のものです．
 
-## UNIX V1 (開発中)
+## [UNIX V1](applications/unix-v1/) (開発中)
 - SDメモリを使ったdiskエミュレータを作成し，UNIX V1を動かそうとしています．
+- まだかなり不安定で，ちょっと修正しただけで起動しなくなるのですが，とりあえず公開することにしました．
 
 # 動画
 - [PDP-11 Paper-Tape BASIC running on DCJ-11 Processor](https://www.youtube.com/watch?v=F_eFMz5ysK8)
+
+- [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
 
 # 旧版
 ## ブレッドボード版
@@ -98,6 +101,12 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [PDP-11 Paper Tape BASIC](https://avitech.com.au/?page_id=709)
 - [Learning PDP-11](https://www.learningpdp11.com/) Paper Tape BASICとboot loaderについてとても詳しく解説されています
 
+## UNIX関連
+- [The Unix Heritage Society](https://www.tuhs.org/)
+- [V1](https://www.tuhs.org/cgi-bin/utree.pl?file=V1)
+- [UNIX First Edition](https://gunkies.org/wiki/UNIX_First_Edition)
+- [jserv/unix-v1](https://github.com/jserv/unix-v1)
+
 # 更新履歴
 - 2024/4/25: 初版公開
 - 2024/4/25: README修正(BOM追加)
@@ -108,3 +117,4 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/6/19: SDHCの初期化部分にバグがあったので修正
 - 2024/6/21: tapebasicのtop.vにバグがあったので修正
 - 2024/6/21: baremetalとtapebasicを別フォルダに分離．READMEも分離．
+- 2024/6/24: unix-v1用の開発中HDLを公開(かなり不安定です)
