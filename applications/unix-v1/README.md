@@ -28,7 +28,7 @@ make
 dd if=/dev/zero of=sd.dsk bs=512 count=8192
 dd if=images/rf0.dsk of=sd.dsk
 dd if=images/rk0.dsk of=sd.dsk bs=512 seek=1024
-dd if=sd.dsk of=/dev/sdb
+sudo dd if=sd.dsk of=/dev/sdb
 ```
 
 ## boot loaderについて
