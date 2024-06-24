@@ -41,6 +41,7 @@ dd if=sd.dsk of=/dev/sdb
 - UARTの速度を変えただけで起動しなかったりします。
 - UARTが不安定で文字化けします。
 - 論理合成時に，logical loopがあるというwarningが大量に出ます．除算器の部分なのですが，特に問題は無いはずなので放置しています．
+- 論理合成時に，タイミング関連で警告が大量に出ているのですが，対処方法調査中です．不安定なのはこのあたりが原因かもしれません．
 
 ## 動画
 - [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
