@@ -19,7 +19,7 @@ IRQ2    --- LED2
 EVENT_n --- LED4
 HALT    ---1kΩ抵抗--- LED5
 ```
-- [jserv/unix-v1](https://github.com/jserv/unix-v1) からsimh用のunix-v1環境一式をmakeして作られる images/rf0.dsk, images/rk0.dsk からsd用のイメージsd.dskを作り、sdメモリに書き込む。(書き込み先のsdメモリが/dev/sdb で正しいかちゃんと確認すること。間違えるとPCのディスクを破壊します。)
+- [jserv/unix-v1](https://github.com/jserv/unix-v1) にあるsimh用のunix-v1環境一式をmakeし， images/rf0.dsk, images/rk0.dsk からsd用のイメージsd.dskを作り、sdメモリに書き込む。(書き込み先のsdメモリが/dev/sdb で正しいかちゃんと確認すること。間違えるとPCのディスクを破壊します。)
 - 参考手順は下記の通り。
 ```
 git clone https://github.com/jserv/unix-v1.git
