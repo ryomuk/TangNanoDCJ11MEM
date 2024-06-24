@@ -36,9 +36,11 @@ dd if=sd.dsk of=/dev/sdb
 - 以前に起動した環境で起動しなくなったときは、sdメモリのディスクイメージが破壊されている可能性があるので、sd.dskに書き直します。
 
 ## 既知の問題
+- とにかく不安定です．
 - リセット時間を250msから350msに変えただけで起動しなったりします。
 - UARTの速度を変えただけで起動しなかったりします。
 - UARTが不安定で文字化けします。
+- 論理合成時に，logical loopがあるというwarningが大量に出ます．除算器の部分なのですが，特に問題は無いはずなので放置しています．
 
 ## 動画
 - [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
