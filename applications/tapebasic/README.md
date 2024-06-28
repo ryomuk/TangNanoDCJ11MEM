@@ -2,6 +2,7 @@
   - 二次記憶をエミュレートするために手始めに作った習作です．
   - PC11(tape reader/pucnch)エミュレータで，tape BASICを読み込んで起動します．
   - SDメモリを使う練習用に作ったものなのでとりあえず動きます程度のものです．
+  - unix-v1環境用のIRQやEVENT_nのジャンパ配線があると起動しないので外して下さい．
 
 ## PC-11(Paper-Tape Reader/Punch)エミュレータ [sdtape.v](TangNanoDCJ11MEM_project/src/sdtape.v)
 - SDメモリに入れた紙テープのイメージを読み込むエミュレータです
