@@ -118,3 +118,4 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/6/21: tapebasicのtop.vにバグがあったので修正
 - 2024/6/21: baremetalとtapebasicを別フォルダに分離．READMEも分離．
 - 2024/6/24: unix-v1用の開発中HDLを公開(かなり不安定です)
+- 2024/6/28: tapebasicのtapeimage.datの作成方法を修正

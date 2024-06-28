@@ -11,12 +11,12 @@
 
 使用例:
 - [Paper Tape Archive](https://www.vaxhaven.com/Paper_Tape_Archive)から
-absolute loader('DEC-11-L2PC-PO.ptap')と，Paper Tape BASIC ('DEC-11-AJPB-PB.ptap')を入手し，sdメモリに書き込みます．('ABSOLUTE-BINARY-LOADER.ptap'は先頭の000のせいで読めないようでした．)
+absolute loader('ABSOLUTE-BINARY-LOADER.ptap')と，Paper Tape BASIC ('DEC-11-AJPB-PB.ptap')を入手し，sdメモリに書き込みます．(頭の000があると読めないようで，先頭の16byteを削除しました．)
 - /dev/xxx は生のsdメモリの場所です．(先頭のブロックから書くので数字が付いてないやつ．'fdisk -l'等で調べて下さい．)
 - 間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
 
 ```
-cat DEC-11-L2PC-PO.ptap DEC-11-AJPB-PB.ptap > tapeimage.dat
+cat ABSOLUTE-BINARY-LOADER.ptap DEC-11-AJPB-PB.ptap | dd of=tapeimage.dat bs=1 skip=16
 dd if=tapeimage.dat of=/dev/xxx
 ```
 - TangNano20KのSDメモリスロットに入れて電源を入れ，ODT consoleから下記のように
@@ -33,3 +33,7 @@ READY
 
 # 動画
 - [PDP-11 Paper-Tape BASIC running on DCJ-11 Processor](https://www.youtube.com/watch?v=F_eFMz5ysK8)
+
+# 更新履歴
+- 2024/6/28: tapeimage.datの作成方法を修正
+
