@@ -40,6 +40,7 @@ sudo dd if=sd.dsk of=/dev/sdb
 ## 既知のノウハウ
 - single user modeの方が起動しやすいです。177570番地の値を73700にして起動するとsingle user modeになります。
 - 過去に起動した環境で起動しなくなったようなときは、sdメモリのディスクイメージが破壊されている可能性があるので、sd.dskに書き直します。
+- 起動しにくい状態になったときは，ビットストリームをロードした直後の方が起動しやすい気がします．
 
 ## 既知の問題
 - とにかく不安定です．
@@ -53,4 +54,5 @@ sudo dd if=sd.dsk of=/dev/sdb
 - [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
 
 ## 更新履歴
-- 2024/6/28: テスト用のバージョン(TangNanoDCJ11MEM_project.0628.alpha)を暫定的に置きました．GPIOのUARTにディスクアクセスの情報を出力します．
+- 2024/06/28: テスト用のバージョン(TangNanoDCJ11MEM_project.0628.alpha)を暫定的に置きました．GPIOのUARTにディスクアクセスの情報を出力します．
+- 2024/07/02: テスト用のバージョン(TangNanoDCJ11MEM_project.0702.alpha)を暫定的に置きました．まだかなり不安定です．
