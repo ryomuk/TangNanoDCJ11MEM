@@ -94,6 +94,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [PDP-11(エミュ）上でCで"Hello, World!"](https://qiita.com/hifistar/items/8eff4a73087f3a41e19f), hifistar
 - [PDP-11のgccクロスコンパイル環境の構築メモ](https://qiita.com/hifistar/items/187fd7ad780c6aa26141), hifistar
 - [SimH (History Simulator)](http://simh.trailing-edge.com/)
+- [j-hoppe/PDP11GUI](https://github.com/j-hoppe/PDP11GUI)
 
 ## Paper Tape Software関連
 - [Paper Tape Archive](https://www.vaxhaven.com/Paper_Tape_Archive)
