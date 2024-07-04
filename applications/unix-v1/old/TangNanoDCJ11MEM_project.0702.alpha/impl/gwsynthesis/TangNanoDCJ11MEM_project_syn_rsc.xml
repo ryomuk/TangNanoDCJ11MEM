@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Module name="top" Register="1790" Alu="225" Lut="2998" MULT18X18="1" Bsram="32" T_Register="5058(1790)" T_Alu="1461(225)" T_Lut="4093(2998)" T_MULT18X18="1(1)" T_Bsram="33(32)" T_Ssram="2(0)">
-    <SubModule name="integer_division" Register="2722" Alu="1093" Lut="357" T_Register="2722(2722)" T_Alu="1093(1093)" T_Lut="357(357)"/>
-    <SubModule name="uart_rx_inst" Register="40" Alu="15" Lut="32" T_Register="40(40)" T_Alu="15(15)" T_Lut="32(32)"/>
-    <SubModule name="uart_tx_inst" Register="33" Alu="15" Lut="30" T_Register="33(33)" T_Alu="15(15)" T_Lut="30(30)"/>
-    <SubModule name="sdhd_inst" Register="395" Alu="98" Lut="569" Bsram="1" Ssram="2" T_Register="395(395)" T_Alu="98(98)" T_Lut="569(569)" T_Bsram="1(1)" T_Ssram="2(2)"/>
-    <SubModule name="onboard_rgb_led" Register="45" Lut="79" T_Register="45(45)" T_Lut="79(79)"/>
-    <SubModule name="uart_tx_inst_dbg" Register="33" Alu="15" Lut="28" T_Register="33(33)" T_Alu="15(15)" T_Lut="28(28)"/>
-</Module>
