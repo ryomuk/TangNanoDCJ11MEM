@@ -1,0 +1,33 @@
+{
+ "Device" : "GW2AR-18C",
+ "Files" : [
+  {
+   "Path" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/github/TangNanoDCJ11MEM/applications/unix-v1/TangNanoDCJ11MEM_project.20240707.alpha/src/integer_division/integer_division.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/github/TangNanoDCJ11MEM/applications/unix-v1/TangNanoDCJ11MEM_project.20240707.alpha/src/sdhd.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/github/TangNanoDCJ11MEM/applications/unix-v1/TangNanoDCJ11MEM_project.20240707.alpha/src/top.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/github/TangNanoDCJ11MEM/applications/unix-v1/TangNanoDCJ11MEM_project.20240707.alpha/src/uart.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/github/TangNanoDCJ11MEM/applications/unix-v1/TangNanoDCJ11MEM_project.20240707.alpha/src/ws2812.v",
+   "Type" : "verilog"
+  }
+ ],
+ "IncludePath" : [
+
+ ],
+ "LoopLimit" : 2000,
+ "ResultFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/github/TangNanoDCJ11MEM/applications/unix-v1/TangNanoDCJ11MEM_project.20240707.alpha/impl/temp/rtl_parser.result",
+ "Top" : "top",
+ "VerilogStd" : "verilog_2001",
+ "VhdlStd" : "vhdl_93"
+}

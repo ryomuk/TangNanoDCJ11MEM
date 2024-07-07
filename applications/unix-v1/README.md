@@ -64,3 +64,4 @@ sudo dd if=sd.dsk of=/dev/sdb
 ## 更新履歴
 - 2024/06/28: テスト用のバージョン(TangNanoDCJ11MEM_project.0628.alpha)を暫定的に置きました．GPIOのUARTにディスクアクセスの情報を出力します．
 - 2024/07/04: テスト用のバージョン(TangNanoDCJ11MEM_project.0704.alpha)を暫定的に置きました．
+- 2024/07/07: テスト用のバージョン(TangNanoDCJ11MEM_project.0707.alpha)を暫定的に置きました．
