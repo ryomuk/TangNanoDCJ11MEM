@@ -3,6 +3,7 @@
   - PC11(tape reader/pucnch)エミュレータで，tape BASICを読み込んで起動します．
   - SDメモリを使う練習用に作ったものなのでとりあえず動きます程度のものです．
   - unix-v1環境用のIRQやEVENT_nのジャンパ配線があると起動しないので外して下さい．
+  - UART部分のコードが古いので文字化けすることがあります．ベアメタル版と同じ修正をすると安定すると思いますが動作確認が面倒なのでやってません．
 
 ## PC-11(Paper-Tape Reader/Punch)エミュレータ [sdtape.v](TangNanoDCJ11MEM_project/src/sdtape.v)
 - SDメモリに入れた紙テープのイメージを読み込むエミュレータです

@@ -7,9 +7,9 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです。信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています。
 - FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、CPU自体は本物を使用します。ソフトウェアやFPGAによるシミュレータやエミュレータではなく、本物のCPUを動かします。
 - "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので、"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています。
-- とりあえずベアメタルで動いています。
+- とりあえずベアメタルでは安定して動いています。
 - PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
-- UNIXを動かすためのディスクI/Oは現在作成中です．
+- ディスク(RF11, RK11)エミュレータを実装したところ，UNIX-V1が不安定ながら動いています．
 
 # ハードウェア
 ## FPGAに実装した機能
@@ -19,6 +19,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - BS0, BS1は見ていません．TangNano20Kではピンが足りなかったのと，DAL[15:0]とAIO[3:0]を見ればとりあえず十分だったので．
 - DAL[21:16]も見ていません．
 - PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(2024/5/22)
+- ディスクドライブ(RF11, RK11)エミュレータを実装しました．まだ不安定です．(2024/6/24)
 
 ## PCB rev.1.1
 - rev.1.0はいくつか修正箇所があったので修正しました．
@@ -109,14 +110,16 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [jserv/unix-v1](https://github.com/jserv/unix-v1)
 
 # 更新履歴
-- 2024/4/25: 初版公開
-- 2024/4/25: README修正(BOM追加)
-- 2024/5/5: 基板rev.1.1の写真追加．project更新．
-- 2024/5/5: README.md修正(開発環境関連の情報を追加)
-- 2024/5/5: samplesにasciiart を追加
-- 2024/5/22: PC-11(紙テープリーダ/パンチャ)エミュレータを実装
-- 2024/6/19: SDHCの初期化部分にバグがあったので修正
-- 2024/6/21: tapebasicのtop.vにバグがあったので修正
-- 2024/6/21: baremetalとtapebasicを別フォルダに分離．READMEも分離．
-- 2024/6/24: unix-v1用の開発中HDLを公開(かなり不安定です)
-- 2024/6/28: tapebasicのtapeimage.datの作成方法を修正
+- 2024/04/25: 初版公開
+- 2024/04/25: README修正(BOM追加)
+- 2024/05/05: 基板rev.1.1の写真追加．project更新．
+- 2024/05/05: README.md修正(開発環境関連の情報を追加)
+- 2024/05/05: samplesにasciiart を追加
+- 2024/05/22: PC-11(紙テープリーダ/パンチャ)エミュレータを実装
+- 2024/06/19: SDHCの初期化部分にバグがあったので修正
+- 2024/06/21: tapebasicのtop.vにバグがあったので修正
+- 2024/06/21: baremetalとtapebasicを別フォルダに分離．READMEも分離．
+- 2024/06/24: unix-v1用の開発中HDLを公開(かなり不安定です)
+- 2024/06/28: tapebasicのtapeimage.datの作成方法を修正
+- 2024/06/28: tapebasicのtapeimage.datの作成方法を修正
+- 2024/07/07: baremetal版修正(UART安定化, 20240707公開)

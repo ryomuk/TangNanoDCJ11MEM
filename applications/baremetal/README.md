@@ -25,7 +25,7 @@
 - クロス環境でコンパイルできます．
 - a.outからrom.vへの変換はtools/out2rom.pl を使用．かなり適当に変換してます．
 - makeしてできるrom.asciiart.v をrom.vにリネームしてTangNano用プロジェクトに持って行ってビルドします。
-- console ODTから，1000g で実行．UART関連がまだ不安定なので文字化けすることがあります．
+- console ODTから，1000g で実行．~~UART関連がまだ不安定なので文字化けすることがあります．~~ (sys_clkに同期化したら安定しました．)
 - 起動時にconsole ODTを起動するか，ユーザプログラムを起動するかは，top.vのPUP_CONFで設定可能です．
 
 ## シミュレータ
@@ -33,3 +33,12 @@
 - [SimH (History Simulator)](http://simh.trailing-edge.com/)
 - simhv312-4.zipをとってきてmake
 - PDP11/pdp11_defs.hの「uint32 uc15_memsize;」 がリンク時にmultiple definitionのエラーになるのでextern uint32に変更したらコンパイルできました．
+
+## GUI開発環境
+シリアルポート経由でconsole ODTをGUI操作できるようになるツールです．こんなものがあるとは驚きました．
+- [j-hoppe/PDP11GUI](https://github.com/j-hoppe/PDP11GUI)
+
+## 更新履歴
+- 2024/06/24: 初版公開(20240624)
+- 2024/07/07: UART安定化(20240707)
+
