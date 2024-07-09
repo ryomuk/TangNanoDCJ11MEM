@@ -110,8 +110,10 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [jserv/unix-v1](https://github.com/jserv/unix-v1)
 
 ## 関連記事
-- [TangNanoDCJ11MEMでPDP-11のCPUを動かしてみました 製作編](https://kanpapa.com/today/2024/07/pdp-11-dcj11-cpu-1.html), [きょうのかんぱぱ](https://kanpapa.com/today/), 
-
+- [きょうのかんぱぱ](https://kanpapa.com/today/)
+  - [TangNanoDCJ11MEMでPDP-11のCPUを動かしてみました 製作編](https://kanpapa.com/today/2024/07/pdp-11-dcj11-cpu-1.html), 
+  - [TangNanoDCJ11MEMでPDP-11のCPUを動かしてみました bare metal編](https://kanpapa.com/today/2024/07/tangnanodcj11mem-pdp-11-cpu-2-bare-metal.html)
+  
 # 更新履歴
 - 2024/04/25: 初版公開
 - 2024/04/25: README修正(BOM追加)
