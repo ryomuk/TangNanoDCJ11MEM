@@ -62,6 +62,7 @@ sudo dd if=sd.dsk of=/dev/sdb
 - [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
 
 ## 更新履歴
-- 2024/06/28: テスト用のバージョン(TangNanoDCJ11MEM_project.0628.alpha)を暫定的に置きました．GPIOのUARTにディスクアクセスの情報を出力します．
-- 2024/07/04: テスト用のバージョン(TangNanoDCJ11MEM_project.0704.alpha)を暫定的に置きました．
-- 2024/07/07: テスト用のバージョン(TangNanoDCJ11MEM_project.0707.alpha)を暫定的に置きました．
+- 2024/06/28: テスト用バージョン(TangNanoDCJ11MEM_project.0628.alpha)暫定公開．GPIOのUARTにディスクアクセスの情報を出力します．
+- 2024/07/04: テスト用バージョン(TangNanoDCJ11MEM_project.0704.alpha)upload．
+- 2024/07/07: テスト用バージョン(TangNanoDCJ11MEM_project.0707.alpha)upload．
+- 2024/07/09: テスト用バージョン(TangNanoDCJ11MEM_project.0709.alpha)upload．
