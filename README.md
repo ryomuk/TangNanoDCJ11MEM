@@ -109,6 +109,9 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [UNIX First Edition](https://gunkies.org/wiki/UNIX_First_Edition)
 - [jserv/unix-v1](https://github.com/jserv/unix-v1)
 
+## 関連記事
+- [TangNanoDCJ11MEMでPDP-11のCPUを動かしてみました 製作編](https://kanpapa.com/today/2024/07/pdp-11-dcj11-cpu-1.html), [きょうのかんぱぱ](https://kanpapa.com/today/), 
+
 # 更新履歴
 - 2024/04/25: 初版公開
 - 2024/04/25: README修正(BOM追加)
