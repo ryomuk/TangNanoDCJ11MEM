@@ -57,6 +57,10 @@ sudo dd if=sd.dsk of=/dev/sdb
 - ~~UARTが不安定で文字化けします．~~ 対処しました．
 - ~~論理合成時に，logical loopがあるというwarningが大量に出ます．除算器の部分なのですが，特に問題は無いはずなので放置しています．~~ 非同期SR付きDFFが合成できないというのが原因のようだったので修正しました．
 - ~~論理合成時に，タイミング関連で警告が大量に出ているのですが，対処方法調査中です．不安定なのはこのあたりが原因かもしれません．~~ 一応対処しました．
+- 0710.alphaでRF,RKの制御を大幅に修正し，/usrディレクトリ(RK)でmkdirができるようになりましたが，あいかわらず不安定です．
+- 起動時に000056でHALTする頻度が高くなりました．
+- 起動時にpasswdファイルが読めないというエラーが起きます．
+- /usrディレクトリ(RK)でcpするとHALTすることがあります．
 
 ## 動画
 - [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
