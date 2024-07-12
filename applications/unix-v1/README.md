@@ -54,7 +54,7 @@ sudo dd if=sd.dsk of=/dev/sdb
   - (address == DBG_REG0 )
   - (address == DBG_REG1 ) の後に(address == DBG_REG2 )
 ### 命令ログ
-  - 177700〜177716番地に，HALTする直前にフェッチしていた命令のアドレスを8つ記録しています．原因不明のHALTが起きたときの解析用です．
+  - 177700〜177715番地に，HALTする直前にフェッチしていた命令のアドレスを8つ記録しています．原因不明のHALTが起きたときの解析用です．
 
 ## 既知のノウハウ
 - single user modeの方が起動しやすいです。177570番地の値を73700にして起動するとsingle user modeになります。
@@ -84,4 +84,4 @@ sudo dd if=sd.dsk of=/dev/sdb
 - 2024/07/07: テスト用バージョン(0707.alpha)upload．
 - 2024/07/09: テスト用バージョン(0709.alpha)upload．
 - 2024/07/10: テスト用バージョン(0710.alpha)upload．RFとRKのコマンド受付を並列化しました．
-- 2024/07/12: テスト用バージョン(0712.alpha)upload．命令ログ機能追加．diskログ機能用のフラグはコメントアウトしました．
+- 2024/07/12: テスト用バージョン(0712.alpha)upload．命令ログ機能追加．diskログ機能用のフラグ(`define USE_GPIOUART_DEBUG)はコメントアウトしました．
