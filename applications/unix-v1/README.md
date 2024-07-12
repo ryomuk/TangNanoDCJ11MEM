@@ -33,17 +33,26 @@ sudo dd if=sd.dsk of=/dev/sdb
 
 ## boot loaderについて
 - simh版のboot loaderは73700番地に配置されていましたが，そこはRAM領域だし，オリジナルの資料によると173700のROM領域にあったので173700に配置しました．
-- Power up configurationにより，INITでboot loaderにジャンプするようにしています．ただし1000番地単位にしか飛べないので，173000番地にPS=340とjmp 173700を置きました．
-- 電源ONや，FPGAへの書き込み直後はSDの読み込みに失敗するせいか，54000あたりでHALTします．もう一度INITボタンを押すと起動します．
+- ~~Power up configurationにより，INITでboot loaderにジャンプするようにしています．ただし1000番地単位にしか飛べないので，173000番地にPS=340とjmp 173700を置きました．~~ 
+- ~~電源ONや，FPGAへの書き込み直後はSDの読み込みに失敗するせいか，54000あたりでHALTします．もう一度INITボタンを押すと起動します．~~
+- INIT時に読み込まれる Power up configuration をTang NanoのSW2で選択するようにしました．
+  - SW2を押さずにINIT: console ODTが起動します．
+  - SW2を押しながらINIT: 173000番地から起動します．
+- ~~電源ONや，FPGAへの書き込み直後はSDの読み込みに失敗するせいか，54000あたりでHALTします．もう一度INITボタンを押すと起動します．~~
 - ROM領域は書き込み禁止にはしてないので，上書きされる可能性があり，その場合はconsole ODTでboot.txtの手順で書き込みます．
 
 ## デバッグ用の機能について
+- デバッグ用の機能をいくつか実装しています．詳細はtop.vを見て下さい．
+### disk accessログ
+- top.vの `define USR_GPIOUART_DEBUG を有効にすると使えます．
 - GPIOのUARTにディスクアクセスに関する情報を出力しています．
   - 100μ秒のカウンタ，ディスク関連レジスタ，最後に読んだ命令のアドレスなどを表示しています．
+### ブレークポイント
 - デバッグ用レジスタDBG_REG0〜2(177760, 177762, 177764番地)に書いたアドレスの命令をフェッチしたときにHALT信号を出力する機能です．トリガ条件は下記の2種類があります．
   - (address == DBG_REG0 )
   - (address == DBG_REG1 ) の後に(address == DBG_REG2 )
-- 詳細はtop.vを見て下さい．
+### 命令ログ
+  - 177700〜177716番地に，HALTする直前にフェッチしていた命令のアドレスを8つ記録しています．原因不明のHALTが起きたときの解析用です．
 
 ## 既知のノウハウ
 - single user modeの方が起動しやすいです。177570番地の値を73700にして起動するとsingle user modeになります。
@@ -57,17 +66,18 @@ sudo dd if=sd.dsk of=/dev/sdb
 - ~~UARTが不安定で文字化けします．~~ 対処しました．
 - ~~論理合成時に，logical loopがあるというwarningが大量に出ます．除算器の部分なのですが，特に問題は無いはずなので放置しています．~~ 非同期SR付きDFFが合成できないというのが原因のようだったので修正しました．
 - ~~論理合成時に，タイミング関連で警告が大量に出ているのですが，対処方法調査中です．不安定なのはこのあたりが原因かもしれません．~~ 一応対処しました．
-- 0710.alphaでRF,RKの制御を大幅に修正し，/usrディレクトリ(RK)でmkdirができるようになりましたが，あいかわらず不安定です．
-- login時に000056でHALTする頻度が高くなりました．
-- login時にpasswdファイルが読めないというエラーが起きることがあります．
-- /usrディレクトリ(RK)でcpするとHALTすることがあります．
+- ~~0710.alphaでRF,RKの制御を大幅に修正し，/usrディレクトリ(RK)でmkdirができるようになりましたが，あいかわらず不安定です．~~ 0712.alphaで解消
+- ~~login時に000056でHALTする頻度が高くなりました．~~ 0712.alphaで解消(?)
+- ~~login時にpasswdファイルが読めないというエラーが起きることがあります．~~ 0712.alphaで解消(?)
+- ~~/usrディレクトリ(RK)でcpするとHALTすることがあります．~~ 0712.alphaで解消
 
 ## 動画
 - [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
 
 ## 更新履歴
 - 2024/06/28: テスト用バージョン(TangNanoDCJ11MEM_project.0628.alpha)暫定公開．GPIOのUARTにディスクアクセスの情報を出力します．
-- 2024/07/04: テスト用バージョン(TangNanoDCJ11MEM_project.0704.alpha)upload．
-- 2024/07/07: テスト用バージョン(TangNanoDCJ11MEM_project.0707.alpha)upload．
-- 2024/07/09: テスト用バージョン(TangNanoDCJ11MEM_project.0709.alpha)upload．
-- 2024/07/10: テスト用バージョン(TangNanoDCJ11MEM_project.0710.alpha)upload．RFとRKのコマンド受付を並列化しました．
+- 2024/07/04: テスト用バージョン(0704.alpha)upload．
+- 2024/07/07: テスト用バージョン(0707.alpha)upload．
+- 2024/07/09: テスト用バージョン(0709.alpha)upload．
+- 2024/07/10: テスト用バージョン(0710.alpha)upload．RFとRKのコマンド受付を並列化しました．
+- 2024/07/12: テスト用バージョン(0712.alpha)upload．命令ログ機能追加．diskログ機能用のフラグはコメントアウトしました．
