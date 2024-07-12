@@ -39,6 +39,7 @@ sudo dd if=sd.dsk of=/dev/sdb
 - INIT時に読み込まれる Power up configuration をTang NanoのSW2で選択するようにしました．
   - SW2を押さずにINIT: console ODTが起動します．
   - SW2を押しながらINIT: 173000番地から起動します．
+  - console ODTからブートするには 173000g
 - ~~電源ONや，FPGAへの書き込み直後はSDの読み込みに失敗するせいか，54000あたりでHALTします．もう一度INITボタンを押すと起動します．~~
 - ROM領域は書き込み禁止にはしてないので，上書きされる可能性があり，その場合はconsole ODTでboot.txtの手順で書き込みます．
 
@@ -59,6 +60,8 @@ sudo dd if=sd.dsk of=/dev/sdb
 - single user modeの方が起動しやすいです。177570番地の値を73700にして起動するとsingle user modeになります。
 - 過去に起動した環境で起動しなくなったようなときは、sdメモリのディスクイメージが破壊されている可能性があるので、sd.dskに書き直します。
 - 起動しにくい状態になったときは，ビットストリームをロードした直後の方が起動しやすい気がします．
+- HALT SWで止めてレジスタやメモリを見たあとに p でUNIXに戻れます．(console ODTの機能)
+
 
 ## 既知の問題
 - ~~とにかく不安定です．~~ 起動したりしなかったりします．よく落ちます．
