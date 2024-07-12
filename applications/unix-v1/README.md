@@ -30,6 +30,7 @@ dd if=images/rf0.dsk of=sd.dsk
 dd if=images/rk0.dsk of=sd.dsk bs=512 seek=1024
 sudo dd if=sd.dsk of=/dev/sdb
 ```
+- コンソール出力はTang NanoのUSB UARTとGPIO UARTの両方に同じものが出力されます．ただし，デバック用出力機能 `define USE_GPIOUART_DEBUG が有効になっている場合は，GPIOにはデバッグ情報だけが出力されます．
 
 ## boot loaderについて
 - simh版のboot loaderは73700番地に配置されていましたが，そこはRAM領域だし，オリジナルの資料によると173700のROM領域にあったので173700に配置しました．
@@ -44,7 +45,7 @@ sudo dd if=sd.dsk of=/dev/sdb
 ## デバッグ用の機能について
 - デバッグ用の機能をいくつか実装しています．詳細はtop.vを見て下さい．
 ### disk accessログ
-- top.vの `define USR_GPIOUART_DEBUG を有効にすると使えます．
+- top.vの `define USE_GPIOUART_DEBUG を有効にすると使えます．
 - GPIOのUARTにディスクアクセスに関する情報を出力しています．
   - 100μ秒のカウンタ，ディスク関連レジスタ，最後に読んだ命令のアドレスなどを表示しています．
 ### ブレークポイント
