@@ -12,10 +12,11 @@
 ## とりあえず動かすための手順
 - クロック用の水晶を4MHzにする
 - IRQ、EVENT用に下記ジャンパ配線をする。HALTはデバッグ用なので任意。HALTはスイッチと競合するので1kΩの抵抗を付けます。
+- 20240712版以前はIRQ1とIRQ2を使用していましたが，IRQ0とIRQ1が正しいです．
 ```
 DCJ11       TangNano5V
+IRQ0    --- LED0
 IRQ1    --- LED1
-IRQ2    --- LED2
 EVENT_n --- LED4
 HALT    ---1kΩ抵抗--- LED5
 ```
@@ -30,7 +31,11 @@ dd if=images/rf0.dsk of=sd.dsk
 dd if=images/rk0.dsk of=sd.dsk bs=512 seek=1024
 sudo dd if=sd.dsk of=/dev/sdb
 ```
+
+## コンソール出力やポートについて
 - コンソール出力はTang NanoのUSB UARTとGPIO UARTの両方に同じものが出力されます．ただし，デバック用出力機能 `define USE_GPIOUART_DEBUG が有効になっている場合は，GPIOにはデバッグ情報だけが出力されます．
+- USBのシリアルとGPIOのシリアルはTeratermでシリアルポートを適切に選択すれば同時に見れます．
+- windows環境でTeraTermでコンソール表示しながらTangNanoのUSBでビットストリームを書く場合，Gowin ProgrammerでUSB Debugger Aのポートが複数出現するので，プルダウンメニューで適切なものを選ぶ必要があります．
 
 ## boot loaderについて
 - simh版のboot loaderは73700番地に配置されていましたが，そこはRAM領域だし，オリジナルの資料によると173700のROM領域にあったので173700に配置しました．
@@ -39,7 +44,7 @@ sudo dd if=sd.dsk of=/dev/sdb
 - INIT時に読み込まれる Power up configuration をTang NanoのSW2で選択するようにしました．
   - SW2を押さずにINIT: console ODTが起動します．
   - SW2を押しながらINIT: 173000番地から起動します．
-  - console ODTからブートするには 173000g
+  - console ODTからブートするには 173000g と入力して下さい．
 - ~~電源ONや，FPGAへの書き込み直後はSDの読み込みに失敗するせいか，54000あたりでHALTします．もう一度INITボタンを押すと起動します．~~
 - ROM領域は書き込み禁止にはしてないので，上書きされる可能性があり，その場合はconsole ODTでboot.txtの手順で書き込みます．
 
@@ -54,14 +59,14 @@ sudo dd if=sd.dsk of=/dev/sdb
   - (address == DBG_REG0 )
   - (address == DBG_REG1 ) の後に(address == DBG_REG2 )
 ### 命令ログ
-  - 177700〜177715番地に，HALTする直前にフェッチしていた命令のアドレスを8つ記録しています．原因不明のHALTが起きたときの解析用です．(プリフェッチしているので，実行ではなくフェッチです．)
+  - 177700〜177737番地に，HALTする直前にフェッチしていた命令のアドレスを16個記録しています．原因不明のHALTが起きたときの解析用です．(プリフェッチしているので，実行ではなくフェッチです．)
 
 ## 既知のノウハウ
 - single user modeの方が起動しやすいです。177570番地の値を73700にして起動するとsingle user modeになります。
 - 過去に起動した環境で起動しなくなったようなときは、sdメモリのディスクイメージが破壊されている可能性があるので、sd.dskに書き直します。
 - 起動しにくい状態になったときは，ビットストリームをロードした直後の方が起動しやすい気がします．
 - HALT SWで止めてレジスタやメモリを見たあとに p でUNIXに戻れます．(console ODTの機能)
-
+- 予期せぬHALTで停止したときは，命令ログ(177700〜177737番地)，R0〜R7，スタックポイント(R6)周辺の±8ワードぐらいをダンプして観察するのが初手です．
 
 ## 既知の問題
 - ~~とにかく不安定です．~~ 起動したりしなかったりします．よく落ちます．
@@ -85,3 +90,4 @@ sudo dd if=sd.dsk of=/dev/sdb
 - 2024/07/09: テスト用バージョン(0709.alpha)upload．
 - 2024/07/10: テスト用バージョン(0710.alpha)upload．RFとRKのコマンド受付を並列化しました．
 - 2024/07/12: テスト用バージョン(0712.alpha)upload．命令ログ機能追加．diskログ機能用のフラグ(`define USE_GPIOUART_DEBUG)はコメントアウトしました．
+- 2024/07/13: テスト用バージョン(0713.alpha)upload．IRQ関連を修正．命令ログ拡張．
