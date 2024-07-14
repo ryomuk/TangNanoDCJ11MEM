@@ -11,14 +11,13 @@
 
 ## とりあえず動かすための手順
 - クロック用の水晶を4MHzにする
-- IRQ、EVENT用に下記ジャンパ配線をする。HALTはデバッグ用なので任意。HALTはスイッチと競合するので1kΩの抵抗を付けます。
-- 20240712版以前はIRQ1とIRQ2を使用していましたが，IRQ0とIRQ1が正しいです．
+- IRQ、EVENT用に下記ジャンパ配線をする。HALTはデバッグ用なので任意。HALTはスイッチと競合するので1kΩの抵抗を付けます。(20240712版以前はIRQ1とIRQ2を使用していましたが，IRQ0とIRQ1が正しいです．)
 ```
 DCJ11       TangNano5V
 IRQ0    --- LED0  (ttyi, ttyo用)
 IRQ1    --- LED1  (drum, disk用)
 EVENT_n --- LED4  (clock用)
-HALT    ---1kΩ抵抗--- LED5
+HALT    ---1kΩ抵抗--- LED5 (デバッグ用, 無くても可)
 ```
 - [jserv/unix-v1](https://github.com/jserv/unix-v1) にあるsimh用のunix-v1環境一式をmakeし， images/rf0.dsk, images/rk0.dsk からsd用のイメージsd.dskを作り、sdメモリに書き込む。(書き込み先のsdメモリが/dev/sdb で正しいかちゃんと確認すること。間違えるとPCのディスクを破壊します。)
 - 参考手順は下記の通り。
