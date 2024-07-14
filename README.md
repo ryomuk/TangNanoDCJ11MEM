@@ -130,3 +130,4 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/07/07: baremetal版修正(UART安定化, 20240707公開)
 - 2024/07/12: unix-v1版修正(20240712.alpha公開)
 - 2024/07/13: unix-v1版修正(20240713.alpha公開)．IRQのジャンパ変更．
+- 2024/07/14: unix-v1版修正(20240714.alpha公開)．デバッグ用レジスタ変更．
