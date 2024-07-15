@@ -4,10 +4,10 @@ Memory system and UART implemented on Tang Nano 20K for DEC DCJ11 PDP-11 Process
 This document is written mostly in Japanese. If necessary, please use a translation service such as DeepL (I recommend this) or Google.
 
 # 概要
-- PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです。信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています。
-- FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで、CPU自体は本物を使用します。ソフトウェアやFPGAによるシミュレータやエミュレータではなく、本物のCPUを動かします。
-- "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので、"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています。
-- とりあえずベアメタルでは安定して動いています。
+- PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです．信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています．
+- FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで，CPU自体は本物を使用します．ソフトウェアやFPGAによるシミュレータやエミュレータではなく，本物のCPUを動かします．
+- "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので，"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています．
+- とりあえずベアメタルでは安定して動いています．
 - PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
 - ディスク(RF11, RK11)エミュレータを実装したところ，UNIX-V1が不安定ながら動いています．
 
@@ -30,26 +30,26 @@ This document is written mostly in Japanese. If necessary, please use a translat
 #### BOM
 |Reference          |Qty| Value          |Size |Memo |
 |-------------------|---|----------------|-----|-----|
-|C1,C2              |2	|0.33uF	         ||DECのプロセッサボードで0.33uFを使っていたので。0.1uFでもいいかもしれない。|
+|C1,C2              |2	|0.33uF	         ||DECのプロセッサボードで0.33uFを使っていたので．0.1uFでもいいかもしれない．|
 |C3                 |1  |47uF            |||
 |C4,C5              |2  |68pF            |||
 |D1                 |1  |LED             || |
 |J1                 |1  |DC Jack         ||例: https://akizukidenshi.com/catalog/g/g106568/ |
-|J2                 |1  |pin header      |1x02|DC Jackからの5VをTangNanoに供給するとき用。(そのときはTangNanoのUSBは外すこと)。|
-|J3                 |1  |pin header      |1x03|CPUへの5VをDC JackからにするかUSB(TangNano)からにするかの選択用。|
-|J4                 |1  |IC socket       |40pin DIP 600mil|TangNano5V用。1x20のpin socket 2列でも可。|
-|J5,J6              |2  |pin header or socket|1x20|任意。テストや観測、実験用。|
+|J2                 |1  |pin header      |1x02|DC Jackからの5VをTangNanoに供給するとき用．(そのときはTangNanoのUSBは外すこと)．|
+|J3                 |1  |pin header      |1x03|CPUへの5VをDC JackからにするかUSB(TangNano)からにするかの選択用．|
+|J4                 |1  |IC socket       |40pin DIP 600mil|TangNano5V用．1x20のpin socket 2列でも可．|
+|J5,J6              |2  |pin header or socket|1x20|任意．テストや観測，実験用．|
 |J7                 |1  |pin header      |1x06 L字|UART用|
-|J8,J9              |2  |pin header or socket|1x30|任意。テストや観測、実験用。|
-|JP1                |   |                ||任意。sctl_nとcont_nを切断したときにpin headerを立てる用。|
-|R1                 |1  |100k            || 値はLEDに合わせて任意。|
-|R2～R6             |5 |10k            || プルダウン用。入力電流がmax10μAなので大きめでいいかと思ったら意外にノイズが大きいので100kから10kに変更しました．|
-|R7～R16             |10 |100k            || プルアップ用。10k〜100kぐらいで任意．|
+|J8,J9              |2  |pin header or socket|1x30|任意．テストや観測，実験用．|
+|JP1                |   |                ||任意．sctl_nとcont_nを切断したときにpin headerを立てる用．実装する場合は先にパターンをカットして下さい．|
+|R1                 |1  |100k            || 値はLEDに合わせて任意．|
+|R2～R6             |5 |10k            || プルダウン用．入力電流がmax10μAなので大きめでいいかと思ったら意外にノイズが大きいので100kから10kに変更しました．|
+|R7～R16             |10 |100k            || プルアップ用．10k〜100kぐらいで任意．|
 |R17                |1  |1M              |||
 |SW1                |1  |toggle SW       ||例: https://akizukidenshi.com/catalog/g/g100300/ |
 |SW2,SW3            |2  |tactile SW      |6mmxH4.3mm|例: https://akizukidenshi.com/catalog/g/g103647/ |
 |U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンソケット2列|
-|Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh , 低速(2MHzで確認済み,もっと遅くても動きそう)でも動きます。周波数を変えられるようにソケットの使用をお勧めします。|
+|Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh , 低速(2MHzで確認済み,もっと遅くても動きそう)でも動きます．周波数を変えられるようにソケットの使用をお勧めします．|
 
 # [応用例(applications/)](applications/)
 ## [ベアメタル(applications/baremetal)](applications/baremetal/)
@@ -77,7 +77,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 ![](images/breadboard1.jpg)
 
 ## PCB版 rev.1.0
-最初に作った基板です．とりあえず動きました。
+最初に作った基板です．とりあえず動きました．
 ![](images/rev10.jpg)
 
 # 関連情報
@@ -87,7 +87,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [Index of /pdf/dec/pdp11/j11](http://bitsavers.trailing-edge.com/pdf/dec/pdp11/j11/)
 - [Index of /pdf/dec/pdp11/1173](http://bitsavers.trailing-edge.com/pdf/dec/pdp11/1173/)
 
-## 先行事例、先駆者たち
+## 先行事例，先駆者たち
 - [PDP-11/HACK](http://madrona.ca/e/pdp11hack/index.html), Brent Hilpert
 - [My PDP-11 Projects](https://www.5volts.ch/pages/pdp11hack/), Peter Schranz
 - [PDP11 on a breadboard A.K.A. J11 Hack](https://www.chronworks.com/J11/), Len Bayles
