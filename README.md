@@ -133,4 +133,4 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/07/12: unix-v1版修正(20240712.alpha公開)
 - 2024/07/13: unix-v1版修正(20240713.alpha公開)．IRQのジャンパ変更．
 - 2024/07/14: unix-v1版修正(20240714.alpha公開)．デバッグ用レジスタ変更．
-- 2024/07/15: プルダウン抵抗(R2〜R6)を100kから10kに変更．
+- 2024/07/15: プルダウン抵抗(R2〜R6)を100kから10kに変更．100kで問題が起きていなければ変える必要は無いです．
