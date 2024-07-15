@@ -25,6 +25,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - rev.1.0はいくつか修正箇所があったので修正しました．
 - CPUが白いので基板も白くしてみました．
 - CPUおよびTangNanoの電源をどこから供給するかを2箇所のジャンパで切り替えられるようにしました．詳細は回路図と基板上のシルクを見て下さい．
+- プルダウン抵抗(R2〜R6)を100kから10kに変更しました．(rev1.1a)
 ![](images/rev11.jpg)
 #### BOM
 |Reference          |Qty| Value          |Size |Memo |
@@ -41,8 +42,9 @@ This document is written mostly in Japanese. If necessary, please use a translat
 |J7                 |1  |pin header      |1x06 L字|UART用|
 |J8,J9              |2  |pin header or socket|1x30|任意。テストや観測、実験用。|
 |JP1                |   |                ||任意。sctl_nとcont_nを切断したときにpin headerを立てる用。|
-|R1                 |1  |100K            || 値はLEDに合わせて任意。|
-|R2～16             |15 |100K            || プルアップ、プルダウン用。10～100Kで任意。入力電流がmax10μAなので大きめで良さそう。|
+|R1                 |1  |100k            || 値はLEDに合わせて任意。|
+|R2～R6             |5 |10k            || プルダウン用。入力電流がmax10μAなので大きめでいいかと思ったら意外にノイズが大きいので100kから10kに変更しました．|
+|R7～R16             |10 |100k            || プルアップ用。10k〜100kぐらいで任意．|
 |R17                |1  |1M              |||
 |SW1                |1  |toggle SW       ||例: https://akizukidenshi.com/catalog/g/g100300/ |
 |SW2,SW3            |2  |tactile SW      |6mmxH4.3mm|例: https://akizukidenshi.com/catalog/g/g103647/ |
@@ -131,3 +133,4 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/07/12: unix-v1版修正(20240712.alpha公開)
 - 2024/07/13: unix-v1版修正(20240713.alpha公開)．IRQのジャンパ変更．
 - 2024/07/14: unix-v1版修正(20240714.alpha公開)．デバッグ用レジスタ変更．
+- 2024/07/15: プルダウン抵抗(R2〜R6)を100kから10kに変更．

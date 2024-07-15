@@ -6,9 +6,10 @@
 	(paper "A4")
 	(title_block
 		(title "Memory System and UART for DCJ11  using Tang Nano 20K")
-		(date "2024-04-24")
-		(rev "1.1")
+		(date "2024-07-15")
+		(rev "1.1a")
 		(company "Ryo Mukai")
+		(comment 1 "1.1 -> 1.1a: R2-R6 changed from 100k to 10k")
 	)
 	(lib_symbols
 		(symbol "000_MyLibrary:Barrel_Jack_Switch"
@@ -12245,8 +12246,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100k"
-			(at 171.45 151.13 90)
+		(property "Value" "10k"
+			(at 171.958 151.13 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14722,8 +14723,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100k"
-			(at 171.45 148.59 90)
+		(property "Value" "10k"
+			(at 171.958 148.59 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15681,8 +15682,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100k"
-			(at 171.45 146.05 90)
+		(property "Value" "10k"
+			(at 171.958 146.05 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15882,8 +15883,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100k"
-			(at 163.83 132.08 90)
+		(property "Value" "10k"
+			(at 163.83 132.842 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16148,8 +16149,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100k"
-			(at 171.45 153.67 90)
+		(property "Value" "10k"
+			(at 171.958 153.67 90)
 			(effects
 				(font
 					(size 1.27 1.27)
