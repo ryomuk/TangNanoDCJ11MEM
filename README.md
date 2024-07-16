@@ -9,7 +9,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので，"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています．
 - とりあえずベアメタルでは安定して動いています．
 - PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
-- ディスク(RF11, RK11)エミュレータを実装したところ，UNIX-V1が不安定ながら動いています．
+- ディスク(RF11, RK11)や外部演算装置(KE11)のエミュレータを実装したところ，UNIX-V1が不安定ながら動いています．
 
 # ハードウェア
 ## FPGAに実装した機能
@@ -41,7 +41,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 |J5,J6              |2  |pin header or socket|1x20|任意．テストや観測，実験用．|
 |J7                 |1  |pin header      |1x06 L字|UART用|
 |J8,J9              |2  |pin header or socket|1x30|任意．テストや観測，実験用．|
-|JP1                |   |                ||任意．sctl_nとcont_nを切断したときにpin headerを立てる用．実装する場合は先にパターンをカットして下さい．|
+|JP1                |   |                ||任意．sctl_nとcont_nを切断したときにpin headerを立てる用．実装する場合は先にパターンをカットして下さい．(unix-v1では切断して使います)|
 |R1                 |1  |100k            || 値はLEDに合わせて任意．|
 |R2～R6             |5 |10k            || プルダウン用．入力電流がmax10μAなので大きめでいいかと思ったら意外にノイズが大きいので100kから10kに変更しました．|
 |R7～R16             |10 |100k            || プルアップ用．10k〜100kぐらいで任意．|
@@ -134,3 +134,4 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/07/13: unix-v1版修正(20240713.alpha公開)．IRQのジャンパ変更．
 - 2024/07/14: unix-v1版修正(20240714.alpha公開)．デバッグ用レジスタ変更．
 - 2024/07/15: プルダウン抵抗(R2〜R6)を100kから10kに変更．100kで問題が起きていなければ変える必要は無いです．
+- 2024/07/16: unix-v1版大規模修正(20240716.beta公開)．JP1(SCTL_nとCONT_nを接続してるパターンをカットして下さい．)
