@@ -7,9 +7,9 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです．信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています．
 - FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで，CPU自体は本物を使用します．ソフトウェアやFPGAによるシミュレータやエミュレータではなく，本物のCPUを動かします．
 - "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので，"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています．
-- とりあえずベアメタルでは安定して動いています．
-- PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
-- ディスク(RF11, RK11)や外部演算装置(KE11)のエミュレータを実装したところ，UNIX-V1が不安定ながら動いています．
+- まずベアメタルで動かしたところ安定して動きまっした．
+- 次に，PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
+- さらに，UNIX first edition (UNIX V1)を動かすために，ディスク(RF11, RK11)や外部演算装置(KE11)のエミュレータを実装したところ，それなりに動くようになりました．
 
 # ハードウェア
 ## FPGAに実装した機能
@@ -18,14 +18,15 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - UART．TangNanoのUSB経由およびGPIO経由の2系統
 - BS0, BS1は見ていません．TangNano20Kではピンが足りなかったのと，DAL[15:0]とAIO[3:0]を見ればとりあえず十分だったので．
 - DAL[21:16]も見ていません．
-- PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(2024/5/22)
-- ディスクドライブ(RF11, RK11)エミュレータを実装しました．まだ不安定です．(2024/6/24)
+- PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(Paper tape BASICを実行する用で，UNIXでは動きません．)
+- ディスクドライブ(RF11, RK11)，外部演算装置(KE11-A)，クロック(KW11-L)等，UNIX V1の動作に必要な装置のエミュレータを実装しました．
 
 ## PCB rev.1.1
 - rev.1.0はいくつか修正箇所があったので修正しました．
 - CPUが白いので基板も白くしてみました．
 - CPUおよびTangNanoの電源をどこから供給するかを2箇所のジャンパで切り替えられるようにしました．詳細は回路図と基板上のシルクを見て下さい．
 - プルダウン抵抗(R2〜R6)を100kから10kに変更しました．(rev1.1a)
+- UNIXを動かすにはJP1のパターンのカット，数本のジャンパ配線が必要です．詳細は[UNIX V1](applications/unix-v1/)参照．
 ![](images/rev11.jpg)
 #### BOM
 |Reference          |Qty| Value          |Size |Memo |
@@ -61,14 +62,16 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PC11(tape reader/pucnch)エミュレータで，tape BASICを読み込んで起動します．
 - SDメモリを使う練習用に作ったものなのでとりあえず動きます程度のものです．
 
-## [UNIX V1(applications/unix-v1)](applications/unix-v1/) (開発中)
-- SDメモリを使ったdiskエミュレータを作成し，UNIX V1を動かそうとしています．
-- まだかなり不安定で，ちょっと修正しただけで起動しなくなるのですが，とりあえず公開することにしました．
+## [UNIX V1(applications/unix-v1)](applications/unix-v1/)
+- SDメモリを使ったdiskエミュレータを作成し，UNIX V1を動かしてみました．
+- 最初はかなり不安定でしたが，だいぶ安定して動くようになってきました．
 
 # 動画
 - [PDP-11 Paper-Tape BASIC running on DCJ-11 Processor](https://www.youtube.com/watch?v=F_eFMz5ysK8)
 
 - [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
+
+- [UNIX V1 on DEC DCJ-11 with TangNano 20K](https://www.youtube.com/watch?v=G9AFgAaTexo)
 
 # 旧版
 ## ブレッドボード版
@@ -135,3 +138,4 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/07/14: unix-v1版修正(20240714.alpha公開)．デバッグ用レジスタ変更．
 - 2024/07/15: プルダウン抵抗(R2〜R6)を100kから10kに変更．100kで問題が起きていなければ変える必要は無いです．
 - 2024/07/16: unix-v1版大規模修正(20240716.beta公開)．JP1(SCTL_nとCONT_nを接続してるパターンをカットして下さい．)
+- 2024/07/19: unix-v1 20240719.beta 公開．これまでのバージョンと比較するとだいぶ安定しました．

@@ -1,14 +1,30 @@
 # TangNanoDCJ11MEM (unix-v1)
 ![](../../images/unixv1_jumper.jpg)
 
-- SDメモリを使ったdiskエミュレータを作成し，UNIX V1を動かそうとしています．
-- まだかなり不安定で，ちょっと修正しただけで起動しなくなるのですが，とりあえず公開することにしました．
+- TangNano20K上にPDP11用のメモリシステムや周辺装置を実装してUNIX first edition (UNIX V1)を動作させる試みです．
+- ~~まだかなり不安定で，ちょっと修正しただけで起動しなくなるのですが，とりあえず公開することにしました．~~ それなりに安定して動くようになりました．
 - ~~DMAの制御が面倒だったので、時分割された擬似dual port RAMを作ってディスクからメモリへの読み書きをしています．~~
 - ディスク読み書き時にstretched cycleでCPUを停止させることにしました．ピンが足りないので，DMR_n，MAP_nを使わずに，CONT_nだけで停止させてDMAしています．これによりだいぶ安定しました．JP1の切断と，LED3からCONT_nへのジャンパ接続が必要です．
 
-## RF11(drum), RK11(disk)エミュレータ [sdhd.v](TangNanoDCJ11MEM_project/src/sdhd.v)
-- SDメモリはファイルシステム無しの生のままで使うのでddで読み書きします．
-- ブロックサイズ(BS)は512で，0〜1023ブロックがRF11，それ以降がRK11です．
+## TangNano20K上に実装したもの
+- メインメモリ
+  - 32K word (64k byte)
+- UART
+  - USBとGPIOの2系統．通常はミラーリングで同じものが出力．GPIOにデバッグ情報を出力することもできます．
+- ASR-33 (teletype)
+  - UARTを使ったconsole機能(レジスタと割り込み)
+- RF11(drum), RK11(disk)
+  - ハードディスク装置です．
+- KE11-A(Extended Arithmetic Element)
+  - 外部演算装置です．UNIX V1では乗除算，シフト演算をCPUではなくこの装置で実行していることがあるので必須です．(diskのブロック計算で12で割る程度の計算をこれにやらせています．．．)
+- KW11-L(Line time clock)
+  - EVENT端子経由で60Hzの割り込みを発生させます．
+
+## SDメモリによるディスク(RF，RK)のエミュレーションについて
+ - SIMH用のimageファイルを継げたものを利用できます．
+ - SDメモリはファイルシステム無しの生のままで使うのでddで読み書きします．
+ - ブロックサイズ(BS)は512で，0〜1023ブロックがRF11，それ以降がRK11です．
+ - 下記手順参照．
 
 ## とりあえず動かすための手順
 ### JP1の切断
@@ -17,7 +33,7 @@
 ![](../../images/jp1_cut.jpg)
 
 ### ジャンパ配線等
-- ~~クロック用の水晶を4MHzにする~~ 0716.betaから18MHzでも動作するようになりました。
+- ~~クロック用の水晶を4MHzにする~~ 0716.betaから18MHzでも動作するようになりました。ちなみに2MHzでも動いています．
 
 - IRQ、EVENT、CONT_n用に下記ジャンパ配線をする。HALTはデバッグ用なので任意。HALTはスイッチと競合するので1kΩの抵抗を付けます。
 ```
@@ -36,7 +52,6 @@ CONT_n  --- LED3 (stretched cycle用)
 git clone https://github.com/jserv/unix-v1.git
 cd unix-v1
 make
-dd if=/dev/zero of=sd.dsk bs=512 count=8192
 dd if=images/rf0.dsk of=sd.dsk
 dd if=images/rk0.dsk of=sd.dsk bs=512 seek=1024
 sudo dd if=sd.dsk of=/dev/sdb
@@ -49,14 +64,12 @@ sudo dd if=sd.dsk of=/dev/sdb
 
 ## boot loaderについて
 - simh版のboot loaderは73700番地に配置されていましたが，そこはRAM領域だし，オリジナルの資料によると173700のROM領域にあったので173700に配置しました．
-- ~~Power up configurationにより，INITでboot loaderにジャンプするようにしています．ただし1000番地単位にしか飛べないので，173000番地にPS=340とjmp 173700を置きました．~~ 
-- ~~電源ONや，FPGAへの書き込み直後はSDの読み込みに失敗するせいか，54000あたりでHALTします．もう一度INITボタンを押すと起動します．~~
+- Power up configuration では1000番地単位にしか飛べないので，173000番地にPS=340とjmp 173700を置いてあります．
 - INIT時に読み込まれる Power up configuration をTang NanoのSW2で選択するようにしました．
   - SW2を押さずにINIT: console ODTが起動します．
   - SW2を押しながらINIT: 173000番地から起動します．
   - console ODTからブートするには 173000g と入力して下さい．
-- ~~電源ONや，FPGAへの書き込み直後はSDの読み込みに失敗するせいか，54000あたりでHALTします．もう一度INITボタンを押すと起動します．~~
-- ROM領域は書き込み禁止にはしてないので，上書きされる可能性があり，その場合はconsole ODTでboot.txtの手順で書き込みます．
+- ROM領域は書き込み禁止にはしてないので，上書きされる可能性があります．その場合はconsole ODTでboot.txtの手順で書き込むか，TangNanoを再起動してメモリを初期化します．
 
 ## デバッグ用の機能について
 - デバッグ用の機能をいくつか実装しています．詳細はtop.vを見て下さい．
@@ -68,6 +81,8 @@ sudo dd if=sd.dsk of=/dev/sdb
 - デバッグ用レジスタDBG_REG0〜2(177100, 177102, 177104番地)に書いたアドレスの命令をフェッチしたときにHALT信号を出力する機能です．トリガ条件は下記の2種類があります．
   - (address == DBG_REG0 )
   - (address == DBG_REG1 ) の後に(address == DBG_REG2 )
+- address == 01040 (panic:)でもHALTするようにしています．
+
 ### 命令ログ
   - 177000〜177036番地に，HALTする直前にフェッチしていた命令のアドレスを16個記録しています．原因不明のHALTが起きたときの解析用です．(プリフェッチしているので，実行ではなくフェッチです．時系列は177000→177036の順．バージョンによっては個数が違う場合あり．詳細はソース参照．)
 
@@ -79,12 +94,34 @@ sudo dd if=sd.dsk of=/dev/sdb
 - 予期せぬHALTで停止したときは，命令ログ(177000〜177036番地)，R0〜R7，スタックポインタ(R6)周辺の±8ワードぐらいをダンプして観察するのが初手です．スタックポインタがずれてたり，値がおかしくて変な番地にリターンしてHALTすることが多いです．
 
 ## 既知の問題
-disk読み書きを時にstretched cycleにしてCPUを停止させたら下記の問題の多くが解消されましたが，まだ様子を見ているところです。(2024/7/16)
-- login時に000056や00002でHALTすることがあります．どうやらスタックポインタが1ワードずれているのが原因のようで，現在調査中です．
-- login時にpasswdファイルが読めないというエラーが起きることがあります．
-- root dir (/) が読めない状態になることがあります．(その際，コマンドは'No command'になります．) 000051(/のinode番号)であるはずのrootdir(25246番地)が000041や000050に化けていることが原因ですが，化ける原因についてはまだわかっていません．
-- HALTでなく，idle状態で止まることもあります．diskやttyの終了割り込み関連な気がしますが調査中です．
-- ~~とにかく不安定です．~~ 起動したりしなかったりします．よく落ちます．
+- 20240719版でだいぶ安定しました．クロック18MHz(2MHzでもOK)，デバッグ出力あり(無しでもOK)で，cコンパイラがわりと安定して動作しています．
+- 時間制約(sdcファイル)の記述が適当なので，タイミングのwarningが1件出ています．
+- 時間制約を変更すると起動しなくなることがあります．
+- SCTL_n，ALE_nのエッジ検出の実装方法を変えると起動しなくなることがあります．たぶんこれも時間制約がらみな気がします．
+```
+  reg SCTL_n0;
+  reg SCTL_n1;
+  wire negedge_SCTL_n = SCTL_n1 & ~SCTL_n0;
+  always @(negedge sys_clk) begin
+     SCTL_n0 <= SCTL_n;
+     SCTL_n1 <= SCTL_n0;
+  end
+
+// somehow, the following code does not work
+//  reg SCTL_n0;
+//  reg negedge_SCTL_n;
+//  always @(negedge sys_clk) begin
+//     SCTL_n0        <= SCTL_n;
+//     negedge_SCTL_n <= SCTL_n0 & ~SCTL_n;
+//  end
+```
+
+## 過去の問題
+- ~~login時に000056や00002でHALTすることがあります．どうやらスタックポインタが1ワードずれているのが原因のようで，現在調査中です．~~
+- ~~login時にpasswdファイルが読めないというエラーが起きることがあります．~~
+- ~~root dir (/) が読めない状態になることがあります．(その際，コマンドは'No command'になります．) 000051(/のinode番号)であるはずのrootdir(25246番地)が000041や000050に化けていることが原因ですが，化ける原因についてはまだわかっていません．~~
+- ~~HALTでなく，idle状態で止まることもあります．diskやttyの終了割り込み関連な気がしますが調査中です．~~ たぶん割り込みが発生しないのでidleのwait命令で止まっている．
+- ~~とにかく不安定です． 起動したりしなかったりします．よく落ちます．~~
 - ~~リセット時間を250msから350msに変えただけで起動しなったりします。~~
 - ~~UARTの速度を変えただけで起動しなかったりします．~~ 対処しました．
 - ~~UARTが不安定で文字化けします．~~ 対処しました．
@@ -96,6 +133,8 @@ disk読み書きを時にstretched cycleにしてCPUを停止させたら下記�
 ## 動画
 - [UNIX V1 on DEC DCJ-11 with TangNano 20K (under development)](https://www.youtube.com/watch?v=DT7xJWeF46Y)
 
+- [UNIX V1 on DEC DCJ-11 with TangNano 20K](https://www.youtube.com/watch?v=G9AFgAaTexo)
+
 ## 更新履歴
 - 2024/06/28: テスト用バージョン(TangNanoDCJ11MEM_project.0628.alpha)暫定公開．GPIOのUARTにディスクアクセスの情報を出力します．
 - 2024/07/04: テスト用バージョン(0704.alpha)upload．
@@ -106,3 +145,4 @@ disk読み書きを時にstretched cycleにしてCPUを停止させたら下記�
 - 2024/07/13: テスト用バージョン(0713.alpha)upload．IRQ関連を修正．命令ログ拡張．
 - 2024/07/14: テスト用バージョン(0714.alpha)upload．デバッグ用レジスタのアドレス等を変更．
 - 2024/07/16: テスト用バージョン(0716.beta)upload．stretched cycle導入．JP1の切断と，LED3からCONT_nへのジャンパ接続が必要です．GPIO uartのデバッグログ機能をoffにすると起動しなくなるので，ONにしています．
+- 2024/07/16: テスト用バージョン(0719.beta)upload．これまでに比べるとだいぶ安定しました．高速18MHz/低速2MHz， デバッグログあり/無し，のいずれでもcコンパイラが動作しています．
