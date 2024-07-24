@@ -117,6 +117,13 @@ sudo dd if=sd.dsk of=/dev/sdb
 //  end
 ```
 
+- 20240719.beta版で，1040番地でHALTする部分をコメントアウトすると起動しなくなりました．時間制約を下記のように修正すると起動するようになりました．次回リリースで修正します．
+```
+create_clock -name sys_clk -period 37.037 -waveform {0 18.518} [get_ports {sys_clk}]
+create_clock -name ALE_n -period 222.222 -waveform {0 100} [get_ports {ALE_n}]
+create_clock -name SCTL_n -period 222.222 -waveform {33.33 166.666} [get_ports {SCTL_n}]
+```
+
 ## 過去の問題
 - ~~login時に000056や00002でHALTすることがあります．どうやらスタックポインタが1ワードずれているのが原因のようで，現在調査中です．~~
 - ~~login時にpasswdファイルが読めないというエラーが起きることがあります．~~
