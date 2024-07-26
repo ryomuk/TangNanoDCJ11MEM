@@ -1,5 +1,5 @@
 # TangNanoDCJ11MEM (unix-v1)
-![](../../images/unixv1_jumper.jpg)
+![](../../images/unixv1_jumper0726.jpg)
 
 - TangNano20K上にPDP11用のメモリシステムや周辺装置を実装してUNIX first edition (UNIX V1)を動作させる試みです．
 - ~~まだかなり不安定で，ちょっと修正しただけで起動しなくなるのですが，とりあえず公開することにしました．~~ それなりに安定して動くようになりました．
