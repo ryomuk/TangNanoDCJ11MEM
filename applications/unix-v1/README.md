@@ -2,30 +2,36 @@
 ![](../../images/unixv1_jumper0726.jpg)
 
 - TangNano20K上にPDP11用のメモリシステムや周辺装置を実装してUNIX first edition (UNIX V1)を動作させる試みです．
-- ~~まだかなり不安定で，ちょっと修正しただけで起動しなくなるのですが，とりあえず公開することにしました．~~ それなりに安定して動くようになりました．
+- まだかなり不安定で，ちょっと修正しただけで起動しなくなるのですが，とりあえず公開することにしました．~~それなりに安定して動くようになりました．~~やっぱりまだ不安定です．
 - ~~DMAの制御が面倒だったので、時分割された擬似dual port RAMを作ってディスクからメモリへの読み書きをしています．~~
 - ディスク読み書き時にstretched cycleでCPUを停止させることにしました．ピンが足りないので，DMR_n，MAP_nを使わずに，CONT_nだけで停止させてDMAしています．これによりだいぶ安定しました．JP1の切断と，LED3からCONT_nへのジャンパ接続が必要です．
 
 ## 最近の話題
-**20240726.beta版はいろいろ不備があったのでキャンセルします．(oldフォルダに移動しました．)2024/07/27に20240727.beta版をリリース予定です．**
-
-20240726.beta版でUNIX V6実験用の機能を追加しました．
+20240727.beta版でUNIX V6実験用の機能を追加しました．
 とりあえず作ってみた程度のものです．役に立つかどうかは未検証．
 ブートストラッププログラムはロードできて動いている気がしますが，V6 を起動するには至っていません．
 - 下記の場合にLED2にABORT_n(バスエラー)を出力します．
-  - Microdiagnostic test 2 (177700へのアクセス)
-  - 160000〜167777へのアクセス(170000台はmemory mapped I/Oと区別が面倒だったので未実装)
+  - Microdiagnostic test 2 (177700へのread)
+  - 160000〜167777へのwrite(170000台はmemory mapped I/Oと区別が面倒だったので未実装)
 - 160000〜177777までは書き込みできないROMエリアにしました．(I/Oは除く)
 - RK0用ブートストラップローダー
   - RK0のblock 0 (SDメモリのblock 1024)のブートストラッププログラムを0〜776番地(256word(=512byte))にロードして0番地にジャンプします．
   - 174000〜のROMに配置したので，174000g で起動します．(詳細はrom.v参照)
 - V1のpanic:(1040番地)でHALTする機能は削除しました．
+- 当初(0726.beta)ではABORT_nとROM領域はdefineで選択できるようにしていましたが，テストパターンが増えるので常時有効にしました．
+- UNIX V6起動実験について
+  - アドレス空間が18bit必要だと思っていたのですが，28KWのPDP11で動いていたとのことなので試してみることにしました．
+  - メモリ容量の判定にbus errorを使っているみたいだったのでABORT_nを実装しました．
+  -  DC11は実装していないので，とりあえず最小限の構成のrkunixで試そうとしていますがまだ起動しません．
+  - single userはsr(177570)=173030
+  - イメージの作成は[Installing_UNIX_v6_(PDP-11)_on_SIMH](https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH)を参考にしています．
+  - GPIO UARTの使い方を変更すると起動しなくなることがあります．デバッグ情報出力ありだけで動作確認しています．
 
 ## TangNano20K上に実装したもの
 - メインメモリ
-  - 32K word (64k byte)
+  - 32K word (64k byte)．(000000〜157777の28KWがRAM，160000〜177777はROMとI/O)
 - UART
-  - USBとGPIOの2系統．通常はミラーリングで同じものが出力．GPIOにデバッグ情報を出力することもできます．
+  - USBとGPIOの2系統．通常はUSBがコンソールでGPIOはデバッグ情報を出力．
 - ASR-33 (teletype)
   - UARTを使ったconsole機能(レジスタと割り込み)
 - RF11(drum), RK11(disk)
@@ -40,7 +46,6 @@
  - SDメモリはファイルシステム無しの生のままで使うのでddで読み書きします．
  - ブロックサイズ(BS)は512で，0〜1023ブロックがRF11，それ以降がRK11です．
  - SanDiskのsd(2GB)，KIOXIAのsdhc(32GB)，SAMSUNGのsdxc(64GB)での動作を確認しています．
-
 
 ## とりあえず動かすための手順
 ### JP1の切断
@@ -76,9 +81,15 @@ sudo dd if=sd.dsk of=/dev/sdb
 ```
 
 ## コンソール出力やポートについて
-- コンソール出力はTang NanoのUSB UARTとGPIO UARTの両方に同じものが出力されます．ただし，デバック用出力機能 `define USE_GPIOUART_DEBUG が有効になっている場合は，GPIOにはデバッグ情報だけが出力されます．
+- TangNanoのUSB UART
+  - DCJ-11のコンソール入出力とFPGAへの書き込みに使用します．
+  - windows環境でTangNanoをUSB接続し，TeraTermでコンソール表示しながらビットストリームを書く場合，Gowin ProgrammerでUSB Debugger Aのポートが複数出現するので，プルダウンメニューで適切なものを選ぶ必要があります．
+- GPIO UART
+  - `define USE_GPIOUART_DEBUG が有効 → デバッグ情報(下記参照)が出力されます．
+  - `define USE_GPIOUART_DEBUG をコメントアウト → Tang NanoのUSB UARTと同じものが出力されます．(起動しなくなることがあります．)
+  - 入力はUSBとandで継げているので，速度が同じ場合はGPIO入力もコンソール入力になります．
 - USBのシリアルとGPIOのシリアルはTeratermでシリアルポートを適切に選択すれば同時に見れます．
-- windows環境でTeraTermでコンソール表示しながらTangNanoのUSBでビットストリームを書く場合，Gowin ProgrammerでUSB Debugger Aのポートが複数出現するので，プルダウンメニューで適切なものを選ぶ必要があります．
+- シリアルの設定は115200bps,8N1Nです．(速度はtop.vで変更可ですが，起動しなくなることがあります．)
 
 ## boot loaderについて
 - simh版のboot loaderは73700番地に配置されていましたが，そこはRAM領域だし，オリジナルの資料によると173700のROM領域にあったので173700に配置しました．
@@ -87,7 +98,7 @@ sudo dd if=sd.dsk of=/dev/sdb
   - SW2を押さずにINIT: console ODTが起動します．
   - SW2を押しながらINIT: 173000番地から起動します．
   - console ODTからブートするには 173000g と入力して下さい．
-- ROM領域は書き込み禁止にはしてないので，上書きされる可能性があります．その場合はconsole ODTでboot.txtの手順で書き込むか，TangNanoを再起動してメモリを初期化します．
+- ~~ROM領域は書き込み禁止にはしてないので，上書きされる可能性があります．その場合はconsole ODTでboot.txtの手順で書き込むか，TangNanoを再起動してメモリを初期化します．~~ ROM領域は書き込み不可にしました．
 
 ## デバッグ用の機能について
 - デバッグ用の機能をいくつか実装しています．詳細はtop.vを見て下さい．
@@ -113,8 +124,11 @@ sudo dd if=sd.dsk of=/dev/sdb
 
 ## 既知の問題
 - 20240719版以降でだいぶ安定しました．クロック18MHz(2MHzでもOK)，デバッグ出力あり(無しでもOK)で，cコンパイラがわりと安定して動作しています．
-- 時間制約(sdcファイル)の記述がよくわからないので，sys_clk=27MHzだけしか記述していません．そのせいかタイミングのwarningが多数出ます．
-- 起動しなくなる現象はdisk完了のIRQが出ていないのが主な原因だったっぽいのでdisk_readyのロジックを修正して安定化しましたが，雑な修正(dirty workaround)です．
+- ~~時間制約(sdcファイル)の記述がよくわからないので，sys_clk=27MHzだけしか記述していません．そのせいかタイミングのwarningが多数出ます．~~
+- sys_clk=27MHzだけだと起動しなくなる現象が発生しやすいので，ALE_nとSCTL_nも4.5MHzで適当な位相で書いてあります．正しい書き方は不明です．
+- GPIOのデバッグ情報出力の有無を変更するとUNIXが起動しなくなる場合があり，時間制約を適当に修正すると起動することがあります．
+- 起動しなくなる現象はdisk完了のIRQが出ていないのが主な原因だったっぽいのでdisk_readyのロジックを修正して少しはマシになりましたが完治はしていません．雑な修正(dirty workaround)です．
+- UNIX V6は起動しません．
 
 ## 過去の問題
 - ~~login時に000056や00002でHALTすることがあります．どうやらスタックポインタが1ワードずれているのが原因のようで，現在調査中です．~~
@@ -131,23 +145,6 @@ sudo dd if=sd.dsk of=/dev/sdb
 - ~~/usrディレクトリ(RK)でcpするとHALTすることがあります．~~ 0712.alphaで解消
 
 - SCTL_n，ALE_nのエッジ検出の実装方法を変えると起動しなくなることがあります．たぶんこれも時間制約がらみな気がします．
-```
-  reg SCTL_n0;
-  reg SCTL_n1;
-  wire negedge_SCTL_n = SCTL_n1 & ~SCTL_n0;
-  always @(negedge sys_clk) begin
-     SCTL_n0 <= SCTL_n;
-     SCTL_n1 <= SCTL_n0;
-  end
-
-// somehow, the following code does not work
-//  reg SCTL_n0;
-//  reg negedge_SCTL_n;
-//  always @(negedge sys_clk) begin
-//     SCTL_n0        <= SCTL_n;
-//     negedge_SCTL_n <= SCTL_n0 & ~SCTL_n;
-//  end
-```
 - 20240719.beta版で，1040番地でHALTする部分をコメントアウトすると起動しなくなりました．時間制約を下記のように修正すると起動するようになりました．次回リリースで修正します．
 ```
 create_clock -name sys_clk -period 37.037 -waveform {0 18.518} [get_ports {sys_clk}]
@@ -169,6 +166,7 @@ create_clock -name SCTL_n -period 222.222 -waveform {33.33 166.666} [get_ports {
 - 2024/07/13: テスト用バージョン(0713.alpha)upload．IRQ関連を修正．命令ログ拡張．
 - 2024/07/14: テスト用バージョン(0714.alpha)upload．デバッグ用レジスタのアドレス等を変更．
 - 2024/07/16: テスト用バージョン(0716.beta)upload．stretched cycle導入．JP1の切断と，LED3からCONT_nへのジャンパ接続が必要です．GPIO uartのデバッグログ機能をoffにすると起動しなくなるので，ONにしています．
-- 2024/07/16: テスト用バージョン(0719.beta)upload．これまでに比べるとだいぶ安定しました．高速18MHz/低速2MHz， デバッグログあり/無し，のいずれでもcコンパイラが動作しています．
-- 2024/07/26: テスト用バージョン(0726.beta)upload．disk_ready logicの安定化．UARTのTXにバッファを付けたので文字出力が高速になりました，
-UNIX V6実験用の機能を追加しました．(いろいろ不備が見つかったのでキャンセルしました．)
+- 2024/07/19: テスト用バージョン(0719.beta)upload．これまでに比べるとだいぶ安定しました．高速18MHz/低速2MHz， デバッグログあり/無し，のいずれでもcコンパイラが動作しています．
+- 2024/07/26: テスト用バージョン(0726.beta)upload．(いろいろ不備が見つかったのでキャンセルしました．)
+- 2024/07/27: テスト用バージョン(0727.beta)upload．disk_ready logicの安定化．UARTのTXにバッファを付けたので文字出力が高速になりました，
+UNIX V6実験用の機能(ABORT_n, ROM領域, RKからのboot)を追加しました．GPIOのシリアルはデバッグ情報出力をデフォルトにしました．オフにすると起動しなくなることがあります．

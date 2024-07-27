@@ -14,7 +14,7 @@ my $lastflag = 0;
 
 print
     "// rom.v\n".
-    "// to be included from the top module at the comple\n\n".
+    "// to be included from the top module at the compile\n\n".
     "`define MEM(x, y) {mem_hi[(x)>>1], mem_lo[(x)>>1]}=y\n\n",
     "initial\n".
     "begin\n";

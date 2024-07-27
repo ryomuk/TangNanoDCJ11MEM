@@ -139,3 +139,4 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/07/15: プルダウン抵抗(R2〜R6)を100kから10kに変更．100kで問題が起きていなければ変える必要は無いです．
 - 2024/07/16: unix-v1版大規模修正(20240716.beta公開)．JP1(SCTL_nとCONT_nを接続してるパターンをカットして下さい．)
 - 2024/07/19: unix-v1 20240719.beta 公開．これまでのバージョンと比較するとだいぶ安定しました．
+- 2024/07/27: unix-v1 20240727.beta 公開．
