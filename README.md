@@ -118,7 +118,8 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [きょうのかんぱぱ](https://kanpapa.com/today/)
   - [TangNanoDCJ11MEMでPDP-11のCPUを動かしてみました 製作編](https://kanpapa.com/today/2024/07/pdp-11-dcj11-cpu-1.html), 
   - [TangNanoDCJ11MEMでPDP-11のCPUを動かしてみました bare metal編](https://kanpapa.com/today/2024/07/tangnanodcj11mem-pdp-11-cpu-2-bare-metal.html)
-  
+  - [unix v6の起動にチャレンジ](https://lateral-apartment-215.notion.site/unix-v6-67b9abee6b784c4795d5094cf69c4f96)
+
 # 更新履歴
 - 2024/04/25: 初版公開
 - 2024/04/25: README修正(BOM追加)
