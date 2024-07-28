@@ -15,7 +15,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 ## FPGAに実装した機能
 - Initialization Sequence時のPower-Up Configuration Register設定
 - メモリ 32K×16bit
-- UART．TangNanoのUSB経由およびGPIO経由の2系統
+- UART．TangNanoのUSB経由およびGPIO経由の2系統．シリアルの設定はたぶん115200bps,8N1Nです．(UNIX V6だと7N1Nにしないと文字化けする現象あり．)
 - BS0, BS1は見ていません．TangNano20Kではピンが足りなかったのと，DAL[15:0]とAIO[3:0]を見ればとりあえず十分だったので．
 - DAL[21:16]も見ていません．
 - PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(Paper tape BASICを実行する用で，UNIXでは動きません．)
