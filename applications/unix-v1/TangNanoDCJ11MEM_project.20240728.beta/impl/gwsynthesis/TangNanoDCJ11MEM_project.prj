@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-synthesis-project>
+<Project>
+    <Version>beta</Version>
+    <Device id="GW2AR-18C" package="QFN88" speed="8" partNumber="GW2AR-LV18QN88C8/I7"/>
+    <FileList>
+        <File path="C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\github\TangNanoDCJ11MEM\applications\unix-v1\TangNanoDCJ11MEM_project.20240728.beta\src\integer_division\integer_division.v" type="verilog"/>
+        <File path="C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\github\TangNanoDCJ11MEM\applications\unix-v1\TangNanoDCJ11MEM_project.20240728.beta\src\sdhd.v" type="verilog"/>
+        <File path="C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\github\TangNanoDCJ11MEM\applications\unix-v1\TangNanoDCJ11MEM_project.20240728.beta\src\top.v" type="verilog"/>
+        <File path="C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\github\TangNanoDCJ11MEM\applications\unix-v1\TangNanoDCJ11MEM_project.20240728.beta\src\uart.v" type="verilog"/>
+        <File path="C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\github\TangNanoDCJ11MEM\applications\unix-v1\TangNanoDCJ11MEM_project.20240728.beta\src\ws2812.v" type="verilog"/>
+    </FileList>
+    <OptionList>
+        <Option type="disable_insert_pad" value="0"/>
+        <Option type="global_freq" value="100.000"/>
+        <Option type="looplimit" value="2000"/>
+        <Option type="output_file" value="C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\github\TangNanoDCJ11MEM\applications\unix-v1\TangNanoDCJ11MEM_project.20240728.beta\impl\gwsynthesis\TangNanoDCJ11MEM_project.vg"/>
+        <Option type="print_all_synthesis_warning" value="0"/>
+        <Option type="ram_rw_check" value="0"/>
+        <Option type="top_module" value="top"/>
+        <Option type="verilog_language" value="verilog-2001"/>
+        <Option type="vhdl_language" value="vhdl-1993"/>
+    </OptionList>
+</Project>
