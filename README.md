@@ -7,7 +7,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです．信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています．
 - FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで，CPU自体は本物を使用します．ソフトウェアやFPGAによるシミュレータやエミュレータではなく，本物のCPUを動かします．
 - "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので，"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています．
-- まずベアメタルで動かしたところ安定して動きまっした．
+- まずベアメタルで動かしたところ安定して動きました．
 - 次に，PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
 - さらに，UNIX first edition (UNIX V1)を動かすために，ディスク(RF11, RK11)や外部演算装置(KE11)のエミュレータを実装したところ，それなりに動くようになりました．
 
@@ -15,7 +15,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 ## FPGAに実装した機能
 - Initialization Sequence時のPower-Up Configuration Register設定
 - メモリ 32K×16bit
-- UART．TangNanoのUSB経由およびGPIO経由の2系統．シリアルの設定はたぶん115200bps,8N1Nです．(UNIX V6だと7N1Nにしないと文字化けする現象あり．)
+- UART．TangNanoのUSB経由およびGPIO経由の2系統．シリアルの設定は基本的には115200bps,8N1Nにしています．(UNIX V6だと7N1Nにしないと文字化けする現象あり．)
 - BS0, BS1は見ていません．TangNano20Kではピンが足りなかったのと，DAL[15:0]とAIO[3:0]を見ればとりあえず十分だったので．
 - DAL[21:16]も見ていません．
 - PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(Paper tape BASICを実行する用で，UNIXでは動きません．)
