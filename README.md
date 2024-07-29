@@ -66,6 +66,9 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - SDメモリを使ったdiskエミュレータを作成し，UNIX V1を動かしてみました．
 - 最初はかなり不安定でしたが，だいぶ安定して動くようになってきました．
 
+## [UNIX V6(applications/unix-v6)](applications/unix-v6/)(実験用)
+- unix-v1用をベースにUNIX V6に必要な機能を逐次追加中です．修正のたびにV1の動作確認をするのは面倒なのでV1用と分けることにしました．
+
 # 動画
 - [PDP-11 Paper-Tape BASIC running on DCJ-11 Processor](https://www.youtube.com/watch?v=F_eFMz5ysK8)
 
