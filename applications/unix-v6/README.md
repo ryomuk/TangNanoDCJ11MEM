@@ -4,15 +4,15 @@
 [unix-v1](../unix-v1/)をベースにしてUNIX V6に必要な機能を逐次追加していく試みです．
 
 ## 最近の話題
-- 2024/07/30  (0730.v6.beta版公開)
-  - 複数disk drive(rk0, rk1, rk2, rk3,..., rk7)を実装しました．(disk_blockのbit幅を増やすだけだったので最初からやっておけば良かったのですが，UNIX V1には不要だったので…)
-  - [Installing UNIX v6 (PDP-11) on SIMH](https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH)の手順で作ったrk0,rk1,rk2を/, /usr/source, /usr/docにマウントしてloginできました．(下記「sd用イメージ作成手順」参照)
-  - tic-tac-tooやbjは動きましたが，chessはtoo largeで動かず。ccもまだ動かないのでまだ問題はありそうです．
+### 2024/07/30  (0730.v6.beta版公開)
+- 複数disk drive(rk0, rk1, rk2, rk3,..., rk7)を実装しました．(disk_blockのbit幅を増やすだけだったので最初からやっておけば良かったのですが，UNIX V1には不要だったので…)
+- [Installing UNIX v6 (PDP-11) on SIMH](https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH)の手順で作ったrk0,rk1,rk2を/, /usr/source, /usr/docにマウントしてloginできました．(下記「sd用イメージ作成手順」参照)
+- tic-tac-tooやbjは動きましたが，chessはtoo largeで動かず。ccもまだ動かないのでまだ問題はありそうです．
 
-- 2024/07/29 (0729.v6.beta版公開)
-  - unix-v1用とunix-v6用を別プロジェクトにしました．
-  - 160000台を全部つぶすのはもったいないのでRAM30KWにしました．
-  - ABORT_nをトライステートにして，非アサート時は'Z'にしました．
+### 2024/07/29 (0729.v6.beta版公開)
+- unix-v1用とunix-v6用を別プロジェクトにしました．
+- 160000台を全部つぶすのはもったいないのでRAM30KWにしました．
+- ABORT_nをトライステートにして，非アサート時は'Z'にしました．
 - ABORT_nとLED2は直接ジャンパせずに抵抗を入れて下さい．
 - ABORT_nは双方向で，INIT時にDCJ11が'L'にアサートしていてTangNano側が'H'なので，直結だと数十mAの電流が流れてしまうことがわかりました．1KだとTangNano側のアサート時にLレベルまで下がらず，本当は470Ωぐらいにしたいのですが，立ち下がりが間に合わないようなので100Ωで対処しました．
   - → ABORT_nをtri-stateにしてアサート時以外はZにしたので，INIT時の競合は回避できています．TangNanoの出力は'Z'か'L'なので直結でも大丈夫なはずですが，念のため100Ωを入れておくようにします．
@@ -38,7 +38,7 @@
   - GPIO UARTの使い方を変更すると起動しなくなることがあります．デバッグ情報出力ありだけで動作確認しています．
 
 
-### ジャンパ配線等
+## ジャンパ配線等
 - IRQ、EVENT、CONT_n、ABORT_n用に下記ジャンパ配線をする。HALTはデバッグ用なので任意。HALTはスイッチと競合するので1kΩの抵抗を付けます。
 - ABORT_nは双方向で，INIT時にDCJ11がアサートしているため直結だと数十mAの電流が流れてしまうことがわかりました．1KだとLレベルまで下がらず，本当は470Ωぐらいにしたいのですが，立ち下がりが間に合わないようなので100Ωで対処しています．アサート時以外はZにしたのでINIT時の競合は回避できています．
 ```
@@ -84,5 +84,5 @@ SD memory block (512byte/block)
   - unix-v1とunix-v6のフォルダを分離．
   - ABORT_nをトライステート化．
   - RAM 30MW化．bus errorの条件変更．(170000番地readでbus error)
-- 2024/07/29: 0730.v6.beta
-  - 複数disk drive(rk0, rk1, rk2, rk3)に対応．(たぶんrk7までOK)
+- 2024/07/30: 0730.v6.beta
+  - 複数disk drive(rk0, rk1, rk2, rk3,...,rk7)に対応．
