@@ -6,7 +6,7 @@
 ## 最近の話題
 - 2024/07/30  (0730.v6.beta版公開)
   - 複数disk drive(rk0, rk1, rk2, rk3,..., rk7)を実装しました．(disk_blockのbit幅を増やすだけだったので最初からやっておけば良かったのですが，UNIX V1には不要だったので…)
-  - [Installing UNIX v6 (PDP-11) on SIMH](https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH)の手順で作ったrk0,rk1,rk2を/, /usr/source, /usr/docにマウントしてloginできました．(下記「sdイメージ作成手順」参照)
+  - [Installing UNIX v6 (PDP-11) on SIMH](https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH)の手順で作ったrk0,rk1,rk2を/, /usr/source, /usr/docにマウントしてloginできました．(下記「sd用イメージ作成手順」参照)
   - tic-tac-tooやbjは動きましたが，chessはtoo largeで動かず。ccもまだ動かないのでまだ問題はありそうです．
 
 - 2024/07/29 (0729.v6.beta版公開)
@@ -53,7 +53,7 @@ HALT    ---1kΩ抵抗--- LED5 (デバッグ用, 無くても可)
 
 ```
 
-## sdイメージ作成手順
+## sd用イメージ作成手順
 - [Installing UNIX v6 (PDP-11) on SIMH](https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH)の手順通りにrk0,rk1,rk2を作ります．
   - dc11は実装していないので，'enable multiuser'は省略しました．
   - rk2で'bad free count'というエラーが出ますが，simhでも出るので気にせずそのまま．
