@@ -71,11 +71,12 @@ sudo dd if=sd.dsk of=/dev/sdb (sdメモリが/dev/sdbで正しいかちゃんと
   - block0〜1023はrf0用です．(V6では使いませんが，V1との互換性を考慮しました．)
 ```
 SD memory block (512byte/block)
-         0-1023: RF  (1024 block/drive)
-      1024-7167: RK0 (6144 block/drive (=256cyl*2sur*12sectors))
-     7168-13311: RK1
-    13312-19455: RK2
-    19456-25599: RK3
+         0-1023: rf0 (1024 block/drive)
+      1024-7167: rk0 (6144 block/drive (=256cyl*2sur*12sectors))
+     7168-13311: rk1
+    13312-19455: rk2
+    19456-25599: rk3
+    ...
 ```
 
 ## 既知の問題
