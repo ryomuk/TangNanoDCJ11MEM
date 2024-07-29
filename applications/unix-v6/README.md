@@ -67,8 +67,8 @@ dd if=rk2 of=sd.dsk bs=512 seek=13312 conv=notrunc
 
 sudo dd if=sd.dsk of=/dev/sdb (sdメモリが/dev/sdbで正しいかちゃんと確認すること)
 ```
-- block0〜1023はrf0用です．(V6では使いませんが，V1との互換性を考慮しました．)
 - sdメモリのブロックとの関係は下記の通り．
+  - block0〜1023はrf0用です．(V6では使いませんが，V1との互換性を考慮しました．)
 ```
 SD memory block (512byte/block)
          0-1023: RF  (1024 block/drive)
