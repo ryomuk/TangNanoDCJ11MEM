@@ -145,3 +145,6 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2024/07/19: unix-v1 20240719.beta 公開．これまでのバージョンと比較するとだいぶ安定しました．
 - 2024/07/27: unix-v1 20240727.beta 公開．
 - 2024/07/28: unix-v1 20240728.beta 公開．(UNIX V6実験用機能追加)
+- 2024/07/29: V6実験用とV1用を分離しました．
+  - unix-v1 20240729.beta 公開．
+  - unix-v6 20240729.v6.beta 公開．
