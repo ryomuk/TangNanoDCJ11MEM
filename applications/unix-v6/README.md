@@ -4,10 +4,11 @@
 [unix-v1](../unix-v1/)をベースにしてUNIX V6に必要な機能を逐次追加していく試みです．
 
 ## 最近の話題
-### 2024/07/30  (0730.v6.beta版公開)
+### 2024/07/30  (0730.v6.beta, 0730a.v6.beta版公開)
 - 複数disk drive(rk0, rk1, rk2, rk3,..., rk7)を実装しました．(disk_blockのbit幅を増やすだけだったので最初からやっておけば良かったのですが，UNIX V1には不要だったので…)
 - [Installing UNIX v6 (PDP-11) on SIMH](https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH)の手順で作ったrk0,rk1,rk2を/, /usr/source, /usr/docにマウントしてloginできました．(下記「sd用イメージ作成手順」参照)
 - tic-tac-tooやbjは動きましたが，chessはtoo largeで動かず。ccもまだ動かないのでまだ問題はありそうです．
+- 電源ON時にログが大量に出る問題がありましたので，デバッグログをabortではなくbus errorに修正した0730a.v6.betaも置きました．もしかしたら不具合があるかもしれないので0730.v6.betaも残してあります．
 
 ### 2024/07/29 (0729.v6.beta版公開)
 - unix-v1用とunix-v6用を別プロジェクトにしました．
@@ -81,7 +82,7 @@ SD memory block (512byte/block)
 
 ## 既知の問題
 - ccを起動すると，'Can't find /lib/c0' となります．lsでは見えるのですが．15KBあるので，メモリが足りなくてロードできないという可能性があるかも． → simh 64K MEM でも同様らしいです．
-- power on時に，DCJ11からABORT_nがパルス状に出力され，デバッグ情報のログに大量に出ます．INITでも収まらないので，構わず174000gで起動すればいいようです．次のリリースでbus_error信号を見るように修正します．
+- power on時に，DCJ11からABORT_nがパルス状に出力され，デバッグ情報のログに大量に出ます．INITでも収まらないので，構わず174000gで起動すればいいようです．~~次のリリースでbus_error信号を見るように修正します．~~ → 20240730a.v6.betaが修正版です．
 - 放置しているだけでtrap&panicで終了することがあります．
 
 ## 更新履歴
@@ -93,3 +94,5 @@ SD memory block (512byte/block)
   - RAM 30MW化．bus errorの条件変更．(170000番地readでbus error)
 - 2024/07/30: 0730.v6.beta
   - 複数disk drive(rk0, rk1, rk2, rk3,...,rk7)に対応．
+- 2024/07/30: 0730a.v6.beta
+  - デバッグログをabortではなくbus errorに修正
