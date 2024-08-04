@@ -118,11 +118,13 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - [jserv/unix-v1](https://github.com/jserv/unix-v1)
 
 ## 関連記事
-- [きょうのかんぱぱ](https://kanpapa.com/today/)
+- [きょうのかんぱぱ](https://kanpapa.com/today/) TangNanoDCJ11MEMを使って私がやっていないようなことまでやっていたり，ここのREADMEより詳しく解説されてたりします．
   - [TangNanoDCJ11MEMでPDP-11のCPUを動かしてみました 製作編](https://kanpapa.com/today/2024/07/pdp-11-dcj11-cpu-1.html), 
   - [TangNanoDCJ11MEMでPDP-11のCPUを動かしてみました bare metal編](https://kanpapa.com/today/2024/07/tangnanodcj11mem-pdp-11-cpu-2-bare-metal.html)
-  - [unix v6の起動にチャレンジ](https://lateral-apartment-215.notion.site/unix-v6-67b9abee6b784c4795d5094cf69c4f96)
   - [TangNanoDCJ11MEMとPDP11GUIでPDP-11 BASICを動かしてみました](https://kanpapa.com/today/2024/08/tangnanodcj11mem-pdp-11-cpu-3-pdp11basic.html)
+  - [PDP-11 DCJ11 CPUでUNIX v6を動かしてみました](https://kanpapa.com/today/2024/08/tangnanodcj11mem-pdp-11-cpu-4-unix-v6.html)
+  - [PDP-11 DCJ11 CPUでMINI-UNIXを動かしてみました](https://kanpapa.com/today/2024/08/tangnanodcj11mem-pdp-11-dcj11-cpu-mini-unix.html)
+
 
 # 更新履歴
 - 2024/04/25: 初版公開
