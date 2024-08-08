@@ -61,6 +61,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 二次記憶をエミュレートするために手始めに作った習作です．
 - PC11(tape reader/pucnch)エミュレータで，tape BASICを読み込んで起動します．
 - SDメモリを使う練習用に作ったものなのでとりあえず動きます程度のものです．
+- PDP11GUIに，console ODT経由でpaper tape softwareをロードする機能があるようなので，いろいろなpaper tape softwareを試すという目的であればベアメタルでPDP11GUIを使うことをお勧めします．
 
 ## [UNIX V1(applications/unix-v1)](applications/unix-v1/)
 - SDメモリを使ったdiskエミュレータを作成し，UNIX V1を動かしてみました．
