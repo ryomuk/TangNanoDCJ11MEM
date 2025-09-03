@@ -57,6 +57,7 @@ HALT    ---1kΩ抵抗--- LED5 (デバッグ用, 無くても可)
 
 ## sd用イメージ作成手順
 - [Installing UNIX v6 (PDP-11) on SIMH](https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH)の手順通りにrk0,rk1,rk2を作ります．
+  - ↑リンクが切れているようです．Internet Archiveに保存されてました→ [Feb.27, 2025 Installing UNIX v6 (PDP-11) on SIMH](https://web.archive.org/web/20250227030852/https://gunkies.org/wiki/Installing_UNIX_v6_(PDP-11)_on_SIMH) 
   - dc11は実装していないので，'enable multiuser'は省略しました．(mkconfには入れました．)
   - rk2で'bad free count'というエラーが出ますが，simhでも出るので気にせずそのまま．
 - rk0, rk1, rk2からsd用のイメージsd.dskの作成，書き込み手順は下記の通り．
