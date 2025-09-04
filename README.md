@@ -15,7 +15,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2025/09/03
   - 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開しました．
 - 2025/09/04
-  - [rev2.0基板](./hardware/rev2.0)と[UNIX用のHDLコード(unix-v1, unix-v6 共通)](./applications.rev2.0/unix)を公開しました．
+  - [rev2.0基板](./hardware/rev2.0)と[UNIX用のHDLコード](./applications.rev2/unix)(unix-v1, unix-v6 共通)を公開しました．
   
 # 主なファイル一覧
 ```
