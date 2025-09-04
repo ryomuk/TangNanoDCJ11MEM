@@ -16,6 +16,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
   - 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開しました．
 - 2025/09/04
   - [rev2.0基板](./hardware/rev2.0)と[UNIX用のHDLコード](./applications.rev2/unix)(unix-v1, unix-v6 共通)を公開しました．
+  - rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」を追加することでrev2.0基板と同じ回路になります．
   
 # 主なファイル一覧
 ```
@@ -31,8 +32,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 │   └── rev2.0          : rev2.0基板
 └── README.md            : このファイル
 ```
-- rev1.1基板でも配線を1ヶ所追加すればrev2.0用のコードが使用できます．(rev1.1基板用のコードは動かなくなります．)
-- rev1.1基板用のコードはrev2.0基板では動きません．
+- rev1.1基板用のHDLコードはrev2.0基板では動きません．
 
 # ハードウェア
 ## FPGAに実装した機能
