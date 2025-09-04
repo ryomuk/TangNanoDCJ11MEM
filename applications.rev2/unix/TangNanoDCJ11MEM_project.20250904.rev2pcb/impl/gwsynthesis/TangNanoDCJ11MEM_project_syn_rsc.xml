@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module name="top" Register="1434" Alu="248" Lut="2691" MULT18X18="1" Bsram="32" T_Register="4358(1434)" T_Alu="1500(248)" T_Lut="3880(2691)" T_MULT18X18="1(1)" T_Bsram="35(32)" T_Ssram="2(0)">
+ <SubModule name="integer_division" Register="2314" Alu="1093" Lut="298" T_Register="2314(2314)" T_Alu="1093(1093)" T_Lut="298(298)"/>
+ <SubModule name="uart_rx_inst" Register="44" Alu="19" Lut="33" T_Register="44(44)" T_Alu="19(19)" T_Lut="33(33)"/>
+ <SubModule name="uart_tx_inst" Register="62" Alu="21" Lut="97" Bsram="1" T_Register="62(62)" T_Alu="21(21)" T_Lut="97(97)" T_Bsram="1(1)"/>
+ <SubModule name="sdhd_inst" Register="397" Alu="98" Lut="585" Bsram="1" Ssram="2" T_Register="397(397)" T_Alu="98(98)" T_Lut="585(585)" T_Bsram="1(1)" T_Ssram="2(2)"/>
+ <SubModule name="onboard_rgb_led" Register="45" Lut="77" T_Register="45(45)" T_Lut="77(77)"/>
+ <SubModule name="uart_tx_inst_dbg" Register="62" Alu="21" Lut="99" Bsram="1" T_Register="62(62)" T_Alu="21(21)" T_Lut="99(99)" T_Bsram="1(1)"/>
+</Module>

@@ -11,6 +11,29 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 次に，PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
 - さらに，UNIX first edition (UNIX V1)を動かすために，ディスク(RF11, RK11)や外部演算装置(KE11)のエミュレータを実装したところ，それなりに動くようになりました．
 
+# 最近の話題
+- 2025/09/03
+  - 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開しました．
+- 2025/09/04
+  - [rev2.0基板](./hardware/rev2.0)と[UNIX用のHDLコード(unix-v1, unix-v6 共通)](./applications.rev2.0/unix)を公開しました．
+  
+# 主なファイル一覧
+```
+├── applications         : rev1.1基板用HDLコード
+│   ├── baremetal
+│   ├── tapebasic
+│   ├── unix-v1
+│   └── unix-v6
+├── applications.rev2.0  : rev2.0基板用HDLコード
+│   └── unix
+├── hardware
+│   ├── rev1.1          : rev1.0基板
+│   └── rev2.0          : rev2.0基板
+└── README.md            : このファイル
+```
+- rev1.1基板でも配線を1ヶ所追加すればrev2.0用のコードが使用できます．(rev1.1基板用のコードは動かなくなります．)
+- rev1.1基板用のコードはrev2.0基板では動きません．
+
 # ハードウェア
 ## FPGAに実装した機能
 - Initialization Sequence時のPower-Up Configuration Register設定
@@ -21,14 +44,42 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(Paper tape BASICを実行する用で，UNIXでは動きません．)
 - ディスクドライブ(RF11, RK11)，外部演算装置(KE11-A)，クロック(KW11-L)等，UNIX V1の動作に必要な装置のエミュレータを実装しました．
 
-## PCB rev.1.1
+## rev2.0基板 (PCB rev.2.0)
+- rev.1.1基板でunixを動かすために必要だったパターンカットとジャンパ配線を反映させました．
+- CLK2をGPIO_RXだったピンに入力して，回路をCPUのクロックと同期させました．
+- 上記に伴い，基板のUART端子はデバッグログ用のTXだけになりました．
+- 電源供給をTangNanoからだけにしてDCジャックを廃止しました．
+- unix(v1, v6)を動作させるためのプロジェクトは[applications.rev2/unix](applications.rev2/unix/)を使用して下さい．
+- SDメモリ用のイメージファイルは[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)のdiskimagesにあるものがそのまま使えます．
+![](images/rev20.jpg)
+#### BOM (PCB rev2.0)
+|Reference          |Qty| Value          |Size |Memo |
+|-------------------|---|----------------|-----|-----|
+|C1, C2|2|68pF|||
+|C3, C4|2|0.33uF|||
+|C5    |1|47uF|||
+|D1    |1|LED|||
+|J1    |1|IC socket |40pin DIP 600mil|TangNano5V用．1x20のpin socket 2列でも可．|
+|J2,J3 |2|pin header or socket|1x20|任意．テストや観測，実験用．|
+|J4,J5 |2  |pin header or socket|1x30|任意．テストや観測，実験用．|
+|J6                 |1  |pin header      |1x06 L字|UART用|
+|R1 |1|1M|||
+|R2 |1|33|||
+|R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14|12|10k|
+|R15|1|1k|||
+|R16|1|100k  || 値はLEDに合わせて任意．|
+|SW1,SW2  |2  |tactile SW      |6mmxH4.3mm|例: https://akizukidenshi.com/catalog/g/g103647/ |
+|U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンソケット2列|
+|Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh , 周波数を変えられるようにソケットの使用をお勧めします．|
+
+## rev1.1基板 (PCB rev.1.1)
 - rev.1.0はいくつか修正箇所があったので修正しました．
 - CPUが白いので基板も白くしてみました．
 - CPUおよびTangNanoの電源をどこから供給するかを2箇所のジャンパで切り替えられるようにしました．詳細は回路図と基板上のシルクを見て下さい．
 - プルダウン抵抗(R2〜R6)を100kから10kに変更しました．(rev1.1a)
 - UNIXを動かすにはJP1のパターンのカット，数本のジャンパ配線が必要です．詳細は[UNIX V1](applications/unix-v1/)参照．
 ![](images/rev11.jpg)
-#### BOM
+#### BOM (PCB rev1.1)
 |Reference          |Qty| Value          |Size |Memo |
 |-------------------|---|----------------|-----|-----|
 |C1,C2              |2	|0.33uF	         ||DECのプロセッサボードで0.33uFを使っていたので．0.1uFでもいいかもしれない．|
@@ -153,3 +204,4 @@ TangNanoDCJ11MEMを使って私がやっていないようなことまでやっ�
 - 2024/07/29: V6実験用とV1用を分離しました．
   - unix-v1 20240729.beta 公開．
   - unix-v6 20240729.v6.beta 公開．
+- 2025/09/04: rev2.0基板公開．
