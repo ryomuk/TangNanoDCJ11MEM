@@ -13,7 +13,7 @@ FPGAのクロックをCPUからのCLK2に同期させることによってかな
 DCJ11               rev1.1基板
 CLK2 ---33Ω抵抗--- GPIO_RX
 ```
-![](../../images/CLK2_jumper.jpg)
+![](../../images/rev11_CLK2patch.jpg)
 
 
 ## 更新履歴
