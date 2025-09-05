@@ -14,9 +14,10 @@ This document is written mostly in Japanese. If necessary, please use a translat
 # 最近の話題
 - 2025/09/03
   - 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開しました．
+- 2025/09/04
+  - rev2.0基板と[UNIX用のHDLコード](./applications.rev2/unix)(unix-v1, unix-v6 共通)を公開しました．
 - 2025/09/05
-  - [rev2.1基板](./hardware/rev2.1)と[UNIX用のHDLコード](./applications.rev2/unix)(unix-v1, unix-v6 共通)を公開しました．
-  - rev2.0基板はHALTの部分が「rev1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていたのrev.2.1で修正しました．
+  - rev2.0基板はHALTの部分が「rev1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていたので[rev2.1基板](./hardware/rev2.1)にアップデートしました．
   - rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」を追加することでrev2.1基板と同じ回路になり，rev2基板用のHDLコードで動作します．
   - rev1.1基板用のHDLコードはrev2基板では動きません．
   
