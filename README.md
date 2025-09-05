@@ -17,9 +17,12 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2025/09/04
   - rev2.0基板と[UNIX用のHDLコード](./applications.rev2/unix)(unix-v1, unix-v6 共通)を公開しました．
 - 2025/09/05
-  - rev2.0基板はHALTの部分が「rev1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていたので[rev2.1基板](./hardware/rev2.1)にアップデートしました．
+  - rev2.0基板はHALTの部分が「rev1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていたのでrev2.1基板にアップデートしました．
   - rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」を追加することでrev2.1基板と同じ回路になり，rev2基板用のHDLコードで動作します．
   - rev1.1基板用のHDLコードはrev2基板では動きません．
+- 2025/09/06
+  - [rev2.2基板](./hardware/rev2.2)(←まだアップロードしていません．)
+  - HALTのワイヤードORのところを抵抗からダイオードに変更しました．
   
 # 主なファイル一覧
 ```
@@ -32,7 +35,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 │   └── unix
 ├── hardware
 │   ├── rev1.1          : rev1.0基板
-│   └── rev2.1          : rev2.1基板
+│   └── rev2.2          : rev2.2基板
 └── README.md            : このファイル
 ```
 # ハードウェア
@@ -207,3 +210,4 @@ TangNanoDCJ11MEMを使って私がやっていないようなことまでやっ�
   - unix-v6 20240729.v6.beta 公開．
 - 2025/09/04: rev2.0基板公開．
 - 2025/09/05: rev2.1基板公開．
+- 2025/09/06: rev2.2基板公開．
