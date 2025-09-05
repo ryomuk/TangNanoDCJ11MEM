@@ -19,7 +19,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
   - rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」を追加することでrev2.0基板と同じ回路になり，rev2.0基板用のHDLコードで動作します．
   - rev1.1基板用のHDLコードはrev2.0基板では動きません．
 - 2025/09/05
-  - ** rev.2.0基板はHALTの部分が「rev.1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていました．rev.2.1基板で修正される予定です． **
+  - rev.2.0基板はHALTの部分が「rev.1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていました．rev.2.1基板で修正される予定です．
   
 # 主なファイル一覧
 ```
