@@ -6,10 +6,11 @@
 	(paper "A4")
 	(title_block
 		(title "Memory System and UART for DCJ11  using Tang Nano 20K")
-		(date "2025-08-26")
-		(rev "2.0")
+		(date "2025-09-05")
+		(rev "2.1")
 		(company "Ryo Mukai")
 		(comment 1 "modified to use CLK2")
+		(comment 2 "modified resisters of HALT and HALT_SW")
 	)
 	(lib_symbols
 		(symbol "000_MyLibrary:C"
@@ -5645,6 +5646,12 @@
 		(uuid "d66b69fb-87ff-4279-aced-8868b5826f0a")
 	)
 	(junction
+		(at 50.8 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d8c376e7-1be7-44ed-b066-f6b4283179f0")
+	)
+	(junction
 		(at 177.8 121.92)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5772,6 +5779,16 @@
 	)
 	(wire
 		(pts
+			(xy 50.8 157.48) (xy 50.8 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50477ef8-133c-43f5-87b3-823bed19f1a8")
+	)
+	(wire
+		(pts
 			(xy 45.72 157.48) (xy 50.8 157.48)
 		)
 		(stroke
@@ -5779,6 +5796,16 @@
 			(type default)
 		)
 		(uuid "51b86d7c-96f5-4aa8-8d04-c87a5808df3d")
+	)
+	(wire
+		(pts
+			(xy 50.8 157.48) (xy 58.42 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5259169c-8af3-4254-aa45-c86664c65808")
 	)
 	(wire
 		(pts
@@ -6002,6 +6029,16 @@
 	)
 	(wire
 		(pts
+			(xy 60.96 163.83) (xy 58.42 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce87d8bc-3186-4b8e-9356-7547c3578e8f")
+	)
+	(wire
+		(pts
 			(xy 170.18 156.21) (xy 165.1 156.21)
 		)
 		(stroke
@@ -6174,9 +6211,9 @@
 		)
 		(uuid "f78e2701-ed06-4d1f-92e3-8a2ba57d120c")
 	)
-	(text "to avoid collision with\nFPGA output"
+	(text "resistor is for collision of\nHALT_SW and HALT_DBG"
 		(exclude_from_sim no)
-		(at 54.864 163.576 0)
+		(at 54.356 171.45 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6712,7 +6749,29 @@
 			)
 		)
 	)
-	(global_label "HALT"
+	(global_label "HALT_DBG"
+		(shape input)
+		(at 60.96 163.83 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "293e129f-62b5-4982-ae55-1d1722015378")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 73.1376 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "HALT_DBG"
 		(shape input)
 		(at 129.54 71.12 180)
 		(fields_autoplaced yes)
@@ -6724,7 +6783,7 @@
 		)
 		(uuid "2a1c22b4-bea7-44cd-8ca3-07b321262f16")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 122.14 71.12 0)
+			(at 117.3624 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8560,7 +8619,7 @@
 			)
 		)
 	)
-	(global_label "HALT"
+	(global_label "HALT_DBG"
 		(shape input)
 		(at 63.5 71.12 180)
 		(fields_autoplaced yes)
@@ -8572,7 +8631,7 @@
 		)
 		(uuid "8dd6f74d-67f4-4ffc-b79b-48323e4e2361")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 56.1 71.12 0)
+			(at 51.3224 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14030,7 +14089,7 @@
 	)
 	(symbol
 		(lib_id "000_MyLibrary:R")
-		(at 54.61 157.48 270)
+		(at 54.61 163.83 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14038,7 +14097,7 @@
 		(dnp no)
 		(uuid "c5dea856-cc3a-4641-a49f-1c2eb1b795a9")
 		(property "Reference" "R15"
-			(at 53.34 160.274 90)
+			(at 53.34 166.624 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14047,7 +14106,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 53.594 157.48 90)
+			(at 53.594 163.83 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14056,7 +14115,7 @@
 			)
 		)
 		(property "Footprint" "000_MyFootprint:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 54.61 155.702 90)
+			(at 54.61 162.052 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14065,7 +14124,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 54.61 157.48 0)
+			(at 54.61 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14074,7 +14133,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 54.61 157.48 0)
+			(at 54.61 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)

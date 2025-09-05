@@ -14,12 +14,11 @@ This document is written mostly in Japanese. If necessary, please use a translat
 # 最近の話題
 - 2025/09/03
   - 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開しました．
-- 2025/09/04
-  - [rev2.0基板](./hardware/rev2.0)と[UNIX用のHDLコード](./applications.rev2/unix)(unix-v1, unix-v6 共通)を公開しました．
-  - rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」を追加することでrev2.0基板と同じ回路になり，rev2.0基板用のHDLコードで動作します．
-  - rev1.1基板用のHDLコードはrev2.0基板では動きません．
 - 2025/09/05
-  - rev.2.0基板はHALTの部分が「rev.1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていました．rev.2.1基板で修正される予定です．
+  - [rev2.1基板](./hardware/rev2.1)と[UNIX用のHDLコード](./applications.rev2/unix)(unix-v1, unix-v6 共通)を公開しました．
+  - rev2.0基板はHALTの部分が「rev1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていたのrev.2.1で修正しました．
+  - rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」を追加することでrev2.1基板と同じ回路になり，rev2基板用のHDLコードで動作します．
+  - rev1.1基板用のHDLコードはrev2基板では動きません．
   
 # 主なファイル一覧
 ```
@@ -28,11 +27,11 @@ This document is written mostly in Japanese. If necessary, please use a translat
 │   ├── tapebasic
 │   ├── unix-v1
 │   └── unix-v6
-├── applications.rev2.0  : rev2.0基板用HDLコード
+├── applications.rev2    : rev2.x基板用HDLコード
 │   └── unix
 ├── hardware
 │   ├── rev1.1          : rev1.0基板
-│   └── rev2.0          : rev2.0基板
+│   └── rev2.1          : rev2.1基板
 └── README.md            : このファイル
 ```
 # ハードウェア
@@ -45,8 +44,8 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(Paper tape BASICを実行する用で，UNIXでは動きません．)
 - ディスクドライブ(RF11, RK11)，外部演算装置(KE11-A)，クロック(KW11-L)等，UNIX V1の動作に必要な装置のエミュレータを実装しました．
 
-## rev2.0基板 (PCB rev.2.0)
-- rev.1.1基板でunixを動かすために必要だったパターンカットとジャンパ配線を反映させました．
+## rev2.x基板 (PCB rev2.x)
+- rev1.1基板でunixを動かすために必要だったパターンカットとジャンパ配線を反映させました．
 - CLK2をGPIO_RXだったピンに入力して，回路をCPUのクロックと同期させました．
 - 上記に伴い，基板のUART端子はデバッグログ用のTXだけになりました．
 - 電源供給をTangNanoからだけにしてDCジャックを廃止しました．
@@ -73,8 +72,8 @@ This document is written mostly in Japanese. If necessary, please use a translat
 |U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンソケット2列|
 |Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh , 周波数を変えられるようにソケットの使用をお勧めします．|
 
-## rev1.1基板 (PCB rev.1.1)
-- rev.1.0はいくつか修正箇所があったので修正しました．
+## rev1.1基板 (PCB rev1.1)
+- rev1.0はいくつか修正箇所があったので修正しました．
 - CPUが白いので基板も白くしてみました．
 - CPUおよびTangNanoの電源をどこから供給するかを2箇所のジャンパで切り替えられるようにしました．詳細は回路図と基板上のシルクを見て下さい．
 - プルダウン抵抗(R2〜R6)を100kから10kに変更しました．(rev1.1a)
@@ -135,7 +134,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - クロックは18MHzで動きました．遅い方は2MHzでも動きました．
 ![](images/breadboard1.jpg)
 
-## PCB版 rev.1.0
+## PCB版 rev1.0
 最初に作った基板です．とりあえず動きました．
 ![](images/rev10.jpg)
 
@@ -183,7 +182,7 @@ TangNanoDCJ11MEMを使って私がやっていないようなことまでやっ�
 # 更新履歴
 - 2024/04/25: 初版公開
 - 2024/04/25: README修正(BOM追加)
-- 2024/05/05: 基板rev.1.1の写真追加．project更新．
+- 2024/05/05: 基板rev1.1の写真追加．project更新．
 - 2024/05/05: README.md修正(開発環境関連の情報を追加)
 - 2024/05/05: samplesにasciiart を追加
 - 2024/05/22: PC-11(紙テープリーダ/パンチャ)エミュレータを実装
@@ -206,3 +205,4 @@ TangNanoDCJ11MEMを使って私がやっていないようなことまでやっ�
   - unix-v1 20240729.beta 公開．
   - unix-v6 20240729.v6.beta 公開．
 - 2025/09/04: rev2.0基板公開．
+- 2025/09/05: rev2.1基板公開．
