@@ -51,7 +51,7 @@ EVENT_n --- LED4  (clock用)
 CONT_n  --- LED3  (stretched cycle用)
 ABORT_n ---100Ω抵抗--- LED2 (bus error用)
 
-HALT    ---1kΩ抵抗--- LED5 (デバッグ用, 無くても可)
+HALT    --- K(1N4148)A --- LED5 (デバッグ用, 無くても可)
 
 ```
 

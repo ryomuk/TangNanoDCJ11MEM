@@ -41,7 +41,7 @@
 ### ジャンパ配線等
 - ~~クロック用の水晶を4MHzにする~~ 0716.betaから18MHzでも動作するようになりました。ちなみに2MHzでも動いています．
 
-- IRQ、EVENT、CONT_n用に下記ジャンパ配線をする。HALTはデバッグ用なので任意。HALTはスイッチと競合するので1kΩの抵抗を付けます。
+- IRQ、EVENT、CONT_n用に下記ジャンパ配線をする。HALTはデバッグ用なので任意。~~HALTはスイッチと競合するので1kΩの抵抗を付けます。~~ 1kΩ抵抗よりダイオード(1N4148等)の方が良さそうです．DCJ11側がカソードです．(2025/9/6補足)
 ```
 DCJ11       TangNano5V
 IRQ0    --- LED0  (ttyi, ttyo用)
@@ -49,7 +49,7 @@ IRQ1    --- LED1  (drum, disk用)
 EVENT_n --- LED4  (clock用)
 CONT_n  --- LED3  (stretched cycle用)
 
-HALT    ---1kΩ抵抗--- LED5 (デバッグ用, 無くても可)
+HALT    ---K(1N4148)A--- LED5 (デバッグ用, 無くても可)
 
 ```
 ### SDメモリの準備
