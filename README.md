@@ -24,7 +24,6 @@ This document is written mostly in Japanese. If necessary, please use a translat
   - [rev2.2基板](./hardware/rev2.2)公開
   - HALTのwired ORのところを抵抗からダイオードに変更しました．
   - rev1.1基板でもHALTの1kΩ抵抗はダイオード(1N4148等)の方が良さそうです．DCJ11側がカソードです．
-```
   
 # 主なファイル一覧
 ```
