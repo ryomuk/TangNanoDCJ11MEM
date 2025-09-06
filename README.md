@@ -24,6 +24,8 @@ This document is written mostly in Japanese. If necessary, please use a translat
   - [rev2.2基板](./hardware/rev2.2)公開
   - HALTのwired ORのところを抵抗からダイオードに変更しました．
   - rev1.1基板でもHALTの1kΩ抵抗はダイオード(1N4148等)の方が良さそうです．DCJ11側がカソードです．
+- 2025/09/06
+  - 現在，レベル変換ICをCPUボード上に搭載したrev3.0基板を作成中です．HDLコードはrev2とコンパチブルです．おそらく今月中にリリース予定ですので，今から新規に作る場合はrev3基板をおすすめします．
   
 # 主なファイル一覧
 ```
@@ -211,4 +213,4 @@ TangNanoDCJ11MEMを使って私がやっていないようなことまでやっ�
   - unix-v6 20240729.v6.beta 公開．
 - 2025/09/04: rev2.0基板公開．
 - 2025/09/05: rev2.2基板公開．
-- 2025/09/06: README修正(HALTのジャンパ関連．main, unix-v1, unix-v6)
+- 2025/09/06: README修正(HALTのジャンパ関連(main, unix-v1, unix-v6), rev3基板予告)
