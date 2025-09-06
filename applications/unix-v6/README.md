@@ -97,3 +97,4 @@ SD memory block (512byte/block)
   - 複数disk drive(rk0, rk1, rk2, rk3,...,rk7)に対応．
 - 2024/07/30: 0730a.v6.beta
   - デバッグログをabortではなくbus errorに修正
+- 2025/09/06: HALTのジャンパを抵抗からダイオードに修正

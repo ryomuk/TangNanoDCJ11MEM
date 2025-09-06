@@ -161,3 +161,4 @@ create_clock -name SCTL_n -period 222.222 -waveform {33.33 166.666} [get_ports {
 - 2024/07/28: oldフォルダが肥大化してきたので一部削除しました．
 - 2024/07/28: テスト用バージョン(0728.beta)upload．160000番地readでbus errorにしました．(V6実験用)
 - 2024/07/29: 0729.beta公開．unix-v1とunix-v6のフォルダを分離．
+- 2025/09/06: HALTのジャンパを抵抗からダイオードに修正
