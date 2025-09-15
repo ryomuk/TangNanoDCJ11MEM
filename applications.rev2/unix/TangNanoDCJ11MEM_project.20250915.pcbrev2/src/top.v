@@ -1,9 +1,9 @@
 //---------------------------------------------------------------------------
 // TangNanoDCJ11MEM
 // Memory system and peripherals on TangNano20K for DEC DCJ11 (PDP11)
-// for PCB rev.2.0
+// for PCB rev.2.x (and patched rev.1.1)
 //
-// version 20250904.pcb2
+// version 20250915.pcb2
 //
 // by Ryo Mukai (https://github.com/ryomuk)
 //
@@ -40,8 +40,10 @@
 //                 read 170000-170077 or 177700 causes bus error
 // 2024/07/30: - multiple RK disks supported
 //
-// Major update
+// ****Major update***
 // 2025/08/26: - modified to use CLK2 (GPIO_RX is removed)
+//
+// 2025/09/15: - ws2812 module updated
 //---------------------------------------------------------------------------
 
 // Commenting out the following `define makes the GPIO mirror the console,
@@ -363,6 +365,8 @@ module top(
   reg diag_test1 = 0;
   reg diag_test2 = 0;
   reg diag_test3 = 0;
+  wire diag_test_passed = diag_test1 & diag_test2 & diag_test3;
+  wire diag_test_failed = ~diag_test_passed;
   always @(negedge SCTL_n)
     if (aio_code == AIO_GPWRITE)
       if(gpcode == GP_TEST1)
@@ -1400,9 +1404,99 @@ module top(
 //  else if ((REG_RF_DAR_BAK == 16'o117400) & disk_write & (devsel == DEV_RF))
 //  else if ( REG_RKCS[11] ) // Inhibit incrementing RKBA
 
-  ws2812 onboard_rgb_led(.clk(led_clk), .we(1'b1), .sout(LED_RGB),
-			 .r(LED_R), .g(LED_G), .b(LED_B));
+  function [40*8-1:0] bitmap2stream(input [39:0] x);
+     bitmap2stream[40*8-1:0]
+       = { x[ 0] ? 8'h10: 8'h00,
+	   x[ 1] ? 8'h10: 8'h00,
+	   x[ 2] ? 8'h10: 8'h00,
+	   x[ 3] ? 8'h10: 8'h00,
+	   x[ 4] ? 8'h10: 8'h00,
+	   x[ 5] ? 8'h10: 8'h00,
+	   x[ 6] ? 8'h10: 8'h00,
+	   x[ 7] ? 8'h10: 8'h00,
+	   x[ 8] ? 8'h10: 8'h00,
+	   x[ 9] ? 8'h10: 8'h00,
+	   x[10] ? 8'h10: 8'h00,
+	   x[11] ? 8'h10: 8'h00,
+	   x[12] ? 8'h10: 8'h00,
+	   x[13] ? 8'h10: 8'h00,
+	   x[14] ? 8'h10: 8'h00,
+	   x[15] ? 8'h10: 8'h00,
+	   x[16] ? 8'h10: 8'h00,
+	   x[17] ? 8'h10: 8'h00,
+	   x[18] ? 8'h10: 8'h00,
+	   x[19] ? 8'h10: 8'h00,
+	   x[20] ? 8'h10: 8'h00,
+	   x[21] ? 8'h10: 8'h00,
+	   x[22] ? 8'h10: 8'h00,
+	   x[23] ? 8'h10: 8'h00,
+	   x[24] ? 8'h10: 8'h00,
+	   x[25] ? 8'h10: 8'h00,
+	   x[26] ? 8'h10: 8'h00,
+	   x[27] ? 8'h10: 8'h00,
+	   x[28] ? 8'h10: 8'h00,
+	   x[29] ? 8'h10: 8'h00,
+	   x[30] ? 8'h10: 8'h00,
+	   x[31] ? 8'h10: 8'h00,
+	   x[32] ? 8'h10: 8'h00,
+	   x[33] ? 8'h10: 8'h00,
+	   x[34] ? 8'h10: 8'h00,
+	   x[35] ? 8'h10: 8'h00,
+	   x[36] ? 8'h10: 8'h00,
+	   x[37] ? 8'h10: 8'h00,
+	   x[38] ? 8'h10: 8'h00,
+	   x[39] ? 8'h10: 8'h00};
+  endfunction
+     
+  parameter LEDS = 40;
+  reg [LEDS-1:0] led_array_r = 0;
+  reg [LEDS-1:0] led_array_g = 0;
+  reg [LEDS-1:0] led_array_b = 0;
 
+  wire [LEDS*8-1:0] led_stream_r;
+  wire [LEDS*8-1:0] led_stream_g;
+  wire [LEDS*8-1:0] led_stream_b;
+
+  assign led_stream_r= bitmap2stream(led_array_r);
+  assign led_stream_g= bitmap2stream(led_array_g);
+  assign led_stream_b= bitmap2stream(led_array_b);
+  
+  ws2812
+    #(.CLK_FRQ(LED_CLK_FRQ),
+      .LEDS(LEDS)
+      ) ws2812_inst
+      (
+       .clk(led_clk),
+       .sout(LED_RGB),
+       .r(led_stream_r),
+       .g(led_stream_g),
+       .b(led_stream_b)
+       );
+
+//  ws2812 onboard_rgb_led(.clk(led_clk), .we(1'b1), .sout(LED_RGB),
+//			 .r(LED_R), .g(LED_G), .b(LED_B));
+
+// monitor sys_clk and ALE_n
+  reg [24:0] CLK_count = 0;
+  reg CLK_monitor;
+  always @(posedge sys_clk)
+    if(CLK_count == SYS_CLK_FRQ/2) begin
+       CLK_count <= 0;
+       CLK_monitor <= ~CLK_monitor;
+    end
+    else
+      CLK_count <= CLK_count + 1'd1;
+  
+  reg [24:0] ALE_count = 0;
+  reg ALE_monitor;
+  always @(posedge ALE_n)
+    if(ALE_count == SYS_CLK_FRQ/2) begin
+       ALE_count <= 0;
+       ALE_monitor <= ~ALE_monitor;
+    end
+    else
+      ALE_count <= ALE_count + 1'd1;
+  
   reg [25:0]		cnt_500ms;
   reg			clk_1Hz;
   always @(posedge sys_clk)
@@ -1425,21 +1519,27 @@ module top(
       else
 	event_count <= event_count + 1'd1;
   
-  always @(posedge sys_clk)
-    if(~RESET_n) begin
-      {LED_R, LED_G, LED_B} <= 24'h00_00_00;
-    end
-    else begin
-       LED_R <= rx_data_ready ? 8'h10:
-		~sd_mosi ? 8'h20:
-		8'h00;
-       LED_G <= ~tx_ready ? 8'h10:
-		~sd_miso ? 8'h20:
-//		diag_test2 ? 8'h20:
-		8'h00;
-       LED_B <= event_monitor ? 8'h10: 8'h00;
-//       LED_B <= clk_1Hz ? 8'h10 : 8'h00;
-    end
+  always @(posedge sys_clk) begin
+     led_array_r[31:0]  <= {address[15:0], d_cpu_to_ram};
+     led_array_g[31:0]  <= 0;
+     led_array_b[31:0]  <= 0;
+     {led_array_r[39], led_array_g[39], led_array_b[39]}
+       <= {~sd_mosi, ~sd_miso, CLK_monitor};
+     {led_array_r[38], led_array_g[38], led_array_b[38]}
+       <= {diag_test_failed, 1'b0, ALE_monitor};
+     {led_array_r[37], led_array_g[37], led_array_b[37]}
+       <= {rx_data_ready, ~tx_ready, event_monitor};
+     {led_array_r[36], led_array_g[36], led_array_b[36]}
+       <= {bus_error, HALT, ~INIT_n};
+     {led_array_r[35], led_array_g[35], led_array_b[35]}
+       <= 0;
+     {led_array_r[34], led_array_g[34], led_array_b[34]}
+       <= 0;
+     {led_array_r[33], led_array_g[33], led_array_b[33]}
+       <= 0;
+     {led_array_r[32], led_array_g[32], led_array_b[32]}
+       <= 0;
+  end
 
 `ifdef USE_GPIOUART_DEBUG
   // debug_print

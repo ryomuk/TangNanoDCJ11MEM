@@ -26,7 +26,8 @@ This document is written mostly in Japanese. If necessary, please use a translat
   - rev1.1基板でもHALTの1kΩ抵抗はダイオード(1N4148等)の方が良さそうです．DCJ11側がカソードです．
 - 2025/09/06
   - 現在，レベル変換ICをCPUボード上に搭載したrev3.0基板を作成中です．HDLコードはrev2とコンパチブルです．おそらく今月中にリリース予定ですので，今から新規に作る場合はrev3基板をおすすめします．
-  
+- 2025/09/15 ws2812用関連の回路を修正して，アドレスとデータを表示するようにしました．
+
 # 主なファイル一覧
 ```
 ├── applications         : rev1.1基板用HDLコード
@@ -58,7 +59,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 電源供給をTangNanoからだけにしてDCジャックを廃止しました．
 - unix(v1, v6)を動作させるためのプロジェクトは[applications.rev2/unix](applications.rev2/unix/)を使用して下さい．
 - SDメモリ用のイメージファイルは[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)のdiskimagesにあるものがそのまま使えます．
-![](images/rev20.jpg)
+![](images/rev22.jpg)
 #### BOM (PCB rev2.2)
 |Reference          |Qty| Value          |Size |Memo |
 |-------------------|---|----------------|-----|-----|
@@ -214,3 +215,4 @@ TangNanoDCJ11MEMを使って私がやっていないようなことまでやっ�
 - 2025/09/04: rev2.0基板公開．
 - 2025/09/05: rev2.2基板公開．
 - 2025/09/06: README修正(HALTのジャンパ関連(main, unix-v1, unix-v6), rev3基板予告)
+- 2025/09/15: 20250915.pcbrev2 公開．(LEDアレイ用の記述を追加)
