@@ -52,11 +52,12 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(Paper tape BASICを実行する用で，UNIXでは動きません．)
 - ディスクドライブ(RF11, RK11)，外部演算装置(KE11-A)，クロック(KW11-L)等，UNIX V1の動作に必要な装置のエミュレータを実装しました．
 
-## rev2.x基板 (PCB rev2.x)
+## rev2.2基板 (PCB rev2.2)
 - rev1.1基板でunixを動かすために必要だったパターンカットとジャンパ配線を反映させました．
 - CLK2をGPIO_RXだったピンに入力して，回路をCPUのクロックと同期させました．
 - 上記に伴い，基板のUART端子はデバッグログ用のTXだけになりました．
 - 電源供給をTangNanoからだけにしてDCジャックを廃止しました．
+- HALTスイッチのところの抵抗をダイオードに変更しました．
 - unix(v1, v6)を動作させるためのプロジェクトは[applications.rev2/unix](applications.rev2/unix/)を使用して下さい．
 - SDメモリ用のイメージファイルは[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)のdiskimagesにあるものがそのまま使えます．
 ![](images/rev22.jpg)
