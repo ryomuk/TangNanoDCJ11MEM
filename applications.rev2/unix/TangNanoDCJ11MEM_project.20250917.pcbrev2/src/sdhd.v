@@ -6,6 +6,7 @@
 // 2024/06/08: initial version
 // 2024/06/27: short(less than 512byte) block write implemented
 // 2024/07/04: disk_ready changed from wire to reg
+// 2025/09/17: sd_error becomes ERROR_RESET while reset
 
 module sdhd
   #(
@@ -98,6 +99,7 @@ module sdhd
   localparam   ERROR_CMD17      = 4'd4;
   localparam   ERROR_CMD24      = 4'd5;
   localparam   ERROR_WRITE_DATA = 4'd6;
+  localparam   ERROR_RESET      = 4'd7;
   
 
 // read_buf_address  is for the buffer from SD to memory
@@ -366,7 +368,7 @@ module sdhd
     if( ~reset_n ) begin
        state <= S_INIT_RESET;
        sd_version <= SD_VERSION1;
-       sd_error <= ERROR_NOERROR;
+       sd_error <= ERROR_RESET;
        sd_addressmode_block <= 0;
     end
     else if(clk_cnt == CLK_DIV -1) // state change at (clk_cnt=CLK_DIV -1)
@@ -426,30 +428,31 @@ module sdhd
 	    if( r1_buf == 8'b0 )
 	       state <= S_IDLE;
 
-	S_IDLE:
-	  if( sd_read ) begin
-	     state <= S_READ_START;
-	     disk_block_address <= i_disk_block_address;
-	     dma_start_address  <= i_dma_start_address;
-	     dma_bytecount      <= {i_dma_wordcount, 1'b0};
-	     disk_ready <= 0;
-	  end
-	  else if( sd_write ) begin
-	     state <= S_WRITE_START;
-	     disk_block_address <= i_disk_block_address;
-	     dma_start_address  <= i_dma_start_address;
-	     dma_bytecount      <= {i_dma_wordcount, 1'b0};
-	     disk_ready <= 0;
-	  end
-	  else if( i_disk_seek ) begin // dummy function
-	     state <= S_SEEK;
-	     disk_ready <= 0;
-	  end
-	  else begin
-	     state <= S_IDLE;
-	     disk_ready <= 1'b1;
-	  end
-	
+	S_IDLE: begin
+	   sd_error <= ERROR_NOERROR;
+	   if( sd_read ) begin
+	      state <= S_READ_START;
+	      disk_block_address <= i_disk_block_address;
+	      dma_start_address  <= i_dma_start_address;
+	      dma_bytecount      <= {i_dma_wordcount, 1'b0};
+	      disk_ready <= 0;
+	   end
+	   else if( sd_write ) begin
+	      state <= S_WRITE_START;
+	      disk_block_address <= i_disk_block_address;
+	      dma_start_address  <= i_dma_start_address;
+	      dma_bytecount      <= {i_dma_wordcount, 1'b0};
+	      disk_ready <= 0;
+	   end
+	   else if( i_disk_seek ) begin // dummy function
+	      state <= S_SEEK;
+	      disk_ready <= 0;
+	   end
+	   else begin
+	      state <= S_IDLE;
+	      disk_ready <= 1'b1;
+	   end
+	end
 	S_READ_START:
 	  if( dma_bytecount[16] ) begin
 	     state <= S_READ_CMD;

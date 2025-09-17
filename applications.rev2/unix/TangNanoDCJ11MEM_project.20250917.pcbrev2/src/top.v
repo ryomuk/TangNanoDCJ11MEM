@@ -3,7 +3,7 @@
 // Memory system and peripherals on TangNano20K for DEC DCJ11 (PDP11)
 // for PCB rev.2.x (and patched rev.1.1)
 //
-// version 20250915.pcb2
+// version 20250917.pcb2
 //
 // by Ryo Mukai (https://github.com/ryomuk)
 //
@@ -44,6 +44,7 @@
 // 2025/08/26: - modified to use CLK2 (GPIO_RX is removed)
 //
 // 2025/09/15: - ws2812 module updated
+// 2025/09/17: - bugfix for using without SD memory
 //---------------------------------------------------------------------------
 
 // Commenting out the following `define makes the GPIO mirror the console,
@@ -519,7 +520,8 @@ module top(
        (( aio_code == AIO_BUSWORDWRITE) |
 	( aio_code == AIO_BUSBYTEWRITE) & ~address[0]);
   
-  wire DMA = disk_busy; // DMA is activated during disk access
+  // DMA is activated during disk access
+  wire DMA = disk_busy & (sd_error == 0);
 
 //---------------------------------------------------------------------------
 // stretched cycle control signals
@@ -953,6 +955,7 @@ module top(
     if( ~INIT_n ) begin
        {REG_RF_DCS, REG_RF_WC,  REG_RF_CMA}     <= 0;
        {REG_RF_DAR, REG_RF_DAE, REG_RF_ADS}     <= 0;
+       RF_go <= 0;
     end
     else if( RF_go_clear )
       RF_go <= 0;
@@ -1007,6 +1010,7 @@ module top(
   always @(posedge sys_clk or negedge INIT_n)
     if( ~INIT_n ) begin
        {REG_RKCS, REG_RKWC, REG_RKBA, REG_RKDA} <= 0;
+       RK_go <= 0;
     end
     else if( RK_go_clear )
       RK_go <= 0;

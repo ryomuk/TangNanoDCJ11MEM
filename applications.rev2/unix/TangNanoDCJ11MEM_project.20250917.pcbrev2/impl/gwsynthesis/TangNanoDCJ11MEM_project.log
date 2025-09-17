@@ -3,21 +3,21 @@ Running parser ...
 Analyzing Verilog file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\integer_division\integer_division.v'
 Analyzing Verilog file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\sdhd.v'
 Analyzing Verilog file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v'
-Analyzing included file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\rom.v'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":578)
-Back to file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":578)
-Undeclared symbol 'dma_write', assumed default net type 'wire'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":1297)
+Analyzing included file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\rom.v'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":582)
+Back to file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":582)
+Undeclared symbol 'dma_write', assumed default net type 'wire'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":1303)
 Analyzing Verilog file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\uart.v'
 Analyzing Verilog file 'C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\ws2812.v'
-Compiling module 'top'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":51)
-Extracting RAM for identifier 'mem_hi'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":546)
-Extracting RAM for identifier 'mem_lo'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":547)
+Compiling module 'top'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":54)
+Extracting RAM for identifier 'mem_hi'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":550)
+Extracting RAM for identifier 'mem_lo'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\top.v":551)
 Compiling module 'Integer_Division_Top'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\integer_division\integer_division.v":11544)
 Compiling module '**'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\integer_division\integer_division.v":11543)
 Compiling module 'uart_rx(CLK_FRQ=18000000,BAUD_RATE=115200)'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\uart.v":151)
 Compiling module 'uart_tx(CLK_FRQ=18000000,BAUD_RATE=115200)'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\uart.v":18)
 Extracting RAM for identifier 'tx_buf'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\uart.v":49)
-Compiling module 'sdhd(SYS_FRQ=18000000)'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\sdhd.v":10)
-Extracting RAM for identifier 'read_before_write_buf'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\sdhd.v":240)
+Compiling module 'sdhd(SYS_FRQ=18000000)'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\sdhd.v":11)
+Extracting RAM for identifier 'read_before_write_buf'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\sdhd.v":242)
 Compiling module 'ws2812(LEDS=40)'("C:\wks\ework\FPGA\TangNano\20k\TangNanoDCJ11MEM\TangNanoDCJ11MEM_project.pcbrev2\src\ws2812.v":5)
 NOTE  (EX0101) : Current top module is "top"
 [5%] Running netlist conversion ...
