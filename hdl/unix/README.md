@@ -1,4 +1,4 @@
-# TangNanoDCJ11MEM (unix for rev2.x and rev3.x PCB)
+# TangNanoDCJ11MEM (unix for rev2.2 and rev3.1 PCB)
 
 ![](../../images/rev22_leds.jpg)
 ![](../../images/rev31_leds.jpg)
@@ -10,7 +10,7 @@
   - 使い方はrev1.1基板の[unix-v1](../../hdl.old/unix-v1/)，[unix-v6](../../hdl.old/unix-v6/)と同じです．
     - 173000g でv1用ブートローダ起動
     - 174000g でv6用ブートローダ起動．'@'でunixと入力する．
-- rev1.1基板でも，CPUのCLK2を33Ω程度のダンピング抵抗をはさんでGPIO_RXに接続すればrev2.x用のHDLコードで動作します．
+- rev1.1基板でも，CPUのCLK2を33Ω程度のダンピング抵抗をはさんでGPIO_RXに接続すればrev2.2用のHDLコードで動作します．
 ```
 DCJ11               rev1.1基板
 CLK2 ---33Ω抵抗--- GPIO_RX

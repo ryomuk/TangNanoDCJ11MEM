@@ -4,7 +4,7 @@ Memory system and UART implemented on Tang Nano 20K for DEC DCJ11 PDP-11 Process
 This document is written mostly in Japanese. If necessary, please use a translation service such as DeepL (I recommend this) or Google.
 
 - 本プロジェクトはTang Console 138Kを用いた続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)があります．
-- このREADMEおよび[hdl.old](./hdl.old)フォルダ配下のREADMEに書かれている不安定である旨の記述は2024年に作成したrev1.1基板のものです．rev.2.xになってかなり安定しましたが，記録として残しておきます．
+- このREADMEおよび[hdl.old](./hdl.old)フォルダ配下のREADMEに書かれている不安定である旨の記述は2024年に作成したrev1.1基板のものです．rev.2.2になってかなり安定しましたが，記録として残しておきます．
 
 # 概要
 - PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです．信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています．(rev.3.1基板では不要)
@@ -32,7 +32,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 │   ├── Caldera-license.pdf : UNIXのライセンス条項
 │   ├── sd-unix-v1.dsk      : unix v1用disk image
 │   └── sd-unix-v6.dsk      : unix v6用disk image
-├── hdl              : rev2.x, rev3.x基板用HDLコード
+├── hdl              : rev2.2, rev3.1基板用HDLコード
 │   ├── tapebasic
 │   └── unix
 ├── hdl.old          : rev1.1基板用HDLコード
@@ -60,9 +60,9 @@ rev2.2
 ↓ レベル変換(TangNano5V相当)を基板上に搭載(CPUの入力信号(FPGA→CPU)については省略)
 rev3.1
 ```
-- rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」，「HALTのダイオード」を追加することでrev2.2基板と同じ回路になり，rev2.x基板用のHDLコードで動作します．
+- rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」，「HALTのダイオード」を追加することでrev2.2基板と同じ回路になり，rev2.2基板用のHDLコードで動作します．
 - rev3.1基板はrev2.2基板にレベル変換を搭載しただけなので同じHDLコードが動きます．
-- rev1.1基板用のHDLコードはrev2.x, rev3.x基板では動きません．
+- rev1.1基板用のHDLコードはrev2.2, rev3.1基板では動きません．
 
 # ハードウェア
 ## FPGAに実装した機能
@@ -76,7 +76,7 @@ rev3.1
 
 ## rev3.1基板 (PCB rev3.1)
 - レベル変換ICを基板上に実装しました．これによりTang Nano 20KをTangNano5Vを使わずに直接搭載できます．
-- ピンアサインはrev2.x基板と同じなので，FPGA用のコードはrev2.x用のものを使用します．
+- ピンアサインはrev2.2基板と同じなので，FPGA用のコードはrev2.2用のものを使用します．
 - WS2812のアレイを接続するための端子を用意しました．
 - レベル変換ICのOE_nをdisableにしてCPUとTangNanoを切り離すためのジャンパ端子を用意しました．(初めて搭載するときなど，FPGAに別の回路が書かれているようなとき用．)
 ![](images/rev31.jpg)
