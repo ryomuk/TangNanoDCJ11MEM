@@ -1,0 +1,70 @@
+[
+ {
+  "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/top.v",
+  "InstLine" : 60,
+  "InstName" : "top",
+  "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/top.v",
+  "ModuleLine" : 60,
+  "ModuleName" : "top",
+  "SubInsts" : [
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/top.v",
+    "InstLine" : 578,
+    "InstName" : "integer_division",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/integer_division/integer_division.v",
+    "ModuleLine" : 11544,
+    "ModuleName" : "Integer_Division_Top",
+    "SubInsts" : [
+     {
+      "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/integer_division/integer_division.v",
+      "InstLine" : 11561,
+      "InstName" : "integer_division_inst",
+      "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/integer_division/integer_division.v",
+      "ModuleLine" : 10,
+      "ModuleName" : "~integer_division.Integer_Division_Top"
+     }
+    ]
+   },
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/top.v",
+    "InstLine" : 1030,
+    "InstName" : "uart_rx_inst",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/uart.v",
+    "ModuleLine" : 151,
+    "ModuleName" : "uart_rx"
+   },
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/top.v",
+    "InstLine" : 1044,
+    "InstName" : "uart_tx_inst",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/uart.v",
+    "ModuleLine" : 18,
+    "ModuleName" : "uart_tx"
+   },
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/top.v",
+    "InstLine" : 1068,
+    "InstName" : "sdtape_inst",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/sdtape.v",
+    "ModuleLine" : 8,
+    "ModuleName" : "sdtape"
+   },
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/top.v",
+    "InstLine" : 1255,
+    "InstName" : "ws2812_inst",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/ws2812.v",
+    "ModuleLine" : 5,
+    "ModuleName" : "ws2812"
+   },
+   {
+    "InstFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/top.v",
+    "InstLine" : 1566,
+    "InstName" : "uart_tx_inst_dbg",
+    "ModuleFile" : "C:/wks/ework/FPGA/TangNano/20k/TangNanoDCJ11MEM/TangNanoDCJ11MEM_project.tape/src/uart.v",
+    "ModuleLine" : 18,
+    "ModuleName" : "uart_tx"
+   }
+  ]
+ }
+]

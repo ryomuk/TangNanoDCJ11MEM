@@ -3,45 +3,59 @@ Memory system and UART implemented on Tang Nano 20K for DEC DCJ11 PDP-11 Process
 
 This document is written mostly in Japanese. If necessary, please use a translation service such as DeepL (I recommend this) or Google.
 
+- 本プロジェクトはTang Console 138Kを用いた続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)があります．
+
 # 概要
-- PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです．信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています．
+- PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです．信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています．(rev.3.1基板では不要)
 - FPGAに実装するのはメモリやUARTなどの周辺回路部分だけで，CPU自体は本物を使用します．ソフトウェアやFPGAによるシミュレータやエミュレータではなく，本物のCPUを動かします．
 - "TangNanoDCJ11"だとTangNano上にDCJ11を実装したみたいな名前になってしまうので，"MEM"を付けて"TangNanoDCJ11MEM"という名前になっています．
 - まずベアメタルで動かしたところ安定して動きました．
 - 次に，PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
 - さらに，UNIX first edition (UNIX V1)を動かすために，ディスク(RF11, RK11)や外部演算装置(KE11)のエミュレータを実装したところ，それなりに動くようになりました．
 
+# 基板のバージョンについて
+- 2025年にTangConsole138Kを用いたプロジェクトを開始した際に，CLK2に同期させるとかなり安定するという知見が得られたので，アップデートするついでに各種パッチを反映させた基板(rev2.2)を作成しました．
+- ついでに，レベル変換を搭載した基板(rev3.1)も作成しました．
+- それぞれの基板は下記のような関係にあります．
+```
+rev1.1
+↓ unix v1, v6用パターンカット，ジャンパ, HALTのダイオード追加, CLK2同期化
+rev2.2
+↓ レベル変換(TangNano5V相当)を基板上に搭載(CPUの入力信号(FPGA→CPU)については省略)
+rev3.1
+```
+- rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」，「HALTのダイオード」を追加することでrev2.2基板と同じ回路になり，rev2.x基板用のHDLコードで動作します．
+- rev3.1基板はrev2.2基板にレベル変換を搭載しただけなので同じHDLコードが動きます．
+- rev1.1基板用のHDLコードはrev2.x, rev3.x基板では動きません．
+- このREADMEおよび[hdl.old](./hdl.old)フォルダ配下のREADMEに書かれている紆余曲折を伴うコンテンツの多くは2024年に作成したrev1.1基板によるものです．rev.2.x基板になってかなり安定しましたが，記録として残しておきます．
+
 # 最近の話題
 - 2025/09/03
   - 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開しました．
-- 2025/09/04
-  - rev2.0基板と[UNIX用のHDLコード](./applications.rev2/unix)(unix-v1, unix-v6 共通)を公開しました．
-- 2025/09/05
-  - rev2.0基板はHALTの部分が「rev1.1+ジャンパ」と違っていてHALT_SWが効かなくなっていたのでrev2.1基板にアップデートしました．
-  - rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」を追加することでrev2.1基板と同じ回路になり，rev2基板用のHDLコードで動作します．
-  - rev1.1基板用のHDLコードはrev2基板では動きません．
-- 2025/09/05
-  - [rev2.2基板](./hardware/rev2.2)公開
-  - HALTのwired ORのところを抵抗からダイオードに変更しました．
-  - rev1.1基板でもHALTの1kΩ抵抗はダイオード(1N4148等)の方が良さそうです．DCJ11側がカソードです．
-- 2025/09/06
-  - 現在，レベル変換ICをCPUボード上に搭載したrev3.0基板を作成中です．HDLコードはrev2とコンパチブルです．おそらく今月中にリリース予定ですので，今から新規に作る場合はrev3基板をおすすめします．
-- 2025/09/15 ws2812用関連の回路を修正して，アドレスとデータを表示するようにしました．(20250915.pcbrev2)
-- 2025/09/17:  SDメモリ無しで起動するとスタックしてリセットも効かなくなる問題を修正しました．(20250917.pcbrev2)
+- 2025/09/05: rev2.2基板公開
+- 2025/09/22: レベル変換ICを搭載した基板rev3.1を公開しました．
+
+- 最新版は下記の通り
+  - レベル変換外付け版([rev2.2](pcb/rev2.2))
+  - レベル変換搭載版([rev3.1](pcb/rev3.1))
+  - 上記のどちらもHDLコードは共通です．
+   - [UNIX用のHDLコード](./hdl/unix)(unix-v1, unix-v6 共通)
 
 # 主なファイル一覧
 ```
-├── applications         : rev1.1基板用HDLコード
+├── hdl              : rev2.x, rev3.x基板用HDLコード
+│   ├── tapebasic
+│   └── unix
+├── hdl.old          : rev1.1基板用HDLコード
 │   ├── baremetal
 │   ├── tapebasic
 │   ├── unix-v1
 │   └── unix-v6
-├── applications.rev2    : rev2.x基板用HDLコード
-│   └── unix
-├── hardware
-│   ├── rev1.1          : rev1.0基板
-│   └── rev2.2          : rev2.2基板
-└── README.md            : このファイル
+├── pcb
+│   ├── rev1.1      : rev1.1基板
+│   ├── rev2.2      : rev2.2基板
+│   └── rev3.1      : rev3.1基板
+└── README.md        : このファイル
 ```
 # ハードウェア
 ## FPGAに実装した機能
@@ -53,15 +67,49 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - PC-11(Paper-Tape Reader/Punch)エミュレータを実装しました．(Paper tape BASICを実行する用で，UNIXでは動きません．)
 - ディスクドライブ(RF11, RK11)，外部演算装置(KE11-A)，クロック(KW11-L)等，UNIX V1の動作に必要な装置のエミュレータを実装しました．
 
+## rev3.1基板 (PCB rev3.1)
+- レベル変換ICを基板上に実装しました．これによりTang Nano 20KをTangNano5Vを使わずに直接搭載できます．
+- ピンアサインはrev2.x基板と同じなので，FPGA用のコードはrev2.x用のものを使用します．
+- WS2812のアレイを接続するための端子を用意しました．
+![](images/rev31.jpg)
+#### BOM (PCB rev3.1)
+|Reference          |Qty| Value          |Size |Memo |
+|-------------------|---|----------------|-----|-----|
+|C1,C2|2|68pF|||
+|C3,C4, C5, C6|4|0.1uF|||
+|C7,C8|2|0.33uF|||
+|C9    |1|47uF|||
+|D1    |1|1N4148|||
+|J1    |1|IC socket |40pin DIP 800mil|TangNano20K用．幅800milなので1x20のpin socketを2列実装．|
+|J2,J3|2  |pin header or socket|1x30|任意．テストや観測，実験用．|
+|J4                 |1  |pin header      |1x02|任意．OE_nをdisableにする用|
+|J5                 |1  |pin socket      |1x04 L字|WS2812アレイ用|
+|J6                 |1  |pin header      |1x06 L字|UART用|
+|LED1    |1||||
+|R1 |1|1M|||
+|R2 |1|33|||
+|R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|13|10k|
+|R16|1|100k  || 値はLEDに合わせて任意．|
+|SW1,SW2  |2  |tactile SW      |6mmxH4.3mm|例: https://akizukidenshi.com/catalog/g/g103647/ |
+|U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンソケット2列|
+|U2,U3,U4,U5  |4  |SN74CB3T3245DWR(又は DW) | SOIC-20| パッケージサイズに注意|
+
+|Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh , 周波数を変えられるようにソケットの使用をお勧めします．|
+
+- SN74CB3T3245はパッケージサイズに注意．SOIC-20はDWかDWRです．PWやPWRではありません．
+- R2は"33k"ではなく"33"です．ダンピング抵抗なので．
+- R12，最近のLEDは明るいので100kぐらいでちょうど良かったりします．使うLEDに応じて適切な値を選んで下さい．
+
 ## rev2.2基板 (PCB rev2.2)
 - rev1.1基板でunixを動かすために必要だったパターンカットとジャンパ配線を反映させました．
 - CLK2をGPIO_RXだったピンに入力して，回路をCPUのクロックと同期させました．
 - 上記に伴い，基板のUART端子はデバッグログ用のTXだけになりました．
 - 電源供給をTangNanoからだけにしてDCジャックを廃止しました．
 - HALTスイッチのところの抵抗をダイオードに変更しました．
-- unix(v1, v6)を動作させるためのプロジェクトは[applications.rev2/unix](applications.rev2/unix/)を使用して下さい．
+- unix(v1, v6)を動作させるためのプロジェクトは[hdl/unix](hdl/unix/)を使用して下さい．
 - SDメモリ用のイメージファイルは[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)のdiskimagesにあるものがそのまま使えます．
 ![](images/rev22.jpg)
+
 #### BOM (PCB rev2.2)
 |Reference          |Qty| Value          |Size |Memo |
 |-------------------|---|----------------|-----|-----|
@@ -87,7 +135,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - CPUが白いので基板も白くしてみました．
 - CPUおよびTangNanoの電源をどこから供給するかを2箇所のジャンパで切り替えられるようにしました．詳細は回路図と基板上のシルクを見て下さい．
 - プルダウン抵抗(R2〜R6)を100kから10kに変更しました．(rev1.1a)
-- UNIXを動かすにはJP1のパターンのカット，数本のジャンパ配線が必要です．詳細は[UNIX V1](applications/unix-v1/)参照．
+- UNIXを動かすにはJP1のパターンのカット，数本のジャンパ配線が必要です．詳細は[UNIX V1](hdl.old/unix-v1/)参照．
 ![](images/rev11.jpg)
 #### BOM (PCB rev1.1)
 |Reference          |Qty| Value          |Size |Memo |
@@ -113,22 +161,22 @@ This document is written mostly in Japanese. If necessary, please use a translat
 |U1                 |1  |DCJ11           |60pin DIP 1300mil| 1x30 の丸ピンソケット2列|
 |Y1                 |1  |18MHz           |HC49|例: https://mou.sr/3WcWExh , 低速(2MHzで確認済み,もっと遅くても動きそう)でも動きます．周波数を変えられるようにソケットの使用をお勧めします．|
 
-# [応用例(applications/)](applications/)
-## [ベアメタル(applications/baremetal)](applications/baremetal/)
+# [応用例(hdl.old/)](hdl.old/)
+## [ベアメタル(hdl.old/baremetal)](hdl.old/baremetal/)
 - クロス環境で作成したプログラムを実行します．
 - HDLは小規模なので，いろいろ試すベースラインに最適です．
 
-## [tape basic(applications/tapebasic)](applications/tapebasic/)
+## [tape basic(hdl.old/tapebasic)](hdl.old/tapebasic/)
 - 二次記憶をエミュレートするために手始めに作った習作です．
 - PC11(tape reader/pucnch)エミュレータで，tape BASICを読み込んで起動します．
 - SDメモリを使う練習用に作ったものなのでとりあえず動きます程度のものです．
 - PDP11GUIに，console ODT経由でpaper tape softwareをロードする機能があるようなので，いろいろなpaper tape softwareを試すという目的であればベアメタルでPDP11GUIを使うことをお勧めします．
 
-## [UNIX V1(applications/unix-v1)](applications/unix-v1/)
+## [UNIX V1(hdl.old/unix-v1)](hdl.old/unix-v1/)
 - SDメモリを使ったdiskエミュレータを作成し，UNIX V1を動かしてみました．
 - 最初はかなり不安定でしたが，だいぶ安定して動くようになってきました．
 
-## [UNIX V6(applications/unix-v6)](applications/unix-v6/)(実験用)
+## [UNIX V6(hdl.old/unix-v6)](hdl.old/unix-v6/)(実験用)
 - unix-v1用をベースにUNIX V6に必要な機能を逐次追加中です．修正のたびにV1の動作確認をするのは面倒なのでV1用と分けることにしました．
 
 # 動画
@@ -219,3 +267,7 @@ TangNanoDCJ11MEMを使って私がやっていないようなことまでやっ�
 - 2025/09/06: README修正(HALTのジャンパ関連(main, unix-v1, unix-v6), rev3基板予告)
 - 2025/09/15: 20250915.pcbrev2 公開．(LEDアレイ用の記述を追加)
 - 2025/09/17: 20250917.pcbrev2 公開．(SDメモリ無しで動かすときの問題を修正)
+- 2025/09/22: フォルダ構成変更．
+  - rev3.1基板公開．
+  - 20250922公開．
+  
