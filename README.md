@@ -15,7 +15,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - さらに，UNIX first edition (UNIX V1)を動かすために，ディスク(RF11, RK11)や外部演算装置(KE11)のエミュレータを実装したところ，それなりに動くようになりました．
 
 # 基板のバージョンについて
-- 2025年にTangConsole138Kを用いたプロジェクトを開始した際に，CLK2に同期させるとかなり安定するという知見が得られたので，アップデートするついでに各種パッチを反映させた基板(rev2.2)を作成しました．
+- [TangConsole138Kを用いたプロジェクト](https://github.com/ryomuk/TangConsoleDCJ11MEM)を開始した際に，CLK2に同期させるとかなり安定するという知見が得られたので，アップデートするついでに各種パッチを反映させた基板(rev2.2)を作成しました．
 - ついでに，レベル変換を搭載した基板(rev3.1)も作成しました．
 - それぞれの基板は下記のような関係にあります．
 ```
