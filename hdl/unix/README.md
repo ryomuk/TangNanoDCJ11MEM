@@ -19,6 +19,10 @@ CLK2 ---33Ω抵抗--- GPIO_RX
 
 - RGB, GND, 3V3をWS2812に接続するとアドレスやデータを表示します．Aliで売られている安いLEDテープでも動作しました．
 
+# 関連情報
+- かんぱぱさんからMINI-UNIXを動作させたという報告をいただきました
+  - [「PDP-11 DCJ11 CPUでMINI-UNIXを動かしてみました」](https://kanpapa.com/2024/08/tangnanodcj11mem-pdp-11-dcj11-cpu-mini-unix.html)
+
 ## 更新履歴
 - 2025/09/04: 20250904.pcbrev2
 - 2025/09/15: 20250915.pcbrev2 (ws2812モジュール修正)

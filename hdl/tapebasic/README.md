@@ -31,7 +31,7 @@ PDP-11 BASIC, VERSION 007A
 READY
 ```
 
-# 参考情報
+# 関連情報
 - かんぱぱさんのページにいろいろと詳しい説明がありました．
   - [「TangNanoDCJ11MEMとPDP11GUIでPDP-11 BASICを動かしてみました」](https://kanpapa.com/2024/08/tangnanodcj11mem-pdp-11-cpu-3-pdp11basic.html)
 
