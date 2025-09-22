@@ -14,21 +14,6 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 次に，PC-11(Paper-Tape Reader/Punch)エミュレータでPaper-Tape BASICをロードして実行することができました．
 - さらに，UNIX first edition (UNIX V1)を動かすために，ディスク(RF11, RK11)や外部演算装置(KE11)のエミュレータを実装したところ，それなりに動くようになりました．
 
-# 基板のバージョンについて
-- [TangConsole138Kを用いたプロジェクト](https://github.com/ryomuk/TangConsoleDCJ11MEM)を開始した際に，CLK2に同期させるとかなり安定するという知見が得られたので，アップデートするついでに各種パッチを反映させた基板(rev2.2)を作成しました．
-- ついでに，レベル変換を搭載した基板(rev3.1)も作成しました．
-- それぞれの基板は下記のような関係にあります．
-```
-rev1.1
-↓ unix v1, v6用パターンカット，ジャンパ, HALTのダイオード追加, CLK2同期化
-rev2.2
-↓ レベル変換(TangNano5V相当)を基板上に搭載(CPUの入力信号(FPGA→CPU)については省略)
-rev3.1
-```
-- rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」，「HALTのダイオード」を追加することでrev2.2基板と同じ回路になり，rev2.x基板用のHDLコードで動作します．
-- rev3.1基板はrev2.2基板にレベル変換を搭載しただけなので同じHDLコードが動きます．
-- rev1.1基板用のHDLコードはrev2.x, rev3.x基板では動きません．
-
 # 最近の話題
 - 2025/09/03: 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開
 - 2025/09/05: rev2.2基板公開
@@ -63,6 +48,21 @@ rev3.1
 ```
 - diskimageフォルダ内にあるSDメモリ用のイメージファイルはUNIXのオリジナルソースからの派生物なので，ライセンス条件は Caldera-license.pdf (昔のBSD?)に従います．
 - その他の部分についてはMITライセンスです．
+
+# 基板のバージョンについて
+- [TangConsole138Kを用いたプロジェクト](https://github.com/ryomuk/TangConsoleDCJ11MEM)を開始した際に，CLK2に同期させるとかなり安定するという知見が得られたので，アップデートするついでに各種パッチを反映させた基板(rev2.2)を作成しました．
+- ついでに，レベル変換を搭載した基板(rev3.1)も作成しました．
+- それぞれの基板は下記のような関係にあります．
+```
+rev1.1
+↓ unix v1, v6用パターンカット，ジャンパ, HALTのダイオード追加, CLK2同期化
+rev2.2
+↓ レベル変換(TangNano5V相当)を基板上に搭載(CPUの入力信号(FPGA→CPU)については省略)
+rev3.1
+```
+- rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」，「HALTのダイオード」を追加することでrev2.2基板と同じ回路になり，rev2.x基板用のHDLコードで動作します．
+- rev3.1基板はrev2.2基板にレベル変換を搭載しただけなので同じHDLコードが動きます．
+- rev1.1基板用のHDLコードはrev2.x, rev3.x基板では動きません．
 
 # ハードウェア
 ## FPGAに実装した機能
