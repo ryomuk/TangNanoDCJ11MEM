@@ -34,7 +34,7 @@ rev3.1
 - 2025/09/05: rev2.2基板公開
 - 2025/09/22: レベル変換ICを搭載した基板rev3.1を公開
 - 最新版は下記の通り
-  - レベル変換外付け版([rev2.2](pcb/rev2.2))(別途TangNano5V(TangConsoleDCJ11MEM](https://github.com/ryomuk/TangNano5V)が必要です．)
+  - レベル変換外付け版([rev2.2](pcb/rev2.2))．(別途[TangNano5V](https://github.com/ryomuk/tangnano-5V)が必要です．)
   - レベル変換搭載版([rev3.1](pcb/rev3.1))
   - 上記のどちらもHDLコードは共通です．
    - [UNIX用のHDLコード](./hdl/unix)(unix-v1, unix-v6 共通)
