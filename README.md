@@ -4,6 +4,7 @@ Memory system and UART implemented on Tang Nano 20K for DEC DCJ11 PDP-11 Process
 This document is written mostly in Japanese. If necessary, please use a translation service such as DeepL (I recommend this) or Google.
 
 - 本プロジェクトはTang Console 138Kを用いた続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)があります．
+- このREADMEおよび[hdl.old](./hdl.old)フォルダ配下のREADMEに書かれている不安定である旨の記述は2024年に作成したrev1.1基板のものです．rev.2.xになってかなり安定しましたが，記録として残しておきます．
 
 # 概要
 - PDP-11の命令セットを持つCPU「DEC DCJ11」のメモリシステムとUARTをFPGA(TangNano20K)上に実装する試みです．信号のインターフェース部分に[tangNano-5V](https://github.com/ryomuk/tangnano-5V)を使用しています．(rev.3.1基板では不要)
@@ -27,7 +28,6 @@ rev3.1
 - rev1.1基板に「unix-v1, v6用のパターンカット，ジャンパ線」，「CLK2とGPIO_RXを33Ωで接続」，「HALTのダイオード」を追加することでrev2.2基板と同じ回路になり，rev2.x基板用のHDLコードで動作します．
 - rev3.1基板はrev2.2基板にレベル変換を搭載しただけなので同じHDLコードが動きます．
 - rev1.1基板用のHDLコードはrev2.x, rev3.x基板では動きません．
-- このREADMEおよび[hdl.old](./hdl.old)フォルダ配下のREADMEに書かれている紆余曲折を伴うコンテンツの多くは2024年に作成したrev1.1基板によるものです．rev.2.x基板になってかなり安定しましたが，記録として残しておきます．
 
 # 最近の話題
 - 2025/09/03
