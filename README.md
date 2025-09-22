@@ -37,7 +37,8 @@ rev3.1
   - レベル変換外付け版([rev2.2](pcb/rev2.2))．(別途[TangNano5V](https://github.com/ryomuk/tangnano-5V)が必要です．)
   - レベル変換搭載版([rev3.1](pcb/rev3.1))
   - 上記のどちらもHDLコードは共通です．
-   - [UNIX用のHDLコード](./hdl/unix)(unix-v1, unix-v6 共通)
+    - [UNIX用のHDLコード](./hdl/unix)(unix-v1, unix-v6 共通)
+    - [tapebasic用のHDLコード](./hdl/tapebasic)
 
 # 主なファイル一覧
 ```
