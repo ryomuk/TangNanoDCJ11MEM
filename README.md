@@ -43,6 +43,11 @@ rev3.1
 
 # 主なファイル一覧
 ```
+.
+├── diskimage : SDメモリ用データ
+│   ├── Caldera-license.pdf : UNIXのライセンス条項
+│   ├── sd-unix-v1.dsk      : unix v1用disk image
+│   └── sd-unix-v6.dsk      : unix v6用disk image
 ├── hdl              : rev2.x, rev3.x基板用HDLコード
 │   ├── tapebasic
 │   └── unix
@@ -57,6 +62,9 @@ rev3.1
 │   └── rev3.1      : rev3.1基板
 └── README.md        : このファイル
 ```
+- diskimageフォルダ内にあるSDメモリ用のイメージファイルはUNIXのオリジナルソースからの派生物なので，ライセンス条件は Caldera-license.pdf (昔のBSD?)に従います．
+- その他の部分についてはMITライセンスです．
+
 # ハードウェア
 ## FPGAに実装した機能
 - Initialization Sequence時のPower-Up Configuration Register設定
@@ -107,7 +115,7 @@ rev3.1
 - 電源供給をTangNanoからだけにしてDCジャックを廃止しました．
 - HALTスイッチのところの抵抗をダイオードに変更しました．
 - unix(v1, v6)を動作させるためのプロジェクトは[hdl/unix](hdl/unix/)を使用して下さい．
-- SDメモリ用のイメージファイルは[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)のdiskimagesにあるものがそのまま使えます．
+- SDメモリ用のイメージファイルは[./diskimage](./diskimage)にあるものがそのまま使えます．
 ![](images/rev22.jpg)
 
 #### BOM (PCB rev2.2)
