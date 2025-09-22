@@ -33,7 +33,7 @@ READY
 
 # 関連情報
 - かんぱぱさんのページにいろいろと詳しい説明がありました．
-  - [「TangNanoDCJ11MEMとPDP11GUIでPDP-11 BASICを動かしてみました」](https://kanpapa.com/2024/08/tangnanodcj11mem-pdp-11-cpu-3-pdp11basic.html)
+  - [きょうのかんぱぱ「TangNanoDCJ11MEMとPDP11GUIでPDP-11 BASICを動かしてみました」](https://kanpapa.com/2024/08/tangnanodcj11mem-pdp-11-cpu-3-pdp11basic.html)
 
 # 動画
 - [PDP-11 Paper-Tape BASIC running on DCJ-11 Processor](https://www.youtube.com/watch?v=F_eFMz5ysK8)
