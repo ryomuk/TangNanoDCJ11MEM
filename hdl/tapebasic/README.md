@@ -27,9 +27,13 @@ dd if=tapeimage.dat of=/dev/xxx
 157500
 @157500g   ←absolute loaderを起動してBASICを読み込む
 PDP-11 BASIC, VERSION 007A
-*O         ←returnを押す(ここで何か初期設定等ができるのかもしれない．)
+*O         ←returnを押す(ここでいろいろ初期設定等できるらしい．)
 READY
 ```
+
+# 参考情報
+- かんぱぱさんのページにいろいろと詳しい説明がありました．
+  - [「TangNanoDCJ11MEMとPDP11GUIでPDP-11 BASICを動かしてみました」](https://kanpapa.com/2024/08/tangnanodcj11mem-pdp-11-cpu-3-pdp11basic.html)
 
 # 動画
 - [PDP-11 Paper-Tape BASIC running on DCJ-11 Processor](https://www.youtube.com/watch?v=F_eFMz5ysK8)
