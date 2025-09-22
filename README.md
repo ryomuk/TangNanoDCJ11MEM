@@ -78,6 +78,7 @@ rev3.1
 - レベル変換ICを基板上に実装しました．これによりTang Nano 20KをTangNano5Vを使わずに直接搭載できます．
 - ピンアサインはrev2.x基板と同じなので，FPGA用のコードはrev2.x用のものを使用します．
 - WS2812のアレイを接続するための端子を用意しました．
+- レベル変換ICのOE_nをdisableにしてCPUとTangNanoを切り離すためのジャンパ端子を用意しました．(最初に搭載するときなど，FPGAに別の回路が書かれているようなとき用．)
 ![](images/rev31.jpg)
 #### BOM (PCB rev3.1)
 |Reference          |Qty| Value          |Size |Memo |
