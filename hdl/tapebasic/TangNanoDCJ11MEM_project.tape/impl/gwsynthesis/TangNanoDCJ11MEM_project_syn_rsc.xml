@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Module name="top" Register="1233" Alu="250" Lut="2215" MULT18X18="1" Bsram="32" T_Register="4159(1233)" T_Alu="1479(250)" T_Lut="3378(2215)" T_MULT18X18="1(1)" T_Bsram="36(32)" T_Ssram="2(0)">
- <SubModule name="integer_division" Register="2314" Alu="1093" Lut="298" T_Register="2314(2314)" T_Alu="1093(1093)" T_Lut="298(298)"/>
- <SubModule name="uart_rx_inst" Register="44" Alu="19" Lut="34" T_Register="44(44)" T_Alu="19(19)" T_Lut="34(34)"/>
- <SubModule name="uart_tx_inst" Register="62" Alu="21" Lut="100" Bsram="1" T_Register="62(62)" T_Alu="21(21)" T_Lut="100(100)" T_Bsram="1(1)"/>
- <SubModule name="sdtape_inst" Register="323" Alu="75" Lut="446" Bsram="2" Ssram="2" T_Register="323(323)" T_Alu="75(75)" T_Lut="446(446)" T_Bsram="2(2)" T_Ssram="2(2)"/>
- <SubModule name="ws2812_inst" Register="121" Lut="185" T_Register="121(121)" T_Lut="185(185)"/>
- <SubModule name="uart_tx_inst_dbg" Register="62" Alu="21" Lut="100" Bsram="1" T_Register="62(62)" T_Alu="21(21)" T_Lut="100(100)" T_Bsram="1(1)"/>
-</Module>
