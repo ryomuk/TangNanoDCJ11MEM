@@ -18,7 +18,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2025/09/03: 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開
 - 2025/09/05: rev2.2基板公開
 - 2025/09/22: レベル変換ICを搭載した基板rev3.1を公開
-- 2025/09/29: rt11v4用のHDLを公開
+- 2025/09/29: RT-11 v4用のHDLを公開
 - 最新版は下記の通り
   - レベル変換外付け版([rev2.2](pcb/rev2.2))．(別途[TangNano5V](https://github.com/ryomuk/tangnano-5V)が必要です．)
   - レベル変換搭載版([rev3.1](pcb/rev3.1))
@@ -285,4 +285,5 @@ TangNanoDCJ11MEMを使って私がやっていないようなことまでやっ�
 - 2025/09/22: フォルダ構成変更．
   - rev3.1基板公開．
   - 20250922公開．
+- 2025/09/29: RT11 v4用HDL公開．
   

@@ -1,11 +1,11 @@
 # TangNanoDCJ11MEM (rt11v4 for rev2.2 and rev3.1 PCB)
 
 ## 概要
-- [unix用のHDL](../unix/)とほとんど同じものです．rev2.2基板，3.1基板用，パッチを当てたrev1.1基板で動作します．
+- [unix用のHDL](../unix/)とほとんど同じものです．rev2.2基板，rev3.1基板，パッチを当てたrev1.1基板で動作します．
 - bootの途中で何かのフラグのクリアを待つループに入って止まってしまっていたのを，TTY outの割り込みを無理矢理入れることで起動するようになりました．汚い対処ですが，一応動くのでとりあえず公開します．
 
 ## 使い方
-- wfjm's Home [Available OS Kits](https://wfjm.github.io/home/w11/inst/systems.html) にあるRT11 V4.0 rksetにあるrtv4_rk.dskから下記の手順でsdメモリ用のイメージsd.dskを作成してSDメモリに書き込みます．
+- [wfjm's Home Available OS Kits](https://wfjm.github.io/home/w11/inst/systems.html) にあるRT11 V4.0 rksetの中のrtv4_rk.dskを下記の手順でsdメモリ用のイメージsd.dskにしてSDメモリに書き込みます．
   - /dev/xxx は生のsdメモリの場所です．(先頭のブロックから書くので数字が付いてないやつ．'fdisk -l'等で調べて下さい．) 間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
 
 ```
@@ -98,4 +98,4 @@ DISMT1.COM     9  01-Feb-82      DISMT2.COM     8  01-Feb-82
 ```
 
 # 更新履歴
-- 2025/09/29: 20250929
+- 2025/09/29: 20250929(RT-11 v4用HDL)公開
