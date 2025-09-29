@@ -54,7 +54,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 
 ## Gowin FPGA Designerの設定について
 - implフォルダをgitから除外したら設定ファイルも除外されてしまったのでコンパイル時にエラーが出るかもしれません．Configuration->Dual-Purpose Pin で"Use SSPI as regular IO"をチェックし下さい．
-![](images/config.jpg)
+![](images/config.png)
 
 # 基板のバージョンについて
 - [TangConsole138Kを用いたプロジェクト](https://github.com/ryomuk/TangConsoleDCJ11MEM)を開始した際に，CLK2に同期させるとかなり安定するという知見が得られたので，アップデートするついでに各種パッチを反映させた基板(rev2.2)を作成しました．
