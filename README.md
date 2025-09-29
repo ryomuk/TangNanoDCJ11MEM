@@ -18,12 +18,14 @@ This document is written mostly in Japanese. If necessary, please use a translat
 - 2025/09/03: 本プロジェクトの続編[TangConsoleDCJ11MEM](https://github.com/ryomuk/TangConsoleDCJ11MEM)を公開
 - 2025/09/05: rev2.2基板公開
 - 2025/09/22: レベル変換ICを搭載した基板rev3.1を公開
+- 2025/09/29: rt11v4用のHDLを公開
 - 最新版は下記の通り
   - レベル変換外付け版([rev2.2](pcb/rev2.2))．(別途[TangNano5V](https://github.com/ryomuk/tangnano-5V)が必要です．)
   - レベル変換搭載版([rev3.1](pcb/rev3.1))
   - 上記のどちらもHDLコードは共通です．
     - [UNIX用のHDLコード](./hdl/unix)(unix-v1, unix-v6 共通)
     - [tapebasic用のHDLコード](./hdl/tapebasic)
+    - [RT11v4用のHDLコード](./hdl/rt11v4)
 
 # 主なファイル一覧
 ```
@@ -33,6 +35,7 @@ This document is written mostly in Japanese. If necessary, please use a translat
 │   ├── sd-unix-v1.dsk      : unix v1用disk image
 │   └── sd-unix-v6.dsk      : unix v6用disk image
 ├── hdl              : rev2.2, rev3.1基板用HDLコード
+│   ├── rt11v4
 │   ├── tapebasic
 │   └── unix
 ├── hdl.old          : rev1.1基板用HDLコード
@@ -48,6 +51,10 @@ This document is written mostly in Japanese. If necessary, please use a translat
 ```
 - diskimageフォルダ内にあるSDメモリ用のイメージファイルはUNIXのオリジナルソースからの派生物なので，ライセンス条件は Caldera-license.pdf (昔のBSD?)に従います．
 - その他の部分についてはMITライセンスです．
+
+## Gowin FPGA Designerの設定について
+- implフォルダをgitから除外したら設定ファイルも除外されてしまったのでコンパイル時にエラーが出るかもしれません．Configuration->Dual-Purpose Pin で"Use SSPI as regular IO"をチェックし下さい．
+![](images/config.jpg)
 
 # 基板のバージョンについて
 - [TangConsole138Kを用いたプロジェクト](https://github.com/ryomuk/TangConsoleDCJ11MEM)を開始した際に，CLK2に同期させるとかなり安定するという知見が得られたので，アップデートするついでに各種パッチを反映させた基板(rev2.2)を作成しました．

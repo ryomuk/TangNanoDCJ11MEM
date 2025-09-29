@@ -61,13 +61,15 @@ HALT    --- K(1N4148)A --- LED5 (デバッグ用, 無くても可)
   - dc11は実装していないので，'enable multiuser'は省略しました．(mkconfには入れました．)
   - rk2で'bad free count'というエラーが出ますが，simhでも出るので気にせずそのまま．
 - rk0, rk1, rk2からsd用のイメージsd.dskの作成，書き込み手順は下記の通り．
+  - /dev/xxx は生のsdメモリの場所です．(先頭のブロックから書くので数字が付いてないやつ(/dev/sdb など)．'fdisk -l'等で調べて下さい．) 間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
+
 ```
 dd if=/dev/zero of=sd.dsk bs=512 count=1024
 dd if=rk0 of=sd.dsk bs=512 seek=1024 conv=notrunc
 dd if=rk1 of=sd.dsk bs=512 seek=7168 conv=notrunc
 dd if=rk2 of=sd.dsk bs=512 seek=13312 conv=notrunc
 
-sudo dd if=sd.dsk of=/dev/sdb (sdメモリが/dev/sdbで正しいかちゃんと確認すること)
+sudo dd if=sd.dsk of=/dev/xxx (← SDメモリの場所．(例: /dev/sdb))
 ```
 - sdメモリのブロックとの関係は下記の通り．
   - block0〜1023はrf0用です．(V6では使いませんが，V1との互換性を考慮しました．)

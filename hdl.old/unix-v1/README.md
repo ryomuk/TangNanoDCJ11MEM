@@ -53,15 +53,16 @@ HALT    ---K(1N4148)A--- LED5 (デバッグ用, 無くても可)
 
 ```
 ### SDメモリの準備
-- [jserv/unix-v1](https://github.com/jserv/unix-v1) にあるsimh用のunix-v1環境一式をmakeし， images/rf0.dsk, images/rk0.dsk からsd用のイメージsd.dskを作り、sdメモリに書き込む。(書き込み先のsdメモリが/dev/sdb で正しいかちゃんと確認すること。間違えるとPCのディスクを破壊します。)
+- [jserv/unix-v1](https://github.com/jserv/unix-v1) にあるsimh用のunix-v1環境一式をmakeし， images/rf0.dsk, images/rk0.dsk からsd用のイメージsd.dskを作り、sdメモリに書き込む。
 - 参考手順は下記の通り。
+  - /dev/xxx は生のsdメモリの場所です．(先頭のブロックから書くので数字が付いてないやつ(/dev/sdb など)．'fdisk -l'等で調べて下さい．) 間違えるとパソコンの他のファイルシステムを破壊するので厳重に注意して行って下さい．
 ```
 git clone https://github.com/jserv/unix-v1.git
 cd unix-v1
 make
 dd if=images/rf0.dsk of=sd.dsk
 dd if=images/rk0.dsk of=sd.dsk bs=512 seek=1024
-sudo dd if=sd.dsk of=/dev/sdb
+sudo dd if=sd.dsk of=/dev/xxx
 ```
 
 ## コンソール出力やポートについて
